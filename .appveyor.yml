@@ -1,0 +1,37 @@
+branches:
+  only:
+    - master
+    - '/v[0-9]+(\.[0-9]+)*/'
+skip_non_tags: true
+clone_depth: 1
+environment:
+  nodejs_version: "10"
+matrix:
+  fast_finish: true
+install:
+  - ps: Install-Product node $env:nodejs_version
+  # - set PATH=%APPDATA%\npm;%PATH%
+  - ps: |
+      if ($env:npm_auth_token)
+      {
+        iex '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
+        iex "npm whoami"
+      }
+  - yarn install --frozen-lockfile --network-timeout=500000
+  # - npm install
+build_script:
+  - yarn run lint
+  - yarn run build
+  # - yarn run test
+test: "off"
+cache:
+  - node_modules -> yarn.lock
+  - "%LOCALAPPDATA%\\Yarn"
+  # - node_modules -> package.json
+  # - '%APPDATA%\npm-cache'
+deploy_script:
+  - ps: |
+      if ($env:npm_auth_token)
+      {
+        iex "npm publish ./dist/packages/ng-zawgyi-detector --access=public"
+      }
