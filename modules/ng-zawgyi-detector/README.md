@@ -1,12 +1,12 @@
-# Zawgyi / Myanmar Unicode Detector Package for Angular Applications
+# Zawgyi / Myanmar Unicode Detector Package for Angular
 
 [![Gitter](https://badges.gitter.im/myanmartools/community.svg)](https://gitter.im/myanmartools/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Zawgyi-One or Myanmar Unicode font encoding detection library for Angular applications.
+Zawgyi-One or Myanmar Unicode font encoding detection package for [Angular](https://angular.io/) applications.
 
-[WIP]
+## Get Started
 
-## Installation
+### Installation
 
 npm
 
@@ -20,23 +20,34 @@ or yarn
 yarn add @myanmartools/ng-zawgyi-detector
 ```
 
-## Module Setup (app.module.ts)
+### Module Setup (app.module.ts)
 
 ```typescript
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
 import { ZawgyiDetectorModule } from '@myanmartools/ng-zawgyi-detector';
+import { HttpZgUniRuleLoaderModule } from '@myanmartools/ng-zawgyi-detector/http-loader';
 
 @NgModule({
     imports: [
+        BrowserModule,
+        CommonModule,
+        HttpClientModule,
         // Other module imports
 
         // ng-zawgyi-detector
-        ZawgyiDetectorModule
-    ]
+        ZawgyiDetectorModule,
+        HttpZgUniRuleLoaderModule
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
 ```
 
-## Usage (app.component.ts)
+### Usage (app.component.ts)
 
 ```typescript
 import { Component } from '@angular/core';
@@ -62,9 +73,33 @@ export class AppComponent {
 }
 ```
 
-## Example
+### Copying Built-in Rules
+
+Built-in zawgyi / unicode detect rules file is included with the package @myanmartools/ng-zawgyi-detector. Copy that rule file to output path. Here is Angular CLI configuration to copy assets:
+
+```json
+{
+    "assets": [
+    {
+        "input": "node_modules/@myanmartools/ng-zawgyi-detector/rules/",
+        "glob": "**/*.json",
+        "output": "./assets/zawgyi-detect-rules"
+    },
+    "src/favicon.ico",
+    "src/assets"
+    ]
+}
+```
+
+See [angular.json](https://github.com/myanmartools/ng-zawgyi-detector/blob/master/angular.json) file for more details.
+
+## Example Project
 
 [Zawgyi-One or Myanmar Unicode Font Detector Demo](https://github.com/myanmartools/ng-zawgyi-detector/tree/master/samples/zawgyi-unicode-detector-demo)
+
+## Live Website (Angular PWA)
+
+[Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.com)
 
 ## Feedback and Contributing
 
