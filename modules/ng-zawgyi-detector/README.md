@@ -1,3 +1,6 @@
+[![Build Status](https://dev.azure.com/myanmartools/ng-zawgyi-detector/_apis/build/status/myanmartools.ng-zawgyi-detector?branchName=master)](https://dev.azure.com/myanmartools/ng-zawgyi-detector/_build/latest?definitionId=2&branchName=master)
+[![Build status](https://ci.appveyor.com/api/projects/status/t085y7bwcjgvtl2e?svg=true)](https://ci.appveyor.com/project/admindagonmetriccom/ng-zawgyi-detector)
+
 # Zawgyi / Myanmar Unicode Detector Package for Angular
 
 [![Gitter](https://badges.gitter.im/myanmartools/community.svg)](https://gitter.im/myanmartools/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
