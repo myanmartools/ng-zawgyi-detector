@@ -1,0 +1,338 @@
+{
+  "uniRules": [{
+      "test": "[\u103a\u103c\u100a\u1020\u1025]([\u103d]?)([\u1036\u102d\u102e\u108b\u108c\u108d\u108e]?)\u102f",
+      "minInputLength": 2
+    },
+    {
+      "test": "[\u103a\u103c\u100a\u101b](\u103d?)([\u1036\u102d\u102e\u108b\u108c\u108d\u108e]?)\u1030",
+      "minInputLength": 2
+    },
+    {
+      "test": "\u1014(?=[\u102d\u102e]?[\u102f\u1030\u103d\u103e])",
+      "minInputLength": 2
+    },
+    {
+      "test": "[\u1025\u1009](?=[\u1037]?[\u103a])",
+      "minInputLength": 2
+    },
+    {
+      "test": "\u102b\u103a",
+      "minInputLength": 2
+    },
+    {
+      "test": "\u1014\u103c",
+      "minInputLength": 2
+    },
+    {
+      "test": "\u103d\u103e",
+      "minInputLength": 2
+    },
+    {
+      "test": "\u103c\u103e",
+      "minInputLength": 2
+    },
+
+    {
+      "test": "([\u103b])([\u1000-\u1021])([\u1087]?)([\u1036\u102d\u102e\u108b\u108c\u108d\u108e]?)\u102f",
+      "minInputLength": 3
+    },
+    {
+      "test": "([\u103b])([\u1000-\u1021])([\u1087]?)([\u1036\u102d\u102e\u108b\u108c\u108d\u108e]?)\u1030",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u103b([\u1000-\u1021])([\u1033\u1034]?)([\u1032\u1036\u102d\u102e\u108b\u108c\u108d\u108e])",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u103b([\u1000-\u1021])([\u103c\u108a])",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u107e([\u1000\u1003\u1006\u100f\u1010\u1011\u1018\u101a\u101c\u101a\u101e\u101f])([\u1033\u1034]?)([\u1032\u1036\u102d\u102e\u108b\u108c\u108d\u108e])",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u107e([\u1000\u1003\u1006\u100f\u1010\u1011\u1018\u101a\u101c\u101a\u101e\u101f])([\u103c\u108a])",
+      "minInputLength": 3
+    },
+    {
+      "test": "(\u1039[\u1000-\u1021])(\u102D){0,1}\u102f",
+      "minInputLength": 3
+    },
+    {
+      "test": "(\u1064)([\u1000-\u1021])([\u103b\u103c]?)\u102d",
+      "minInputLength": 3
+    },
+    {
+      "test": "(\u1064)([\u1000-\u1021])([\u103b\u103c]?)\u102e",
+      "minInputLength": 3
+    },
+    {
+      "test": "(\u1064)([\u1000-\u1021])([\u103b\u103c]?)\u1036",
+      "minInputLength": 3
+    },
+    {
+      "test": "([^\u103a\u100a])\u103d([\u102d\u102e]?)\u102f",
+      "minInputLength": 3
+    },
+    {
+      "test": "(\u1039[\u1000-\u1021])\u1030",
+      "minInputLength": 3
+    },
+    {
+      "test": "([\u1000-\u1021])([\u107B\u1066])\u102C",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u102C([\u107B\u1066])\u1037",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u1004\u103a\u1039",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u1039\u1010\u103d",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u100b\u1039\u100c",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u100d\u1039\u100d",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u100d\u1039\u100e",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u100f\u1039\u100d",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u100b\u1039\u100b",
+      "minInputLength": 3
+    },
+
+    {
+      "test": "\u107e[\u1000\u1003\u1006\u100f\u1010\u1011\u1018\u101a\u101c\u101a\u101e\u101f][\u103c\u108a][\u1032\u1036\u102d\u102e\u108b\u108c\u108d\u108e]",
+      "minInputLength": 4
+    },
+    {
+      "test": "\u103b[\u1000-\u1021][\u103c\u108a][\u1032\u1036\u102d\u102e\u108b\u108c\u108d\u108e]",
+      "minInputLength": 4
+    },
+    {
+      "test": "\u104e\u1004\u103a\u1038",
+      "minInputLength": 4
+    },
+
+    {
+      "test": "\u1039\u103c\u103a\u1039[\u1000-\u1021]",
+      "minInputLength": 5
+    }
+  ],
+  "zgRules": [{
+      "test": "[\u1033\u1034\u1039\u105a\u1060-\u1063\u1065-\u107d\u1085-\u108a\u108e-\u1097]",
+      "minInputLength": 1,
+      "maxInputLength": 1
+    },
+
+    {
+      "description": " ေ+ - ",
+      "test": "\u1031[\u1000-\u1021\u1025\u1027\u1029]",
+      "minInputLength": 2,
+      "maxInputLength": 2
+    },
+
+    {
+      "description": " - + င်္",
+      "test": "[\u1000-\u1021\u1025\u1027\u1029\u102d\u102e\u103a\u103b\u1047\u1069\u106a\u106b\u106e\u106f\u107d-\u1084\u1086\u108f-\u1092\u1097]\u1064",
+      "minInputLength": 2
+    },
+    {
+      "description": " - + င်္ိ င်္ီ င်္ံ",
+      "test": "[\u1000-\u1021][\u103a\u103b\u107d\u1084]?[\u108b\u108c\u108d]",
+      "minInputLength": 2
+    },
+    {
+      "description": "  ိ  ီ +  ြ ",
+      "test": "[\u102d\u102e][\u103b\u107e-\u1084]",
+      "minInputLength": 2
+    },
+    {
+      "description": "  ိ  ီ +  ျ ",
+      "test": "[\u102d\u102e][\u103a\u1069\u107d]",
+      "minInputLength": 2
+    },
+    {
+      "description": "  ိ  ီ +  ှ ",
+      "test": "[\u102d\u102e][\u103d\u103e]",
+      "minInputLength": 2
+    },
+    {
+      "description": "  ု  ူ +  ိ  ီ ",
+      "test": "[\u102f\u1030\u1033\u1034][\u102d\u102e]",
+      "minInputLength": 2
+    },
+    {
+      "description": " - +  ိ  ီ ",
+      "test": "\u102d\u102e|\u102e\u102d",
+      "minInputLength": 2
+    },
+    {
+      "description": "  ံ + ု  ူ ",
+      "test": "\u1036[\u102f\u1030\u1033\u1034]",
+      "minInputLength": 2
+    },
+    {
+      "description": "  ှု +  ံ ",
+      "test": "\u1036\u1088|\u1036\u1088",
+      "minInputLength": 2
+    },
+    {
+      "description": "  ှ +  ြ   ွ ",
+      "test": "\u103d[\u103b\u103c\u107e-\u1084]",
+      "minInputLength": 2
+    },
+    {
+      "description": "  ှ +  ျ ",
+      "test": "\u103d\u107d",
+      "minInputLength": 2
+    },
+    {
+      "description": "  ှ +  ျ  ြ (*unicode)",
+      "test": "\u103e[\u103b\u103c]",
+      "minInputLength": 2
+    },
+    {
+      "description": "  ဲ +  ဲ ",
+      "test": "\u1032\u1032",
+      "minInputLength": 2
+    },
+    {
+      "description": " - +  ် ",
+      "test": "[\u1000-\u1008\u100a\u100f-\u1021\u1025\u1027\u1029\u102b\u102c\u1047\u106a\u106b\u106e\u106f\u1086\u1090\u1092\u1097]\u1039",
+      "excludes": ["\u1010\u1000\u1039\u1000\u101e\u102d\u102f\u101c\u103a"],
+      "minInputLength": 2
+    },
+    {
+      "description": "  ေ + - ",
+      "test": "\u1031[\u1040\u1047\u103b\u106a\u106b\u106e\u106f\u107d-\u1084\u1086\u108f-\u1092\u1097]",
+      "minInputLength": 2
+    },
+    {
+      "description": " ၇ + - ",
+      "test": "\u1047(?=[\u102c-\u1030\u1032\u1036-\u1038\u103d\u1038])",
+      "minInputLength": 2
+    },
+    {
+      "description": " ၀ (zero) +  ါ  ာ  ီ  ံ  ် င်္ဝ ",
+      "test": "\u1040[\u102b\u102c\u102e\u102f\u1030\u1036\u1039\u103d\u103e\u1064]",
+      "minInputLength": 2
+    },
+    {
+      "description": " ၀  (zero) +  ိ ",
+      "test": "\u1040[\u102d](?!\u0020)",
+      "minInputLength": 2
+    },
+
+
+    {
+      "test": "[\u102b-\u1030\u103a\u1038]\u1031[\u1000-\u1021]",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u1019\u102c(\u107b|\u1093)",
+      "minInputLength": 3
+    },
+    {
+      "test": "[\u1000-\u1021]\u103c\u103a",
+      "minInputLength": 3
+    },
+    {
+      "test": "[\u1040\u1041\u1042\u1043\u1044\u1045\u1046\u1047\u1048\u1049]\u1040\u102b(?!\u1038)",
+      "minInputLength": 3
+    },
+    {
+      "test": "[\u1000-\u1021]\u1031([\u103b\u103c\u103d\u103e]+)",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u102f(\u102d|\u102e|\u1036|\u1037)\u102f",
+      "minInputLength": 3
+    },
+    {
+      "test": "[\u102b-\u1030\u1031\u103a\u1038](\u103b|[\u107e-\u1084])[\u1000-\u1021]",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u102c\u1039[\u1000-\u1021]",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u103c\u1039[\u1000-\u1021]",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u1036\u1039[\u1000-\u1021]",
+      "minInputLength": 3
+    },
+    {
+      "test": "[\u102d\u102e]\u1039[\u1000-\u1021]",
+      "minInputLength": 3
+    },
+    {
+      "test": "[\u1000-\u1021]\u1039\u1031",
+      "minInputLength": 3
+    },
+    {
+      "test": "[\u1000-\u1021]\u1037\u1032",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u1031\u1037\u103e",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u1031\u103e\u102c",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u1031\u103b\u103e",
+      "minInputLength": 3
+    },
+    {
+      "test": "\u102d\u102f\u103a",
+      "minInputLength": 3
+    },
+
+    {
+      "test": "[\u1000-\u1021]\u103c\u1031\u103d",
+      "minInputLength": 4
+    },
+    {
+      "test": "[\u1000-\u1021]\u103b\u1031\u103d(\u103e)?",
+      "minInputLength": 4
+    },
+    {
+      "test": "[\u1000-\u1021]\u103d\u1031\u103b",
+      "minInputLength": 4
+    },
+    {
+      "test": "[\u1000-\u1021]\u1031\u1039[\u1000-\u1021]",
+      "minInputLength": 4
+    },
+    {
+      "test": "\u103c\u1031\u1039[\u1000-\u1021]",
+      "minInputLength": 4
+    },
+    {
+      "test": "\u1044\u1004\u103a\u1038",
+      "minInputLength": 4
+    }
+  ]
+}
