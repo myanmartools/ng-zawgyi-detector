@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+    <h1>Zawgyi-One or Myanmar Unicode Font Detector Demo</h1>
+</mat-toolbar>
+<main class="container page">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="24px">
+        <div fxLayout="column" fxFlex="1 1 100%">
+            <div>
+                {{autoEncText}}
+            </div>
+            <mat-form-field floatLabel="never">
+                <textarea class="myanmar-text" spellcheck="false" matInput placeholder="Zawgyi or Unicode text"
+                    [value]="sourceText" (input)="sourceText = $event.target.value"
+                    [class.my-uni]="detectedEnc == 'uni'" [class.my-zg]="detectedEnc == 'zg'" cdkTextareaAutosize
+                    cdkAutosizeMinRows="10"></textarea>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="1 1 100%" [innerHTML]="debugMsg">
+        </div>
+    </div>
+</main>
