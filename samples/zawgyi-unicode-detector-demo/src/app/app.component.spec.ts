@@ -9,7 +9,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule, MatToolbarModule } from '@angular/material';
 
 // tslint:disable: no-implicit-dependencies
-import { ZawgyiDetectorModule } from '@myanmartools/ng-zawgyi-detector';
+import { NoopZgUniRuleLoaderModule, ZawgyiDetectorModule } from '@myanmartools/ng-zawgyi-detector';
+
 
 import { AppComponent } from './app.component';
 
@@ -27,7 +28,8 @@ describe('AppComponent', () => {
                 MatInputModule,
                 MatToolbarModule,
 
-                ZawgyiDetectorModule
+                ZawgyiDetectorModule,
+                NoopZgUniRuleLoaderModule
             ],
         }).compileComponents();
     }));
