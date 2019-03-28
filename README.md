@@ -73,9 +73,36 @@ export class AppComponent {
 }
 ```
 
+### Copying Built-in Rules
+
+Built-in zawgyi / unicode detect rules file is included with the package @myanmartools/ng-zawgyi-detector. Copy that rule file to output path. Here is Angular CLI configuration to copy assets:
+
+```json
+{
+    "assets": [
+    {
+        "input": "node_modules/@myanmartools/ng-zawgyi-detector/rules/",
+        "glob": "**/*.json",
+        "output": "./assets/zawgyi-detect-rules"
+    },
+    "src/favicon.ico",
+    "src/assets"
+    ]
+}
+```
+
+See [angular.json](https://github.com/myanmartools/ng-zawgyi-detector/blob/master/angular.json) file for more details.
+
 ## Example Project
 
 [Zawgyi-One or Myanmar Unicode Font Detector Demo](https://github.com/myanmartools/ng-zawgyi-detector/tree/master/samples/zawgyi-unicode-detector-demo)
+
+## Packages
+
+[@myanmartools/ng-zawgyi-detector](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-unicode-detector)
+
+[![npm (scoped)](https://img.shields.io/npm/v/@myanmartools/ng-zawgyi-detector.svg)](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector)
+[![npm](https://img.shields.io/npm/dm/@myanmartools/ng-zawgyi-detector.svg)](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector)
 
 ## Feedback and Contributing
 
