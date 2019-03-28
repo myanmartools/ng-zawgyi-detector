@@ -216,7 +216,8 @@
     {
       "description": " - +  ် ",
       "test": "[\u1000-\u1008\u100a\u100f-\u1021\u1025\u1027\u1029\u102b\u102c\u1047\u106a\u106b\u106e\u106f\u1086\u1090\u1092\u1097]\u1039",
-      "excludes": ["\u1010\u1000\u1039\u1000\u101e\u102d\u102f\u101c\u103a"],
+      "excludes": [],
+      "excludeUniPahsinWords": true,
       "minInputLength": 2
     },
     {
@@ -334,5 +335,8 @@
       "test": "\u1044\u1004\u103a\u1038",
       "minInputLength": 4
     }
+  ],
+  "uniPahsinWords": [
+    "\u1010\u1000\u1039\u1000\u101e\u102d\u102f\u101c\u103a"
   ]
 }

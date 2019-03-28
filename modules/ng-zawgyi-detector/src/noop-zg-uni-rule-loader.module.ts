@@ -21,7 +21,8 @@ export class NoopZgUniRuleLoader implements ZgUniRuleLoader {
     load(): Observable<ZgUniRule> {
         return of({
             zgRules: [],
-            uniRules: []
+            uniRules: [],
+            uniPahsinWords: []
         });
     }
 }

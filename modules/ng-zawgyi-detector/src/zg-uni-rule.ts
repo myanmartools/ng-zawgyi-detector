@@ -10,11 +10,15 @@ export interface ZgUniRuleItem {
     test: string;
     minInputLength: number;
     maxInputLength?: number;
-    excludes?: string[] | null;
     description?: string;
+    excludes?: string[] | null;
+    excludeUniPahsinWords?: boolean;
+    checkUniPahsinConsonantsRule?: boolean;
 }
 
 export interface ZgUniRule {
     zgRules: ZgUniRuleItem[];
     uniRules: ZgUniRuleItem[];
+    // stacked words
+    uniPahsinWords: string[];
 }

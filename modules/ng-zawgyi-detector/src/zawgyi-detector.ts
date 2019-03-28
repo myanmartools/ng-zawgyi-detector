@@ -161,8 +161,8 @@ export class ZawgyiDetector {
             result.probability = ((result.extCodePointsMatchedCount / trimedInput.length) * 0.09) + 0.9;
         }
 
-        this.processMatches(trimedInput, rule.zgRegExpRules, true, result);
-        this.processMatches(trimedInput, rule.uniRegExpRules, false, result);
+        this.processMatches(trimedInput, rule, rule.zgRegExpRules, true, result);
+        this.processMatches(trimedInput, rule, rule.uniRegExpRules, false, result);
 
         this.calculateWhenUniEqZg(trimedInput, result);
         this.calculateWhenZgGtUni(result);
@@ -386,14 +386,18 @@ export class ZawgyiDetector {
         }
     }
 
-    private processMatches(input: string, regExpRules: ZgUniRuleRegExpItem[], forZg: boolean, result: ZgUniDetectResult): void {
+    private processMatches(input: string,
+        rule: ZgUniRegExpRule,
+        regExpRules: ZgUniRuleRegExpItem[],
+        forZg: boolean,
+        result: ZgUniDetectResult): void {
         const inputLength = input.length;
-        for (const rule of regExpRules) {
-            if ((!rule.minInputLength || inputLength >= rule.minInputLength) &&
-                (!rule.maxInputLength || rule.maxInputLength < 1 || inputLength <= rule.maxInputLength)) {
+        for (const ruleItem of regExpRules) {
+            if ((!ruleItem.minInputLength || inputLength >= ruleItem.minInputLength) &&
+                (!ruleItem.maxInputLength || ruleItem.maxInputLength < 1 || inputLength <= ruleItem.maxInputLength)) {
                 let m: RegExpExecArray | null;
                 // tslint:disable-next-line: no-conditional-assignment
-                while ((m = rule.testRegExp.exec(input)) != null) {
+                while ((m = ruleItem.testRegExp.exec(input)) != null) {
                     const start = m.index;
                     const matchedStr = m[0];
                     const end = start + matchedStr.length;
@@ -401,8 +405,8 @@ export class ZawgyiDetector {
                     const strToCheck = input.substr(start);
 
                     let shouldIgnore = false;
-                    if (strToCheck && rule.excludeRegExps && rule.excludeRegExps.length > 0) {
-                        for (const excludeRule of rule.excludeRegExps) {
+                    if (strToCheck && ruleItem.excludeRegExps && ruleItem.excludeRegExps.length > 0) {
+                        for (const excludeRule of ruleItem.excludeRegExps) {
                             if (excludeRule.test(strToCheck)) {
                                 shouldIgnore = true;
                                 break;
@@ -410,24 +414,39 @@ export class ZawgyiDetector {
                         }
                     }
 
-                    if (!shouldIgnore) {
-                        if (forZg) {
-                            result.zgMatches.push({
-                                start,
-                                end,
-                                matchedStr,
-                                test: rule.test,
-                                testDescription: rule.description
-                            });
-                        } else {
-                            result.uniMatches.push({
-                                start,
-                                end,
-                                matchedStr,
-                                test: rule.test,
-                                testDescription: rule.description
-                            });
+                    if (shouldIgnore) {
+                        continue;
+                    }
+
+                    if (strToCheck && forZg && ruleItem.excludeUniPahsinWords) {
+                        for (const pahsinWord of rule.uniPahsinWords) {
+                            if (strToCheck.startsWith(pahsinWord)) {
+                                shouldIgnore = true;
+                                break;
+                            }
                         }
+                    }
+
+                    if (shouldIgnore) {
+                        continue;
+                    }
+
+                    if (forZg) {
+                        result.zgMatches.push({
+                            start,
+                            end,
+                            matchedStr,
+                            test: ruleItem.test,
+                            testDescription: ruleItem.description
+                        });
+                    } else {
+                        result.uniMatches.push({
+                            start,
+                            end,
+                            matchedStr,
+                            test: ruleItem.test,
+                            testDescription: ruleItem.description
+                        });
                     }
 
                 }
@@ -439,6 +458,7 @@ export class ZawgyiDetector {
         const zgRegExpRules = this.mapToZgUniRuleRegExpItems(rule.zgRules || []);
         const uniRegExpRules = this.mapToZgUniRuleRegExpItems(rule.uniRules || []);
         this.setCachedRule({
+            ...rule,
             zgRegExpRules,
             uniRegExpRules
         });
