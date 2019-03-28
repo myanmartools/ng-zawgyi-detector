@@ -29,6 +29,12 @@
     "rootDir": ".",
     "outDir": "./dist/out-tsc",
 
+    "baseUrl": ".",
+    "paths": {
+      "@myanmartools/ng-zawgyi-detector": [ "./modules/ng-zawgyi-detector" ],
+      "@myanmartools/ng-zawgyi-detector/http-loader": [ "./modules/ng-zawgyi-detector/http-loader" ]
+    },
+
     "plugins": [
       {
         "name": "typescript-tslint-plugin",
