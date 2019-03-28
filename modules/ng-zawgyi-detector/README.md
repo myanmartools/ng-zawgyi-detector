@@ -1,12 +1,12 @@
-# Zawgyi / Myanmar Unicode Detector for Angular
+# Zawgyi / Myanmar Unicode Detector Package for Angular Applications
 
 [![Gitter](https://badges.gitter.im/myanmartools/community.svg)](https://gitter.im/myanmartools/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Zawgyi-One or Myanmar Unicode font encoding detection modules for [Angular](https://angular.io/) applications.
+Zawgyi-One or Myanmar Unicode font encoding detection library for Angular applications.
 
-## Get Started
+[WIP]
 
-### Installation
+## Installation
 
 npm
 
@@ -20,34 +20,23 @@ or yarn
 yarn add @myanmartools/ng-zawgyi-detector
 ```
 
-### Module Setup (app.module.ts)
+## Module Setup (app.module.ts)
 
 ```typescript
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
 import { ZawgyiDetectorModule } from '@myanmartools/ng-zawgyi-detector';
-import { HttpZgUniRuleLoaderModule } from '@myanmartools/ng-zawgyi-detector/http-loader';
 
 @NgModule({
     imports: [
-        BrowserModule,
-        CommonModule,
-        HttpClientModule,
         // Other module imports
 
         // ng-zawgyi-detector
-        ZawgyiDetectorModule,
-        HttpZgUniRuleLoaderModule
-    ],
-    bootstrap: [AppComponent]
+        ZawgyiDetectorModule
+    ]
 })
 export class AppModule { }
 ```
 
-### Usage (app.component.ts)
+## Usage (app.component.ts)
 
 ```typescript
 import { Component } from '@angular/core';
@@ -73,7 +62,7 @@ export class AppComponent {
 }
 ```
 
-## Example Project
+## Example
 
 [Zawgyi-One or Myanmar Unicode Font Detector Demo](https://github.com/myanmartools/ng-zawgyi-detector/tree/master/samples/zawgyi-unicode-detector-demo)
 
