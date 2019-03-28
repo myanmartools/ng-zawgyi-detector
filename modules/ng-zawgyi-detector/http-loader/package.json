@@ -1,0 +1,11 @@
+{
+  "name": "@myanmartools/ng-zawgyi-detector/http-loader",
+  "version": "0.0.0-PLACEHOLDER",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/common": "^7.0.0 || ^8.0.0-beta.0",
+    "@angular/core": "^7.0.0 || ^8.0.0-beta.0",
+    "@myanmartools/ng-zawgyi-detector": "^1.0.0-beta.4",
+    "rxjs": "^6.0.0"
+  }
+}
