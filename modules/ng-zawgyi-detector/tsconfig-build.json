@@ -1,0 +1,23 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
+    "outDir": "../../dist/packages/ng-zawgyi-detector",
+
+    "paths": {
+      "@angular/core": [ "../../node_modules/@angular/core" ]
+    }
+  },
+  "files": [
+    "public_api.ts"
+  ],
+  "angularCompilerOptions": {
+    "annotateForClosureCompiler": true,
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "fullTemplateTypeCheck": true,
+    "flatModuleOutFile": "ng-zawgyi-detector.js",
+    "flatModuleId": "@myanmartools/ng-zawgyi-detector"
+  }
+}
