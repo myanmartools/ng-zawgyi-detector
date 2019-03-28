@@ -11,7 +11,6 @@ import { MatInputModule, MatToolbarModule } from '@angular/material';
 // tslint:disable: no-implicit-dependencies
 import { NoopZgUniRuleLoaderModule, ZawgyiDetectorModule } from '@myanmartools/ng-zawgyi-detector';
 
-
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
