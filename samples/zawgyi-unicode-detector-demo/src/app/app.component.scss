@@ -1,0 +1,24 @@
+.page {
+    padding-top: 24px;
+}
+
+textarea.myanmar-text,
+textarea.mat-input-element.myanmar-text {
+    font-size: 1em;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+.my-zg,
+textarea.mat-input-element.my-zg {
+    font-family: Zawgyi-One;
+}
+
+.my-uni,
+textarea.mat-input-element.my-uni {
+    font-family: "Myanmar Text", Pyidaungsu, Padauk, Myanmar3;
+}
+
+.debug-window {
+    margin-top: 48px;
+}
