@@ -1,0 +1,49 @@
+{
+  "$schema": "./node_modules/@dagonmetric/angular-build/schemas/schema.json#",
+  "libs": [
+    {
+      "extends": "ngb:lib-default",
+      "name": "ng-zawgyi-detector",
+      "root": "modules/ng-zawgyi-detector",
+      "outputPath": "dist/packages/ng-zawgyi-detector",
+      "libraryName": "ngZawgyiDetector",
+      "envOverrides": {
+        "prod": {
+          "copy": [
+            {
+              "from": "rules",
+              "to": "rules"
+            },
+            "README.md",
+            "../../LICENSE"
+          ],
+          "bundles": true,
+          "packageJsonCopy": true
+        }
+      }
+    },
+    {
+      "extends": "ngb:lib-default",
+      "name": "ng-zawgyi-detector-http-loader",
+      "root": "modules/ng-zawgyi-detector/http-loader",
+      "outputPath": "dist/packages/ng-zawgyi-detector",
+      "libraryName": "ngZawgyiDetector.httpLoader",
+      "externals": {
+        "@myanmartools/ng-zawgyi-detector": "ngZawgyiDetector"
+      },
+      "envOverrides": {
+        "prod": {
+          "copy": [
+            {
+              "from": "README.md",
+              "to": "http-loader/README.md"
+            }
+          ],
+          "bundles": true,
+          "packageJsonCopy": true
+        }
+      }
+    }
+  ],
+  "apps": []
+}
