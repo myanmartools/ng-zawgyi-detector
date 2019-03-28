@@ -1,0 +1,10 @@
+@mixin app-theme($theme) {
+  $primary: map-get($theme, primary);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  body {
+    color: mat-color($foreground, text);
+    background: mat-color($background, background); // #f1f1f1
+  }
+}
