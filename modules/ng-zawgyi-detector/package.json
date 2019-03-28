@@ -1,0 +1,30 @@
+{
+  "name": "@myanmartools/ng-zawgyi-detector",
+  "version": "0.0.0-PLACEHOLDER",
+  "description": "Zawgyi-One or Myanmar Unicode font encoding detection library for Angular applications.",
+  "keywords": [
+    "zawgyi detector",
+    "zawgyi unicode detector",
+    "myanmar font encoding detector",
+    "angular",
+    "myanmar unicode",
+    "myanmar",
+    "zawgyi",
+    "zawgyi-one",
+    "myanmar-tools",
+    "dagonmetric"
+  ],
+  "author": "",
+  "license": "",
+  "repository": "",
+  "bugs": "",
+  "homepage": "",
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "peerDependencies": {
+    "@angular/core": "^7.0.0 || ^8.0.0-beta.0",
+    "rxjs": "^6.0.0"
+  },
+  "sideEffects": false
+}
