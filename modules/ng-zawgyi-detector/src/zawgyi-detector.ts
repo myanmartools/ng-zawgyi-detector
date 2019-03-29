@@ -402,12 +402,17 @@ export class ZawgyiDetector {
                     const matchedStr = m[0];
                     const end = start + matchedStr.length;
 
-                    const strToCheck = input.substr(start);
+                    const strFromMatch = input.substr(start);
 
                     let shouldIgnore = false;
-                    if (strToCheck && ruleItem.excludeRegExps && ruleItem.excludeRegExps.length > 0) {
+                    if (strFromMatch && ruleItem.excludeRegExps && ruleItem.excludeRegExps.length > 0) {
+                        let startAdjustPos = 0;
+                        if (ruleItem.excludesStartAdjustPos) {
+                            startAdjustPos = ruleItem.excludesStartAdjustPos;
+                        }
+                        const excludeCheckStr = input.substr(start - startAdjustPos);
                         for (const excludeRule of ruleItem.excludeRegExps) {
-                            if (excludeRule.test(strToCheck)) {
+                            if (excludeRule.test(excludeCheckStr)) {
                                 shouldIgnore = true;
                                 break;
                             }
@@ -418,10 +423,20 @@ export class ZawgyiDetector {
                         continue;
                     }
 
-                    if (strToCheck && forZg && ruleItem.excludeUniPahsinWords) {
+                    if (start > 0 && strFromMatch.length >= 3 && forZg && ruleItem.excludeUniPahsinWords) {
+                        const newStart = start - 1;
+                        const pahsinCheckStr = input.substr(newStart);
                         for (const pahsinWord of rule.uniPahsinWords) {
-                            if (strToCheck.startsWith(pahsinWord)) {
+                            if (pahsinCheckStr.startsWith(pahsinWord)) {
                                 shouldIgnore = true;
+
+                                result.uniMatches.push({
+                                    start: newStart,
+                                    end: pahsinWord.length - 1,
+                                    matchedStr: pahsinWord,
+                                    test: pahsinWord
+                                });
+
                                 break;
                             }
                         }
@@ -468,7 +483,7 @@ export class ZawgyiDetector {
         return ruleItems.map(ruleItem => {
             let excludeRegExps: RegExp[] | undefined;
             if (ruleItem.excludes) {
-                excludeRegExps = ruleItem.excludes.map(p => new RegExp(`^${p}`, 'g'));
+                excludeRegExps = ruleItem.excludes.map(p => RegExp(`^${p}`));
             }
 
             return {

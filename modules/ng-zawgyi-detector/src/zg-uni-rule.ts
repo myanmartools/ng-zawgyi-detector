@@ -12,8 +12,9 @@ export interface ZgUniRuleItem {
     maxInputLength?: number;
     description?: string;
     excludes?: string[] | null;
+    excludesStartAdjustPos?: number;
     excludeUniPahsinWords?: boolean;
-    checkUniPahsinConsonantsRule?: boolean;
+    // checkUniPahsinConsonantsRule?: boolean;
 }
 
 export interface ZgUniRule {
