@@ -106,7 +106,7 @@ See [angular.json](https://github.com/myanmartools/ng-zawgyi-detector/blob/maste
 
 ## Packages
 
-[@myanmartools/ng-zawgyi-detector](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-unicode-detector)
+[@myanmartools/ng-zawgyi-detector](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector)
 
 [![npm (scoped)](https://img.shields.io/npm/v/@myanmartools/ng-zawgyi-detector.svg)](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector)
 [![npm](https://img.shields.io/npm/dm/@myanmartools/ng-zawgyi-detector.svg)](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector)
