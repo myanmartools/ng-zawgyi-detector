@@ -5,8 +5,6 @@
     "moduleResolution": "node",
 
     "experimentalDecorators": true,
-    // This is needed due to https://github.com/Microsoft/TypeScript/issues/17516.
-    // As tsickle will lower decorators before TS, this is not a problem for our build.
     "emitDecoratorMetadata": true,
 
     "noImplicitAny": true,
