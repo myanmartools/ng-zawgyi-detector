@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@myanmartools/ng-zawgyi-detector": [ "../../dist/packages/ng-zawgyi-detector" ],
+      "@myanmartools/ng-zawgyi-detector/http-loader": [ "../../dist/packages/ng-zawgyi-detector/http-loader" ]
+    }
+  },
+  "exclude": [
+    "src/test.ts",
+    "src/**/*.spec.ts"
+  ]
+}
