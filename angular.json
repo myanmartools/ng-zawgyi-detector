@@ -3,9 +3,9 @@
   "version": 1,
   "newProjectRoot": "modules",
   "projects": {
-    "zawgyi-unicode-detector-demo": {
+    "ng-zawgyi-detector-demo": {
       "root": "",
-      "sourceRoot": "samples/zawgyi-unicode-detector-demo/src",
+      "sourceRoot": "samples/ng-zawgyi-detector-demo/src",
       "projectType": "application",
       "prefix": "app",
       "schematics": {
@@ -17,22 +17,22 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/zawgyi-unicode-detector-demo",
-            "index": "samples/zawgyi-unicode-detector-demo/src/index.html",
-            "main": "samples/zawgyi-unicode-detector-demo/src/main.ts",
-            "polyfills": "samples/zawgyi-unicode-detector-demo/src/polyfills.ts",
-            "tsConfig": "samples/zawgyi-unicode-detector-demo/tsconfig.app.json",
+            "outputPath": "dist/ng-zawgyi-detector-demo",
+            "index": "samples/ng-zawgyi-detector-demo/src/index.html",
+            "main": "samples/ng-zawgyi-detector-demo/src/main.ts",
+            "polyfills": "samples/ng-zawgyi-detector-demo/src/polyfills.ts",
+            "tsConfig": "samples/ng-zawgyi-detector-demo/tsconfig.app.json",
             "assets": [
               {
                 "input": "modules/ng-zawgyi-detector/rules/",
                 "glob": "**/*.json",
                 "output": "./assets/zawgyi-detect-rules"
               },
-              "samples/zawgyi-unicode-detector-demo/src/favicon.ico",
-              "samples/zawgyi-unicode-detector-demo/src/assets"
+              "samples/ng-zawgyi-detector-demo/src/favicon.ico",
+              "samples/ng-zawgyi-detector-demo/src/assets"
             ],
             "styles": [
-              "samples/zawgyi-unicode-detector-demo/src/styles.scss"
+              "samples/ng-zawgyi-detector-demo/src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -46,11 +46,11 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "samples/zawgyi-unicode-detector-demo/src/environments/environment.ts",
-                  "with": "samples/zawgyi-unicode-detector-demo/src/environments/environment.prod.ts"
+                  "replace": "samples/ng-zawgyi-detector-demo/src/environments/environment.ts",
+                  "with": "samples/ng-zawgyi-detector-demo/src/environments/environment.prod.ts"
                 }
               ],
-              "tsConfig": "samples/zawgyi-unicode-detector-demo/tsconfig.app.prod.json",
+              "tsConfig": "samples/ng-zawgyi-detector-demo/tsconfig.app.prod.json",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -73,29 +73,29 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "zawgyi-unicode-detector-demo:build"
+            "browserTarget": "ng-zawgyi-detector-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "zawgyi-unicode-detector-demo:build:production"
+              "browserTarget": "ng-zawgyi-detector-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "zawgyi-unicode-detector-demo:build"
+            "browserTarget": "ng-zawgyi-detector-demo:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "samples/zawgyi-unicode-detector-demo/src/test.ts",
-            "polyfills": "samples/zawgyi-unicode-detector-demo/src/polyfills.ts",
-            "tsConfig": "samples/zawgyi-unicode-detector-demo/tsconfig.spec.json",
-            "karmaConfig": "samples/zawgyi-unicode-detector-demo/karma.conf.js",
+            "main": "samples/ng-zawgyi-detector-demo/src/test.ts",
+            "polyfills": "samples/ng-zawgyi-detector-demo/src/polyfills.ts",
+            "tsConfig": "samples/ng-zawgyi-detector-demo/tsconfig.spec.json",
+            "karmaConfig": "samples/ng-zawgyi-detector-demo/karma.conf.js",
             "styles": [
-              "samples/zawgyi-unicode-detector-demo/src/styles.scss"
+              "samples/ng-zawgyi-detector-demo/src/styles.scss"
             ],
             "scripts": [],
             "assets": [
@@ -104,8 +104,8 @@
                 "glob": "**/*.json",
                 "output": "./assets/zawgyi-detect-rules"
               },
-              "samples/zawgyi-unicode-detector-demo/src/favicon.ico",
-              "samples/zawgyi-unicode-detector-demo/src/assets"
+              "samples/ng-zawgyi-detector-demo/src/favicon.ico",
+              "samples/ng-zawgyi-detector-demo/src/assets"
             ]
           }
         },
@@ -113,9 +113,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "samples/zawgyi-unicode-detector-demo/tsconfig.app.json",
-              "samples/zawgyi-unicode-detector-demo/tsconfig.spec.json",
-              "samples/zawgyi-unicode-detector-demo/e2e/tsconfig.json"
+              "samples/ng-zawgyi-detector-demo/tsconfig.app.json",
+              "samples/ng-zawgyi-detector-demo/tsconfig.spec.json",
+              "samples/ng-zawgyi-detector-demo/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -125,17 +125,17 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "samples/zawgyi-unicode-detector-demo/e2e/protractor.conf.js",
-            "devServerTarget": "zawgyi-unicode-detector-demo:serve"
+            "protractorConfig": "samples/ng-zawgyi-detector-demo/e2e/protractor.conf.js",
+            "devServerTarget": "ng-zawgyi-detector-demo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "zawgyi-unicode-detector-demo:serve:production"
+              "devServerTarget": "ng-zawgyi-detector-demo:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "zawgyi-unicode-detector-demo"
+  "defaultProject": "ng-zawgyi-detector-demo"
 }
