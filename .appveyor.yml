@@ -1,13 +1,11 @@
 branches:
   only:
     - master
-    - '/v[0-9]+(\.[0-9]+)*/'
+    - '/v(?:0|[1-9]\d*)(\.(?:0|[1-9]\d*))?(\.(?:0|[1-9]\d*))?(?:-[\da-z-]+(?:\.[\da-z-]+)*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?/'
 skip_non_tags: true
 clone_depth: 1
 environment:
   nodejs_version: "10"
-matrix:
-  fast_finish: true
 install:
   - ps: Install-Product node $env:nodejs_version
   # - set PATH=%APPDATA%\npm;%PATH%
@@ -18,7 +16,6 @@ install:
         iex "npm whoami"
       }
   - yarn install --frozen-lockfile --network-timeout=500000
-  # - npm install
 build_script:
   - yarn run lint
   - yarn run build
@@ -27,8 +24,6 @@ test: "off"
 cache:
   - node_modules -> yarn.lock
   - "%LOCALAPPDATA%\\Yarn"
-  # - node_modules -> package.json
-  # - '%APPDATA%\npm-cache'
 deploy_script:
   - ps: |
       if ($env:npm_auth_token)
