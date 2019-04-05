@@ -6,8 +6,6 @@
  * found under the LICENSE file in the root directory of this source tree.
  */
 
-// tslint:disable: no-unnecessary-class
-
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { ZG_UNI_RULE_LOADER } from '@myanmartools/ng-zawgyi-detector';
