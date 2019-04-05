@@ -28,6 +28,7 @@
                 "glob": "**/*.json",
                 "output": "./assets/zawgyi-detect-rules"
               },
+              "samples/ng-zawgyi-detector-demo/src/robots.txt",
               "samples/ng-zawgyi-detector-demo/src/favicon.ico",
               "samples/ng-zawgyi-detector-demo/src/assets"
             ],
