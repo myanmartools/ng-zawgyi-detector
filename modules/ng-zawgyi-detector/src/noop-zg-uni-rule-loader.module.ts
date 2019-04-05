@@ -6,8 +6,6 @@
  * found under the LICENSE file in the root directory of this source tree.
  */
 
-// tslint:disable: no-unnecessary-class
-
 import { Injectable, NgModule } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
