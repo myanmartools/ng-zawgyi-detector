@@ -22,7 +22,7 @@ Implements an HTTP client API for ZgUniRuleLoader that relies on the Angular Htt
 
 ## Features
 
-* Automatically detect Zawgyi-One or Myanmar Unicode font encoding
+* Automatically detect Zawgyi-One and Myanmar Unicode font encoding
 * Built-in Zawgyi Unicode detector rules included (see [rules](https://github.com/myanmartools/ng-zawgyi-detector/tree/master/modules/ng-zawgyi-detector/rules) folder)
 * Can be used custom detect rule files
 * Detect rule files can be loaded lazily or eagerly using rule loaders
