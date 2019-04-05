@@ -3,7 +3,7 @@ export interface ZgUniMatchInfo {
     end: number;
     matchedStr: string;
     test: string;
-    testDescription?: string;
+    description?: string;
 }
 
 export interface ZgUniDetectResult {

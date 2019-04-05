@@ -452,7 +452,7 @@ export class ZawgyiDetector {
                             end,
                             matchedStr,
                             test: ruleItem.test,
-                            testDescription: ruleItem.description
+                            description: ruleItem.description
                         });
                     } else {
                         result.uniMatches.push({
@@ -460,7 +460,7 @@ export class ZawgyiDetector {
                             end,
                             matchedStr,
                             test: ruleItem.test,
-                            testDescription: ruleItem.description
+                            description: ruleItem.description
                         });
                     }
 
