@@ -13,7 +13,7 @@ Zawgyi-One or Myanmar Unicode font encoding detection package for Angular applic
 * Built-in Zawgyi Unicode detector rules included (see [rules](https://github.com/myanmartools/ng-zawgyi-detector/tree/master/modules/ng-zawgyi-detector/rules) folder)
 * Can be used custom detect rule files
 * Detect rule files can be loaded lazily or eagerly using rule loaders
-* ZgUniRuleLoader is extendable (see built-in [HttpZgUniRuleLoader](https://github.com/myanmartools/ng-zawgyi-detector/blob/master/modules/ng-zawgyi-detector/http-loader/src/http-zg-uni-rule-loader.ts) for implementation)
+* [ZgUniRuleLoader](https://github.com/myanmartools/ng-zawgyi-detector/blob/master/modules/ng-zawgyi-detector/src/zg-uni-rule-loader.ts) is extendable (see built-in [HttpZgUniRuleLoader](https://github.com/myanmartools/ng-zawgyi-detector/blob/master/modules/ng-zawgyi-detector/http-loader/src/http-zg-uni-rule-loader.ts) for implementation)
 * Latest Angular versions are supported
 * Compatible with Angular Universal (Server Side Rendering - SSR)
 
