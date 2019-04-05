@@ -6,8 +6,6 @@
  * found under the LICENSE file in the root directory of this source tree.
  */
 
-// tslint:disable: no-unnecessary-class
-
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { ZAWGYI_DETECTOR_OPTIONS, ZawgyiDetector, ZawgyiDetectorOptions } from './zawgyi-detector';
