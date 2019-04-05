@@ -18,6 +18,9 @@ export class AppComponent implements OnInit, OnDestroy {
     autoEncText = 'AUTO';
     debugMsg = '';
 
+    private readonly _myanmarUnicodeBlock = /[\u1000-\u109F\uAA60-\uAA7F\uA9E0-\uA9FF]/;
+    private readonly _escapseCharsRegExp = /[\b\f\n\r\t\v]/;
+
     private readonly _detectSubject = new Subject<string>();
     private readonly _destroyed = new Subject<void>();
 
@@ -58,51 +61,29 @@ export class AppComponent implements OnInit, OnDestroy {
                 this._detectedEnc = null;
             }
 
-            let debugMsg = '';
+            let debugMsg = 'Debug information<br>';
             debugMsg += `Detected enc: ${result.detectedEnc}<br>`;
             debugMsg += `Probability: ${result.probability}<br>`;
             debugMsg += `Std cp: ${result.stdCodePointsMatchedCount}<br>`;
             debugMsg += `Ext cp: ${result.extCodePointsMatchedCount}<br>`;
             if (result.uniMatches && result.uniMatches.length > 0) {
                 debugMsg += 'Unicode matches:<br>';
-                for (const m of result.uniMatches) {
-                    debugMsg += `Start: ${m.start}, end: ${m.end}, , str: ${m.matchedStr}, str cp: `;
-                    const cpArray: string[] = [];
-                    for (const c of m.matchedStr) {
-                        const cp = c.codePointAt(0);
-                        if (cp != null) {
-                            cpArray.push(`\\u${cp.toString(16)}`);
-                        }
-                    }
-                    debugMsg += `${cpArray.join('')}<br>`;
+                for (const matchInfo of result.uniMatches) {
+                    debugMsg += `Start: ${matchInfo.start}, end: ${matchInfo.end}, , str: ${matchInfo.matchedStr}, str cp: `;
+                    debugMsg += `${this.formatCodePoints(matchInfo.test)}<br>`;
                 }
             }
 
             if (result.zgMatches && result.zgMatches.length > 0) {
                 debugMsg += 'Zawgyi matches:<br>';
-                for (const m of result.zgMatches) {
-                    debugMsg += `Start: ${m.start}, end: ${m.end}, , str: ${m.matchedStr}, str cp: `;
-                    const cpArray: string[] = [];
-                    for (const c of m.matchedStr) {
-                        const cp = c.codePointAt(0);
-                        if (cp != null) {
-                            cpArray.push(`\\u${cp.toString(16)}`);
-                        }
-                    }
-                    debugMsg += `${cpArray.join('')}<br>`;
-                }
-
-            }
-
-            debugMsg += 'Input:<br>';
-            const inputCpArray: string[] = [];
-            for (const c of this.sourceText) {
-                const cp = c.codePointAt(0);
-                if (cp != null) {
-                    inputCpArray.push(`\\u${cp.toString(16)}`);
+                for (const matchInfo of result.zgMatches) {
+                    debugMsg += `Start: ${matchInfo.start}, end: ${matchInfo.end}, , str: ${matchInfo.matchedStr}, str cp: `;
+                    debugMsg += `${this.formatCodePoints(matchInfo.test)}<br>`;
                 }
             }
-            debugMsg += `${inputCpArray.join('')}<br>`;
+
+            debugMsg += '<br>Input:<br>';
+            debugMsg += `${this.formatCodePoints(this.sourceText)}<br>`;
 
             this.debugMsg = debugMsg;
         });
@@ -128,5 +109,33 @@ export class AppComponent implements OnInit, OnDestroy {
         }
 
         this._detectSubject.next(this.sourceText);
+    }
+
+    private formatCodePoints(str: string): string {
+        const cpArray: string[] = [];
+        for (const c of str) {
+            const cp = c.codePointAt(0);
+            if (cp != null && this._myanmarUnicodeBlock.test(c)) {
+                cpArray.push(`\\u${cp.toString(16)}`);
+            } else if (this._escapseCharsRegExp.test(c)) {
+                if (c === '\n') {
+                    cpArray.push('\\n');
+                } else if (c === '\r') {
+                    cpArray.push('\\r');
+                } else if (c === '\t') {
+                    cpArray.push('\\t');
+                } else if (c === '\f') {
+                    cpArray.push('\\f');
+                } else if (c === '\v') {
+                    cpArray.push('\\v');
+                } else if (c === '\b') {
+                    cpArray.push('\\b');
+                }
+            } else {
+                cpArray.push(`${c}`);
+            }
+        }
+
+        return cpArray.join('');
     }
 }
