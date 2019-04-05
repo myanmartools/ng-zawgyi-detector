@@ -15,6 +15,7 @@ install:
         iex '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
         iex "npm whoami"
       }
+  - yarn global add firebase-tools
   - yarn install --frozen-lockfile --network-timeout=500000
 build_script:
   - yarn run lint
@@ -26,6 +27,10 @@ cache:
   - "%LOCALAPPDATA%\\Yarn"
 deploy_script:
   - ps: |
+      if ($env:firebase_token)
+      {
+        iex "firebase deploy --only hosting:ng-zawgyi-detector-demo --token $env:firebase_token"
+      }
       if ($env:npm_auth_token)
       {
         iex "npm publish ./dist/packages/ng-zawgyi-detector --access=public"

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "myanmartools"
+  },
+  "targets": {
+    "myanmartools": {
+      "hosting": {
+        "ng-zawgyi-detector-demo": [
+          "ng-zawgyi-detector-demo"
+        ]
+      }
+    }
+  }
+}

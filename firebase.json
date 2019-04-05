@@ -1,0 +1,16 @@
+{
+  "hosting": [{
+    "target": "ng-zawgyi-detector-demo",
+    "public": "dist/ng-zawgyi-detector-demo",
+    "cleanUrls": true,
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [{
+      "source": "**/!(*.@(js|html|css|json|svg|png|jpg|jpeg|xml|txt|ico))",
+      "destination": "/index.html"
+    }]
+  }]
+}
