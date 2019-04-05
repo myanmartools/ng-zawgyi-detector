@@ -98,7 +98,7 @@ See [angular.json](https://github.com/myanmartools/ng-zawgyi-detector/blob/maste
 
 ## Example Project
 
-[Zawgyi-One or Myanmar Unicode Font Detector Demo](https://github.com/myanmartools/ng-zawgyi-detector/tree/master/samples/ng-zawgyi-detector-demo)
+[ng-zawgyi-detector-demo](https://github.com/myanmartools/ng-zawgyi-detector/tree/master/samples/ng-zawgyi-detector-demo)
 
 ## Live Website (Angular PWA)
 

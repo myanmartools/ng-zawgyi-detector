@@ -44,6 +44,6 @@ describe('AppComponent', () => {
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement as HTMLElement;
         const ele = compiled.querySelector('h1');
-        expect(ele && ele.textContent).toContain('Zawgyi-One or Myanmar Unicode Font Detector Demo');
+        expect(ele && ele.textContent).toContain('ng-zawgyi-detector-demo');
     });
 });

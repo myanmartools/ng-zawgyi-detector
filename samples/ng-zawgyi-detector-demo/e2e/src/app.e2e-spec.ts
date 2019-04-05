@@ -15,7 +15,7 @@ describe('workspace-project App', () => {
         page.navigateTo();
 
         // tslint:disable-next-line: no-floating-promises
-        expect(page.getTitleText()).toEqual('Zawgyi-One or Myanmar Unicode Font Detector Demo');
+        expect(page.getTitleText()).toEqual('ng-zawgyi-detector-demo');
     });
 
     afterEach(async () => {
