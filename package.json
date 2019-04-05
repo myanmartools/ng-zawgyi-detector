@@ -21,7 +21,7 @@
     "lint": "npm run lint:libs && npm run lint:app",
     "build:libs": "ngb build --filter=libs --env.prod",
     "build:app": "ng build --prod",
-    "build": "ngb build --env.prod",
+    "build": "npm run build:libs && npm run build:app",
     "test": "ng test",
     "e2e": "ng e2e"
   },
