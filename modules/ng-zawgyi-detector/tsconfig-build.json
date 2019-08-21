@@ -1,6 +1,16 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "es2015",
+    "module": "es2015",
+
+    "importHelpers": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "declaration": true,
+
+    "types": [],
+
     "baseUrl": ".",
     "rootDir": ".",
     "outDir": "../../dist/packages/ng-zawgyi-detector",
@@ -17,6 +27,7 @@
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
     "flatModuleOutFile": "ng-zawgyi-detector.js",
     "flatModuleId": "@myanmartools/ng-zawgyi-detector"
   }

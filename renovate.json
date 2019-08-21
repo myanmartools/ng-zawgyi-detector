@@ -1,0 +1,59 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "timezone": "Asia/Yangon",
+  "schedule": [
+    "after 11pm and before 6am every weekday",
+    "after 11pm and before 6am every weekend"
+  ],
+  "packageFiles": ["package.json"],
+  "automerge": true,
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "packagePatterns": [
+        "^@angular-devkit\/.*"
+      ],
+      "groupName": "angular-devkit"
+    },
+    {
+      "packagePatterns": [
+        "^@angular\/.*"
+      ],
+      "groupName": "angular"
+    },
+    {
+      "packagePatterns": [
+        "^@dagonmetric\/.*"
+      ],
+      "groupName": "dagonmetric"
+    },
+    {
+      "packagePatterns": [
+        "^@types\/.*"
+      ],
+      "groupName": "types"
+    },
+    {
+      "packagePatterns": ["^jasmine.*"],
+      "groupName": "jasmine"
+    },
+    {
+      "packagePatterns": ["^karma.*"],
+      "groupName": "karma"
+    },
+    {
+      "packagePatterns": ["^protractor.*"],
+      "groupName": "protractor"
+    },
+    {
+      "packageNames": ["typescript"],
+      "automerge": false
+    },
+    {
+      "packageNames": ["tsickle"],
+      "automerge": false
+    }
+  ]
+}

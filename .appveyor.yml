@@ -1,37 +1,20 @@
-branches:
-  only:
-    - master
-    - '/v(?:0|[1-9]\d*)(\.(?:0|[1-9]\d*))?(\.(?:0|[1-9]\d*))?(?:-[\da-z-]+(?:\.[\da-z-]+)*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?/'
-skip_non_tags: true
-clone_depth: 1
+version: '{build}'
+image: 'Visual Studio 2017'
 environment:
   nodejs_version: "10"
 install:
   - ps: Install-Product node $env:nodejs_version
-  # - set PATH=%APPDATA%\npm;%PATH%
-  - ps: |
-      if ($env:npm_auth_token)
-      {
-        iex '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
-        iex "npm whoami"
-      }
-  - yarn global add firebase-tools
-  - yarn install --frozen-lockfile --network-timeout=500000
+  - yarn install --frozen-lockfile
 build_script:
-  - yarn run lint
-  - yarn run build
-  # - yarn run test
-test: "off"
+  - yarn build
+test_script:
+  - yarn test -c=ci
+  - ps: |
+      if ($env:CODECOV_TOKEN)
+      {
+        yarn global add codecov
+        codecov --disable=gcov -f dist/coverage/ng-zawgyi-detector/lcov.info -F unit
+      }
 cache:
   - node_modules -> yarn.lock
   - "%LOCALAPPDATA%\\Yarn"
-deploy_script:
-  - ps: |
-      if ($env:firebase_token)
-      {
-        iex "firebase deploy --only hosting:ng-zawgyi-detector-demo --token $env:firebase_token"
-      }
-      if ($env:npm_auth_token)
-      {
-        iex "npm publish ./dist/packages/ng-zawgyi-detector --access=public"
-      }
