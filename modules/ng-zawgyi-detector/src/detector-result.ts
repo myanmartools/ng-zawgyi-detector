@@ -8,6 +8,9 @@ export interface DetectorMatch {
     matchedString?: string;
 }
 
+/**
+ * The ZawgyiDetector result.
+ */
 export interface DetectorResult {
     detectedEnc: DetectedEnc;
     duration: number;

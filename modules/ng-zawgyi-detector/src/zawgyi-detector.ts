@@ -77,6 +77,11 @@ export class ZawgyiDetector {
         }
     }
 
+    /**
+     * The main method to detect between Zawgyi-One and standard Myanmar Unicode.
+     * @param input Input string to detect.
+     * @returns Returns the result object.
+     */
     detect(input: string): DetectorResult {
         const startTime = +new Date();
         const result: DetectorResult = {

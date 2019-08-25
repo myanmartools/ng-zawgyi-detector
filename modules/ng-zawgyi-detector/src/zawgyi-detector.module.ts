@@ -10,12 +10,19 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { ZAWGYI_DETECTOR_OPTIONS, ZawgyiDetector, ZawgyiDetectorOptions } from './zawgyi-detector';
 
+/**
+ * The transliteration `NGMODULE` for providing `ZawgyiDetector` service.
+ */
 @NgModule({
     providers: [
         ZawgyiDetector
     ]
 })
 export class ZawgyiDetectorModule {
+    /**
+     * Provides options for configuring the `ZawgyiDetectorModule`.
+     * @param options An object of configuration options of type `ZawgyiDetectorOptions`.
+     */
     static withOptions(options: ZawgyiDetectorOptions): ModuleWithProviders {
         return {
             ngModule: ZawgyiDetectorModule,
