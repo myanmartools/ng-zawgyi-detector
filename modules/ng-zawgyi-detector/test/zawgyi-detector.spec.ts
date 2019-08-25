@@ -4,17 +4,56 @@ import { TestBed } from '@angular/core/testing';
 
 import { ZawgyiDetector } from '../src';
 
-describe('ZawgyiDetector', () => {
-    it('should be created', () => {
+describe('ZawgyiDetector#detect', () => {
+    let zawgyiDetector: ZawgyiDetector;
+
+    beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 ZawgyiDetector
             ]
         });
 
-        const zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector);
+        zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
+    });
 
-        expect(zawgyiDetector).toBeDefined();
-        expect(zawgyiDetector instanceof ZawgyiDetector).toBeTruthy();
+    it(String.raw`should detect input '\u1031\u1000' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u1031\u1000');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(2);
+        expect(result.matches[0].matchedString).toBe('\u1031\u1000');
+    });
+
+    it(String.raw`should detect input '\u103B\u1000' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u103B\u1000');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(2);
+        expect(result.matches[0].matchedString).toBe('\u103B\u1000');
+    });
+
+    it(String.raw`should detect input '\u1000\u1031' as 'uni'`, () => {
+        const result = zawgyiDetector.detect('\u1000\u1031');
+        expect(result.detectedEnc).toBe('uni');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(2);
+        expect(result.matches[0].matchedString).toBe('\u1000\u1031');
+    });
+
+    it(String.raw`should detect input '\u1000\u103C' as 'uni'`, () => {
+        const result = zawgyiDetector.detect('\u1000\u103C');
+        expect(result.detectedEnc).toBe('uni');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.25);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(2);
+        expect(result.matches[0].matchedString).toBe('\u1000\u103C');
     });
 });
