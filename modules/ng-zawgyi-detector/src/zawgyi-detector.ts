@@ -42,7 +42,9 @@ const rUniAcAf31 = '[\u102D\u102E]?[\u102F\u1030]?[\u102B\u102C]?\u103A?[\u1032\
  */
 @Injectable()
 export class ZawgyiDetector {
-    private readonly _options: ZawgyiDetectorOptions = {};
+    private readonly _options: ZawgyiDetectorOptions = {
+        includeMatchedStringInResult: true
+    };
 
     private readonly _zg31Or3bStartWOptionalSpRegExp = new RegExp(`^[${rSp}]*[\u1031${rZg3b}]+`);
     private readonly _zg31AndOptional3bStartRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*`);
