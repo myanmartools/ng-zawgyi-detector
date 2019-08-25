@@ -9,7 +9,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { ZAWGYI_DETECTOR_OPTIONS, ZawgyiDetector, ZawgyiDetectorOptions } from './zawgyi-detector';
-import { ZgUniRuleStore } from './zg-uni-rule-store';
 
 @NgModule({
     providers: [
@@ -17,21 +16,11 @@ import { ZgUniRuleStore } from './zg-uni-rule-store';
     ]
 })
 export class ZawgyiDetectorModule {
-    static forRootWithRuleStore(options: ZawgyiDetectorOptions = { shareCachedRules: true }): ModuleWithProviders {
+    static withOptions(options: ZawgyiDetectorOptions): ModuleWithProviders {
         return {
             ngModule: ZawgyiDetectorModule,
             providers: [
-                ZgUniRuleStore,
                 { provide: ZAWGYI_DETECTOR_OPTIONS, useValue: options }
-            ]
-        };
-    }
-
-    static forChildWithRuleStore(options: ZawgyiDetectorOptions = { shareCachedRules: true }): ModuleWithProviders {
-        return {
-            ngModule: ZawgyiDetectorModule,
-            providers: [
-                { provide: ZAWGYI_DETECTOR_OPTIONS, useValue: options },
             ]
         };
     }
