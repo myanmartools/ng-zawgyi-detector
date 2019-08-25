@@ -7,7 +7,7 @@
  */
 
 /**
- * Entry point for all public APIs of the `ng-translit` package.
+ * Entry point for all public APIs of the `ng-zawgyi-detector` package.
  */
 export * from './zawgyi-detector.module';
 export * from './zawgyi-detector';
