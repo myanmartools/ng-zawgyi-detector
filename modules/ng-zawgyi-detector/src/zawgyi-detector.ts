@@ -182,7 +182,11 @@ export class ZawgyiDetector {
             }
 
             if (d == null) {
-                d = this.detectZgPahsinOrCAndOptional(curStr, lastDetectedEnc);
+                d = this.detectZgPahsinAndOptional(curStr, lastDetectedEnc);
+            }
+
+            if (d == null) {
+                d = this.detectZgCAndOptional(curStr, lastDetectedEnc);
             }
 
             if (d == null) {
@@ -434,7 +438,7 @@ export class ZawgyiDetector {
         };
     }
 
-    private detectZgPahsinOrCAndOptional(curStr: string, lastDetectedEnc: DetectedEnc): DetectorMatch | null {
+    private detectZgPahsinAndOptional(curStr: string, lastDetectedEnc: DetectedEnc): DetectorMatch | null {
         let probability = 0;
         let matchedString = '';
 
@@ -455,22 +459,38 @@ export class ZawgyiDetector {
         }
 
         if (matchedString.length === 0) {
-            const m = curStr.match(this._zgCAndOptionalRegExp);
-            if (m != null) {
-                matchedString = m[0];
-                if (matchedString.length > 1 && this._zgOnlyAcRegExp.test(matchedString)) {
-                    probability = lastDetectedEnc === 'zg' ? 0.8 : 0.6;
-                } else if (matchedString.length > 2 && (this._zgOnlyAcRegExp.test(matchedString) ||
-                    this._zgOnlyAc2bOr2cCbRegExp.test(matchedString) || this._zgOnlyAc2dOr2eCbRegExp.test(matchedString) ||
-                    this._zgOnlyAc2fOr30CbRegExp.test(matchedString) || this._zgOnlyAc32Or36CbRegExp.test(matchedString) ||
-                    this._zgOnlyAc39CbRegExp.test(matchedString) || this._zgOnlyAc3ACbRegExp.test(matchedString))) {
-                    probability = lastDetectedEnc === 'zg' ? 0.8 : 0.6;
-                } else if (matchedString.length > 2) {
-                    probability = lastDetectedEnc === 'zg' ? 0.6 : 0.55;
-                } else {
-                    probability = lastDetectedEnc === 'zg' ? 0.5 : 0.3;
-                }
-            }
+            return null;
+        }
+
+        return {
+            detectedEnc: 'zg',
+            probability,
+            start: -1,
+            length: matchedString.length,
+            matchedString
+        };
+    }
+
+    private detectZgCAndOptional(curStr: string, lastDetectedEnc: DetectedEnc): DetectorMatch | null {
+        const m = curStr.match(this._zgCAndOptionalRegExp);
+        if (m == null) {
+            return null;
+        }
+
+        const matchedString = m[0];
+        let probability = 0;
+
+        if (matchedString.length > 1 && this._zgOnlyAcRegExp.test(matchedString)) {
+            probability = lastDetectedEnc === 'zg' ? 0.8 : 0.6;
+        } else if (matchedString.length > 2 && (this._zgOnlyAcRegExp.test(matchedString) ||
+            this._zgOnlyAc2bOr2cCbRegExp.test(matchedString) || this._zgOnlyAc2dOr2eCbRegExp.test(matchedString) ||
+            this._zgOnlyAc2fOr30CbRegExp.test(matchedString) || this._zgOnlyAc32Or36CbRegExp.test(matchedString) ||
+            this._zgOnlyAc39CbRegExp.test(matchedString) || this._zgOnlyAc3ACbRegExp.test(matchedString))) {
+            probability = lastDetectedEnc === 'zg' ? 0.8 : 0.6;
+        } else if (matchedString.length > 2) {
+            probability = lastDetectedEnc === 'zg' ? 0.6 : 0.55;
+        } else {
+            probability = lastDetectedEnc === 'zg' ? 0.5 : 0.3;
         }
 
         if (matchedString.length === 0) {
