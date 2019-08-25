@@ -17,6 +17,8 @@ describe('ZawgyiDetector#detect', () => {
         zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
     });
 
+    // Zawgyi detection
+    // ----------------------------------------------------------------------
     it(String.raw`should detect input '\u1031\u1000' as 'zg'`, () => {
         const result = zawgyiDetector.detect('\u1031\u1000');
         expect(result.detectedEnc).toBe('zg');
@@ -37,6 +39,28 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.matches[0].matchedString).toBe('\u103B\u1000');
     });
 
+    it(String.raw`should detect input '\u1031\u107E\u1000' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u1031\u107E\u1000');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(3);
+        expect(result.matches[0].matchedString).toBe('\u1031\u107E\u1000');
+    });
+
+    it(String.raw`should detect input ' \u1031 \u107E \u1000' as 'zg'`, () => {
+        const result = zawgyiDetector.detect(' \u1031 \u107E \u1000');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(6);
+        expect(result.matches[0].matchedString).toBe(' \u1031 \u107E \u1000');
+    });
+
+    // Unicode detection
+    // ----------------------------------------------------------------------
     it(String.raw`should detect input '\u1000\u1031' as 'uni'`, () => {
         const result = zawgyiDetector.detect('\u1000\u1031');
         expect(result.detectedEnc).toBe('uni');
