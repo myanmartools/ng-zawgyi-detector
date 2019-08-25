@@ -1,3 +1,3 @@
-# Zawgyi / Myanmar Unicode Detector for Angular
+# Zawgyi and Standard Myanmar Unicode Detector for Angular
 
 WIP
