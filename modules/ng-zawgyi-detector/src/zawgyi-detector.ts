@@ -115,7 +115,7 @@ export class ZawgyiDetector {
 
                 if (ud != null && zd != null) {
                     d = zd.probability > ud.probability ? zd : ud;
-                } if (ud != null) {
+                } else if (ud != null) {
                     d = ud;
                 } else if (zd != null) {
                     d = zd;
@@ -186,7 +186,7 @@ export class ZawgyiDetector {
             }
 
             if (d == null) {
-                d = this.detectZgCAndOptional(curStr, lastDetectedEnc);
+                d = this.detectZgCAndOptionalMax(curStr, lastDetectedEnc, matchedString);
             }
 
             if (d == null) {
@@ -217,6 +217,47 @@ export class ZawgyiDetector {
 
         if (!matchedString.length) {
             return null;
+        }
+
+        const probability = totoalMatchedCount > 0 ? probabilitySum / totoalMatchedCount : 0;
+
+        return {
+            detectedEnc: 'zg',
+            probability,
+            start: -1,
+            length: matchedString.length,
+            matchedString
+        };
+    }
+
+    private detectZgMin(curStr: string, lastMatchedStr: string): DetectorMatch {
+        let matchedString = '';
+        let probabilitySum = 0;
+        let totoalMatchedCount = 0;
+
+        while (curStr.length > 0) {
+            let d = this.detectZg31Start(curStr, 'zg', lastMatchedStr + matchedString);
+
+            if (d == null) {
+                d = this.detectZg3bStart(curStr, 'zg', lastMatchedStr + matchedString);
+            }
+
+            if (d == null) {
+                d = this.detectZgPahsinAndOptional(curStr, 'zg');
+            }
+
+            if (d == null) {
+                d = this.detectZgCAndOptionalMin(curStr);
+            }
+
+            if (d == null || !d.matchedString) {
+                break;
+            }
+
+            matchedString += d.matchedString;
+            curStr = curStr.substring(d.matchedString.length);
+            probabilitySum += d.probability;
+            ++totoalMatchedCount;
         }
 
         const probability = totoalMatchedCount > 0 ? probabilitySum / totoalMatchedCount : 0;
@@ -262,6 +303,57 @@ export class ZawgyiDetector {
                 } else {
                     d = this.detectOutsideUnicodeBlock(curStr);
                 }
+            }
+
+            if (d == null || !d.matchedString) {
+                break;
+            }
+
+            matchedString += d.matchedString;
+            lastDetectedEnc = d.detectedEnc;
+            curStr = curStr.substring(d.matchedString.length);
+
+            if (d.probability > 0) {
+                probabilitySum += d.probability;
+                ++totoalMatchedCount;
+            }
+        }
+
+        if (!matchedString.length) {
+            return null;
+        }
+
+        const probability = totoalMatchedCount > 0 ? probabilitySum / totoalMatchedCount : 0;
+
+        return {
+            detectedEnc: 'uni',
+            probability,
+            start: -1,
+            length: matchedString.length,
+            matchedString
+        };
+    }
+
+    private detectUniMin(curStr: string, lastDetectedEnc: DetectedEnc, lastMatchedStr: string): DetectorMatch | null {
+        let matchedString = '';
+        let probabilitySum = 0;
+        let totoalMatchedCount = 0;
+
+        while (curStr.length > 0) {
+            let d: DetectorMatch | null = null;
+
+            d = this.detectUniKinsi(curStr, lastDetectedEnc);
+
+            if (d == null) {
+                d = this.detectUniPahsin(curStr, lastDetectedEnc, lastMatchedStr + matchedString);
+            }
+
+            if (d == null) {
+                d = this.detectUniCAndOptional(curStr, lastDetectedEnc);
+            }
+
+            if (d == null) {
+                d = this.detectUniOnlyCodePoints(curStr);
             }
 
             if (d == null || !d.matchedString) {
@@ -471,7 +563,7 @@ export class ZawgyiDetector {
         };
     }
 
-    private detectZgCAndOptional(curStr: string, lastDetectedEnc: DetectedEnc): DetectorMatch | null {
+    private detectZgCAndOptionalMax(curStr: string, lastDetectedEnc: DetectedEnc, lastMatchedStr: string): DetectorMatch | null {
         const m = curStr.match(this._zgCAndOptionalRegExp);
         if (m == null) {
             return null;
@@ -487,10 +579,59 @@ export class ZawgyiDetector {
             this._zgOnlyAc2fOr30CbRegExp.test(matchedString) || this._zgOnlyAc32Or36CbRegExp.test(matchedString) ||
             this._zgOnlyAc39CbRegExp.test(matchedString) || this._zgOnlyAc3ACbRegExp.test(matchedString))) {
             probability = lastDetectedEnc === 'zg' ? 0.8 : 0.6;
-        } else if (matchedString.length > 2) {
-            probability = lastDetectedEnc === 'zg' ? 0.6 : 0.55;
         } else {
-            probability = lastDetectedEnc === 'zg' ? 0.5 : 0.3;
+            if (lastDetectedEnc !== 'zg') {
+                const ud = this.detectUniMin(curStr, lastDetectedEnc, lastMatchedStr);
+                if (ud != null) {
+                    const zd = this.detectZgMin(curStr, lastMatchedStr);
+                    if (ud.probability > zd.probability) {
+                        return null;
+                    }
+                }
+            }
+
+            if (matchedString.length > 2) {
+                probability = lastDetectedEnc === 'zg' ? 0.6 : 0.55;
+            } else {
+                probability = lastDetectedEnc === 'zg' ? 0.5 : 0.3;
+            }
+        }
+
+        if (matchedString.length === 0) {
+            return null;
+        }
+
+        return {
+            detectedEnc: 'zg',
+            probability,
+            start: -1,
+            length: matchedString.length,
+            matchedString
+        };
+    }
+
+    private detectZgCAndOptionalMin(curStr: string): DetectorMatch | null {
+        const m = curStr.match(this._zgCAndOptionalRegExp);
+        if (m == null) {
+            return null;
+        }
+
+        const matchedString = m[0];
+        let probability = 0;
+
+        if (matchedString.length > 1 && this._zgOnlyAcRegExp.test(matchedString)) {
+            probability = 0.8;
+        } else if (matchedString.length > 2 && (this._zgOnlyAcRegExp.test(matchedString) ||
+            this._zgOnlyAc2bOr2cCbRegExp.test(matchedString) || this._zgOnlyAc2dOr2eCbRegExp.test(matchedString) ||
+            this._zgOnlyAc2fOr30CbRegExp.test(matchedString) || this._zgOnlyAc32Or36CbRegExp.test(matchedString) ||
+            this._zgOnlyAc39CbRegExp.test(matchedString) || this._zgOnlyAc3ACbRegExp.test(matchedString))) {
+            probability = 0.8;
+        } else {
+            if (matchedString.length > 2) {
+                probability = 0.6;
+            } else {
+                probability = 0.5;
+            }
         }
 
         if (matchedString.length === 0) {
