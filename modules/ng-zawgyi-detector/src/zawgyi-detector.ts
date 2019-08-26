@@ -68,6 +68,8 @@ export class ZawgyiDetector {
     private readonly _zgOnlyAc39CbRegExp = new RegExp('\u1039[\u102B\u102C\u1037]');
     private readonly _zgOnlyAc3ACbRegExp = new RegExp('\u103A[\u102D\u102E\u1032\u1036\u1039]');
 
+    private readonly _zgAllAcAfCRegExp = new RegExp(`^[${rZgAcAfC}${rZgAcKsAfC}]`);
+
     private readonly _uniKsAndPsRegExp = new RegExp(`^\u1004\u103A\u1039[${rUniPsUpC}]\u1039[${rUniPsLoC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31}`);
     private readonly _uniKsAndCRegExp = new RegExp(`^\u1004\u103A\u1039[${rUniC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31}`);
     private readonly _uniPsRegExp = new RegExp(`^[${rUniPsUpC}]\u1039[${rUniPsLoC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31}`);
@@ -593,10 +595,10 @@ export class ZawgyiDetector {
 
         if (matchedString.length > 1 && this._zgOnlyAcRegExp.test(matchedString)) {
             probability = lastDetectedEnc === 'zg' ? 0.8 : 0.6;
-        } else if (matchedString.length > 2 && (this._zgOnlyAcRegExp.test(matchedString) ||
-            this._zgOnlyAc2bOr2cCbRegExp.test(matchedString) || this._zgOnlyAc2dOr2eCbRegExp.test(matchedString) ||
-            this._zgOnlyAc2fOr30CbRegExp.test(matchedString) || this._zgOnlyAc32Or36CbRegExp.test(matchedString) ||
-            this._zgOnlyAc39CbRegExp.test(matchedString) || this._zgOnlyAc3ACbRegExp.test(matchedString))) {
+        } else if (matchedString.length > 2 && (this._zgOnlyAc2bOr2cCbRegExp.test(matchedString) ||
+            this._zgOnlyAc2dOr2eCbRegExp.test(matchedString) || this._zgOnlyAc2fOr30CbRegExp.test(matchedString) ||
+            this._zgOnlyAc32Or36CbRegExp.test(matchedString) || this._zgOnlyAc39CbRegExp.test(matchedString) ||
+            this._zgOnlyAc3ACbRegExp.test(matchedString))) {
             probability = lastDetectedEnc === 'zg' ? 0.8 : 0.6;
         } else {
             if (lastDetectedEnc !== 'zg' && lastMatchedStr.length > 0 &&
@@ -645,10 +647,10 @@ export class ZawgyiDetector {
 
         if (matchedString.length > 1 && this._zgOnlyAcRegExp.test(matchedString)) {
             probability = 0.8;
-        } else if (matchedString.length > 2 && (this._zgOnlyAcRegExp.test(matchedString) ||
-            this._zgOnlyAc2bOr2cCbRegExp.test(matchedString) || this._zgOnlyAc2dOr2eCbRegExp.test(matchedString) ||
-            this._zgOnlyAc2fOr30CbRegExp.test(matchedString) || this._zgOnlyAc32Or36CbRegExp.test(matchedString) ||
-            this._zgOnlyAc39CbRegExp.test(matchedString) || this._zgOnlyAc3ACbRegExp.test(matchedString))) {
+        } else if (matchedString.length > 2 && (this._zgOnlyAc2bOr2cCbRegExp.test(matchedString) ||
+            this._zgOnlyAc2dOr2eCbRegExp.test(matchedString) || this._zgOnlyAc2fOr30CbRegExp.test(matchedString) ||
+            this._zgOnlyAc32Or36CbRegExp.test(matchedString) || this._zgOnlyAc39CbRegExp.test(matchedString) ||
+            this._zgOnlyAc3ACbRegExp.test(matchedString))) {
             probability = 0.8;
         } else {
             if (matchedString.length > 2) {
@@ -801,16 +803,32 @@ export class ZawgyiDetector {
         }
 
         const matchedString = m[0];
+
         let probability = lastDetectedEnc === 'uni' ? 0.5 : 0.3;
+        const uniCNotInZg = this._uniCNotInZgRegExp.test(matchedString);
 
-        const notInZg = this._uniCNotInZgRegExp.test(matchedString);
-
-        if (notInZg) {
+        if (uniCNotInZg) {
             probability = lastDetectedEnc === 'uni' ? 0.8 : 0.7;
-        } else if (matchedString.length > 1 && matchedString.includes('\u1031') || matchedString.includes('\u103B')) {
-            probability = lastDetectedEnc === 'uni' ? 0.7 : 0.6;
-        } else if (lastDetectedEnc === 'uni' && matchedString.length > 1) {
-            probability = 0.55;
+        } else {
+            if (matchedString.length === 1 && curStr.length > 1) {
+                const zgAcStr = this.getZgAcAfC(curStr.substring(1));
+                if (zgAcStr.length > 0) {
+                    const testStr = `${matchedString}${zgAcStr}`;
+
+                    if (this._zgOnlyAcRegExp.test(testStr) || this._zgOnlyAc2bOr2cCbRegExp.test(testStr) ||
+                        this._zgOnlyAc2dOr2eCbRegExp.test(testStr) || this._zgOnlyAc2fOr30CbRegExp.test(testStr) ||
+                        this._zgOnlyAc32Or36CbRegExp.test(testStr) || this._zgOnlyAc39CbRegExp.test(testStr) ||
+                        this._zgOnlyAc3ACbRegExp.test(testStr)) {
+                        return null;
+                    }
+                }
+            }
+
+            if (matchedString.length > 1 && matchedString.includes('\u1031') || matchedString.includes('\u103B')) {
+                probability = lastDetectedEnc === 'uni' ? 0.7 : 0.6;
+            } else if (lastDetectedEnc === 'uni' && matchedString.length > 1) {
+                probability = 0.55;
+            }
         }
 
         return {
@@ -933,5 +951,19 @@ export class ZawgyiDetector {
             length: matchedString.length,
             matchedString
         };
+    }
+
+    private getZgAcAfC(curStr: string): string {
+        let str = '';
+
+        for (const c of curStr) {
+            if (this._zgAllAcAfCRegExp.test(c)) {
+                str += c;
+            } else {
+                break;
+            }
+        }
+
+        return str;
     }
 }
