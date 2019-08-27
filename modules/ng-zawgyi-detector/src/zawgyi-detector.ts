@@ -817,14 +817,24 @@ export class ZawgyiDetector {
             return null;
         }
 
-        const matchedString = m[0];
+        let matchedString = m[0];
+
         if (!this._uniPsLeftEndRegExp.test(lastMatchedStr)) {
             return null;
         }
 
+        let d = this.detectUniC312cC3a(curStr, lastDetectedEnc, lastMatchedStr);
+        if (d === null) {
+            d = this.detectUniCC3a(curStr, lastDetectedEnc, lastMatchedStr);
+        }
+
+        if (d != null && d.matchedString) {
+            matchedString = d.matchedString;
+        }
+
         return {
             detectedEnc: 'uni',
-            probability: 0.6,
+            probability: d != null ? 0.9 : 0.6,
             start: -1,
             length: matchedString.length,
             matchedString
