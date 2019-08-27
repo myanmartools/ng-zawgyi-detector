@@ -73,8 +73,7 @@ export class ZawgyiDetector {
     private readonly _zgAllAcAfCRegExp = new RegExp(`^[${rZgAcAfC}${rZgAcKsAfC}]`);
     private readonly _zgAllAcAnd60To97RegExp = new RegExp('^[\u102B-\u103E\u105A\u1060-\u1097]');
 
-    // private readonly _uniC3aCbRegExp = /$/;
-
+    // Uni
     private readonly _uniKsAndPsRegExp = new RegExp(`^\u1004\u103A\u1039[${rUniPsUpC}]\u1039[${rUniPsLoC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31}`);
     private readonly _uniKsAndCRegExp = new RegExp(`^\u1004\u103A\u1039[${rUniC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31}`);
     private readonly _uniPsRegExp = new RegExp(`^[${rUniPsUpC}]\u1039[${rUniPsLoC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31}`);
@@ -84,7 +83,10 @@ export class ZawgyiDetector {
     private readonly _uniCNotInZgRegExp = new RegExp('[\u1022\u1028\u1035\u103E\u103F]');
 
     private readonly _uniCC3aRegExp = new RegExp(`^[${rUniC1Bf3a}][\u103B\u103C]?[\u103D\u103E]?[\u102D\u102E]?[\u102F\u1030]?[${rUniC2Bf3a}]\u103A[\u1037\u1038]?`);
+    private readonly _uniPsC3aRegExp = new RegExp(`^[${rUniPsUpC}]\u1039[${rUniC1Bf3a}][\u103B\u103C]?[\u103D\u103E]?[\u102D\u102E]?[\u102F\u1030]?[${rUniC2Bf3a}]\u103A[\u1037\u1038]?`);
+
     private readonly _uniC312cC3aRegExp = new RegExp(`^[${rUniC1Bf3a}][\u103B\u103C]?\u103E?\u1031[\u102B\u102C][${rUniC2Bf3a}]\u103A[\u1037\u1038]?`);
+    private readonly _uniPs312cC3aRegExp = new RegExp(`^[${rUniPsUpC}]\u1039[${rUniC1Bf3a}][\u103B\u103C]?\u103E?\u1031[\u102B\u102C][${rUniC2Bf3a}]\u103A[\u1037\u1038]?`);
 
     constructor(@Optional() @Inject(ZAWGYI_DETECTOR_OPTIONS) options?: ZawgyiDetectorOptions) {
         if (options) {
@@ -730,7 +732,7 @@ export class ZawgyiDetector {
         let probability = 0;
 
         if (curStr.length === 3) {
-            probability = lastMatchedStr.length === 0 ? 0.7 : lastDetectedEnc === 'uni' ? 0.6 : 0.5;
+            probability = lastMatchedStr.length === 0 ? 0.7 : lastDetectedEnc === 'uni' ? 0.6 : 0.55;
 
             return {
                 detectedEnc: 'uni',
@@ -744,12 +746,12 @@ export class ZawgyiDetector {
         let m: RegExpMatchArray | null = null;
 
         if (curStr.length >= 6 && curStr[4] === '\u1039') {
-            // Kinsi + Pahsin + (Optional)
+            // Kinsi + Pahsin
             m = curStr.match(this._uniKsAndPsRegExp);
         }
 
         if (m == null) {
-            // Kinsi + C + (Optional)
+            // Kinsi + C
             m = curStr.match(this._uniKsAndCRegExp);
         }
 
@@ -757,19 +759,38 @@ export class ZawgyiDetector {
             return null;
         }
 
-        const matchedString = m[0];
+        let matchedString = m[0];
+
+        // Check 312c3a
+        const test3aStr = curStr.substring(3);
+        let d = this.detectUniC312cC3a(test3aStr, lastDetectedEnc, `${lastMatchedStr}\u1004\u103A\u1039`);
+        if (d === null) {
+            d = this.detectUniCC3a(test3aStr, lastDetectedEnc, `${lastMatchedStr}\u1004\u103A\u1039`);
+        }
+
+        if (d != null && d.matchedString) {
+            matchedString = `\u1004\u103A\u1039${d.matchedString}`;
+        }
 
         if (lastMatchedStr.length === 0 && matchedString.length === curStr.length) {
-            probability = 0.8;
+            probability = d != null ? 0.8 : 0.7;
         } else if (matchedString.length === curStr.length) {
-            probability = lastDetectedEnc === 'uni' ? 0.75 : 0.5;
-        } else {
-            const testStr = curStr.substring(matchedString.length);
-            if (testStr.length > 0 && this._zgAllAcAnd60To97RegExp.test(testStr)) {
-                return null;
+            if (d != null) {
+                probability = lastDetectedEnc === 'uni' ? 0.9 : 0.8;
+            } else {
+                probability = lastDetectedEnc === 'uni' ? 0.8 : 0.7;
             }
+        } else {
+            if (d != null) {
+                probability = lastDetectedEnc === 'uni' ? 0.9 : 0.8;
+            } else {
+                const testStr = curStr.substring(matchedString.length);
+                if (testStr.length > 0 && this._zgAllAcAnd60To97RegExp.test(testStr)) {
+                    return null;
+                }
 
-            probability = lastDetectedEnc === 'uni' ? 0.55 : 0.5;
+                probability = lastDetectedEnc === 'uni' ? 0.65 : 0.55;
+            }
         }
 
         return {
@@ -815,8 +836,11 @@ export class ZawgyiDetector {
             return null;
         }
 
+        const iStart = curStr[1] === '\u1039' ? 3 : 1;
+        const iLen = iStart + 3;
         let pos31 = 0;
-        for (let i = 1; i < 4; i++) {
+
+        for (let i = iStart; i < iLen; i++) {
             if (curStr[i] === '\u1031') {
                 pos31 = i;
                 break;
@@ -827,7 +851,7 @@ export class ZawgyiDetector {
             return null;
         }
 
-        const m = curStr.match(this._uniC312cC3aRegExp);
+        const m = curStr[1] === '\u1039' ? curStr.match(this._uniPs312cC3aRegExp) : curStr.match(this._uniC312cC3aRegExp);
         if (m == null) {
             return null;
         }
@@ -849,10 +873,11 @@ export class ZawgyiDetector {
             return null;
         }
 
-        const maxLenTo3a = curStr.length > 7 ? 7 : curStr.length;
+        const iStart = curStr[1] === '\u1039' ? 4 : 2;
+        const iLen = curStr.length > iStart + 5 ? iStart + 5 : curStr.length;
         let pos3a = 0;
 
-        for (let i = 1; i < maxLenTo3a; i++) {
+        for (let i = iStart; i < iLen; i++) {
             if (curStr[i] === '\u103A') {
                 pos3a = i;
                 break;
@@ -863,7 +888,8 @@ export class ZawgyiDetector {
             return null;
         }
 
-        const m = curStr.match(this._uniCC3aRegExp);
+        const m = curStr[1] === '\u1039' ? curStr.match(this._uniPsC3aRegExp) : curStr.match(this._uniCC3aRegExp);
+
         if (m == null) {
             return null;
         }
@@ -885,7 +911,7 @@ export class ZawgyiDetector {
                     return null;
                 }
 
-                probability = lastDetectedEnc === 'uni' ? 0.5 : 0.3;
+                probability = lastDetectedEnc === 'uni' ? 0.525 : 0.5;
             }
         }
 
