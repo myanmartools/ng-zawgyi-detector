@@ -86,7 +86,7 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(0.55);
+        expect(result.matches[0].probability).toBe(0.5);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(1);
         expect(result.matches[0].matchedString).toBe('က');
@@ -98,10 +98,46 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(0.505);
+        expect(result.matches[0].probability).toBe(0.5);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(2);
         expect(result.matches[0].matchedString).toBe('ကက');
+    });
+
+    // Uni char (3)
+    it(String.raw`should detect input 'ကွ' as 'uni'`, () => {
+        const result = zawgyiDetector.detect('ကွ');
+        expect(result.detectedEnc).toBe('uni');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('uni');
+        expect(result.matches[0].probability).toBe(0.5);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(2);
+        expect(result.matches[0].matchedString).toBe('ကွ');
+    });
+
+    // Uni char (4)
+    it(String.raw`should detect input 'ကိကွ' as 'uni'`, () => {
+        const result = zawgyiDetector.detect('ကိကွ');
+        expect(result.detectedEnc).toBe('uni');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('uni');
+        expect(result.matches[0].probability).toBe(0.505);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(4);
+        expect(result.matches[0].matchedString).toBe('ကိကွ');
+    });
+
+    // Uni char (5)
+    it(String.raw`should detect input 'ကိကွိ' as 'uni'`, () => {
+        const result = zawgyiDetector.detect('ကိကွိ');
+        expect(result.detectedEnc).toBe('uni');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('uni');
+        expect(result.matches[0].probability).toBe(0.51);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(5);
+        expect(result.matches[0].matchedString).toBe('ကိကွိ');
     });
 
     // Uni char + [\u1031\u103B] (1)
@@ -122,22 +158,10 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(0.7);
+        expect(result.matches[0].probability).toBe(0.675);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(4);
         expect(result.matches[0].matchedString).toBe('ကေကျ');
-    });
-
-    // Uni char + [\u1031\u103B] (3)
-    it(String.raw`should detect input 'ကကျ' as 'uni'`, () => {
-        const result = zawgyiDetector.detect('ကကျ');
-        expect(result.detectedEnc).toBe('uni');
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(0.675);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(3);
-        expect(result.matches[0].matchedString).toBe('ကကျ');
     });
 
     // Uni char + char + \u103A (1)
@@ -194,7 +218,7 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(0.55);
+        expect(result.matches[0].probability).toBe(0.54);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(3);
         expect(result.matches[0].matchedString).toBe('ခင်');
@@ -206,7 +230,7 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.51);
+        expect(result.matches[0].probability).toBe(0.51);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(4);
         expect(result.matches[0].matchedString).toBe('ကခင်');
@@ -218,7 +242,7 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.505);
+        expect(result.matches[0].probability).toBe(0.5);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(4);
         expect(result.matches[0].matchedString).toBe('ခင်က');
@@ -266,19 +290,19 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.725);
+        expect(result.matches[0].probability).toBe(0.7);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(4);
         expect(result.matches[0].matchedString).toBe('ကဏ္ဍ');
     });
 
-    // Pahsin (2)
+    // // Pahsin (2)
     it(String.raw`should detect input 'ပစ္ဆေ' as 'uni'`, () => {
         const result = zawgyiDetector.detect('ပစ္ဆေ');
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.725);
+        expect(result.matches[0].probability).toBe(0.7);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(5);
         expect(result.matches[0].matchedString).toBe('ပစ္ဆေ');
@@ -290,7 +314,7 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7375);
+        expect(result.matches[0].probability).toBe(0.7);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(7);
         expect(result.matches[0].matchedString).toBe('ပဉ္စင်း');
@@ -302,7 +326,7 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7375);
+        expect(result.matches[0].probability).toBe(0.51);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(8);
         expect(result.matches[0].matchedString).toBe('ပစ္ဆောင်');
@@ -314,7 +338,7 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.6);
+        expect(result.matches[0].probability).toBe(0.6);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(3);
         expect(result.matches[0].matchedString).toBe('င်္');
@@ -326,19 +350,19 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.65);
+        expect(result.matches[0].probability).toBe(0.65);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(6);
         expect(result.matches[0].matchedString).toBe('အင်္ဂါ');
     });
 
-    // Kinsi (3)
+    // // Kinsi (3)
     it(String.raw`should detect input 'သင်္ကန်း' as 'uni'`, () => {
         const result = zawgyiDetector.detect('သင်္ကန်း');
         expect(result.detectedEnc).toBe('uni');
         expect(result.matches.length).toBe(1);
         expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.675);
+        expect(result.matches[0].probability).toBe(0.675);
         expect(result.matches[0].start).toBe(0);
         expect(result.matches[0].length).toBe(8);
         expect(result.matches[0].matchedString).toBe('သင်္ကန်း');
