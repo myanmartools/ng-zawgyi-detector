@@ -89,6 +89,7 @@ export class ZawgyiDetector {
     private readonly _zgOnlyAc37CbRegExp = new RegExp('\u1037[\u102D\u102E\u1032\u1036\u1039\u103C\u103D]');
     private readonly _zgOnlyAc39CbRegExp = new RegExp('\u1039[\u102B\u102C\u102F\u1030\u1037\u1038\u103A\u103C\u103D]');
     private readonly _zgOnlyAc3ACbRegExp = new RegExp('\u103A[\u102B-\u102E\u1032-\u1034\u1036\u1039\u103C\u103D]');
+    private readonly _zgNotWith3aRegExp = new RegExp('[\u1003\u1004\u1006-\u1014\u1018\u101B\u101F-\u1021\u1023-\u1027\u1029\u102A]');
 
     // Uni
     private readonly _uniKsAndPsRegExp = new RegExp(`^\u1004\u103A\u1039[${rUniPsUpC}]\u1039[${rUniPsLoC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31}`);
@@ -118,6 +119,7 @@ export class ZawgyiDetector {
     private readonly _pUniKs75 = 0.75;
     private readonly _pUniKs70 = 0.7;
     private readonly _pUniKs65 = 0.65;
+    private readonly _pUniKs60 = 0.6;
     private readonly _pUniKs55 = 0.55;
     private readonly _pUniKs53 = 0.53;
     private readonly _pUniKs51 = 0.51;
@@ -142,12 +144,12 @@ export class ZawgyiDetector {
 
     private readonly _pCMax = 1;
     private readonly _pC85 = 0.85;
-    private readonly _pC55 = 0.55;
     private readonly _pC54 = 0.54;
     private readonly _pC53 = 0.53;
     private readonly _pC52 = 0.52;
     private readonly _pC51 = 0.51;
     private readonly _pC50 = 0.5;
+    private readonly _pC10 = 0.1;
 
     constructor(@Optional() @Inject(ZAWGYI_DETECTOR_OPTIONS) options?: ZawgyiDetectorOptions) {
         if (options) {
@@ -582,6 +584,11 @@ export class ZawgyiDetector {
 
         if (curMatchedStr.length > 1 && this._zgOnlyAcRegExp.test(curMatchedStr)) {
             probability = this._pCMax;
+
+        } else if (curMatchedStr.includes('\u103A')) {
+            probability = this._zgNotWith3aRegExp.test(curMatchedStr) ? this._pC10 : this._pC50;
+        } else if (curMatchedStr.includes('\u1039')) {
+            probability = this._pC50;
         } else if (curMatchedStr.length > 2 && (this._zgOnlyAc2bOr2cCbRegExp.test(curMatchedStr) ||
             this._zgOnlyAc2dOr2eCbRegExp.test(curMatchedStr) || this._zgOnlyAc2fOr30CbRegExp.test(curMatchedStr) ||
             this._zgOnlyAc32Or36CbRegExp.test(curMatchedStr) || this._zgOnlyAc39CbRegExp.test(curMatchedStr) ||
@@ -595,12 +602,12 @@ export class ZawgyiDetector {
         } else {
             if (lastEnc === 'zg') {
                 if (hasGreatProb) {
-                    probability = curMatchedStr.length > 2 ? this._pC55 : curMatchedStr.length > 1 ? this._pC54 : this._pC51;
+                    probability = curMatchedStr.length > 2 ? this._pC54 : curMatchedStr.length > 1 ? this._pC53 : this._pC52;
                 } else {
-                    probability = curMatchedStr.length > 2 ? this._pC53 : curMatchedStr.length > 1 ? this._pC52 : this._pC50;
+                    probability = curMatchedStr.length > 2 ? this._pC52 : curMatchedStr.length > 1 ? this._pC51 : this._pC50;
                 }
             } else {
-                probability = hasGreatProb ? this._pC51 : this._pC50;
+                probability = this._pC50;
             }
         }
 
@@ -740,7 +747,7 @@ export class ZawgyiDetector {
         let probability: number;
 
         if (curStr.length === 3) {
-            probability = matchedStr.length === 0 || lastEnc == null ? this._pUniKs55 : lastEnc === 'uni' ? this._pUniKs53 : this._pUniKs51;
+            probability = matchedStr.length === 0 || lastEnc == null ? this._pUniKs60 : lastEnc === 'uni' ? this._pUniKs53 : this._pUniKs51;
 
             return {
                 detectedEnc: 'uni',
@@ -929,9 +936,9 @@ export class ZawgyiDetector {
             } else {
                 if (lastEnc === 'uni') {
                     if (hasGreatProb) {
-                        probability = curMatchedStr.length > 2 ? this._pC55 : curMatchedStr.length > 1 ? this._pC54 : this._pC52;
+                        probability = curMatchedStr.length > 2 ? this._pC54 : curMatchedStr.length > 1 ? this._pC53 : this._pC52;
                     } else {
-                        probability = curMatchedStr.length > 2 ? this._pC53 : curMatchedStr.length > 1 ? this._pC52 : this._pC51;
+                        probability = curMatchedStr.length > 2 ? this._pC52 : curMatchedStr.length > 1 ? this._pC51 : this._pC50;
                     }
                 } else {
                     probability = this._pC50;
