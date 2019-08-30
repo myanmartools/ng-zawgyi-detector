@@ -79,8 +79,6 @@ export class ZawgyiDetector {
     private readonly _zgCAndOptionalRegExp = new RegExp(`^${rZgCAndOpG}`);
     private readonly _zgCAndAThatRegExp = new RegExp(`^${rZgCAndAThat}`);
 
-    private readonly _zgPsLeftEndRegExp = new RegExp(`[${rZgUpC}][\u102B\u102C\u102D\u102F\u1033\u103A\u103C\u103D]?[]?[${rSp}]*$`);
-
     private readonly _zgOnlyAcRegExp = new RegExp(`[${rZgAcKsAfC}\u1033\u1034\u105A\u107D\u1087-\u108E\u1094\u1095]`);
     private readonly _zgOnlyAc2bOr2cCbRegExp = new RegExp('[\u102B\u102C]\u1039');
     private readonly _zgOnlyAc2dOr2eCbRegExp = new RegExp('[\u102D\u102E][\u1033\u1034\u103A\u103C\u103D]');
@@ -495,13 +493,9 @@ export class ZawgyiDetector {
         lastEnc: DetectedEnc,
         matchedStr: string,
         hasGreatProb: boolean): DetectorMatch | null {
-        if (!matchedStr.length || !this._zgPsLeftEndRegExp.test(matchedStr)) {
-            return null;
-        }
-
         let m: RegExpMatchArray | null = null;
 
-        if (curStr.length >= 2) {
+        if (curStr.length > 1) {
             m = curStr.match(this._zgPahsinDbRegExp);
         }
 
@@ -526,10 +520,11 @@ export class ZawgyiDetector {
         }
 
         let probability: number;
-        if (lastEnc === 'zg') {
+        if (lastEnc === 'zg' || hasGreatProb || matchedStr.length === 0 ||
+            lastEnc == null || curMatchedStr.length === curStr.trim().length) {
             probability = this._pZgPsMax;
         } else {
-            probability = hasGreatProb ? this._pZgPsMax : this._pZgPs95;
+            probability = this._pZgPs95;
         }
 
         return {
@@ -582,7 +577,16 @@ export class ZawgyiDetector {
 
         let probability: number;
 
-        if (curMatchedStr.length > 1 && this._zgOnlyAcRegExp.test(curMatchedStr)) {
+        const c = curMatchedStr[0];
+
+        if (c === '\u104E' || c === '\u106A' || c === '\u106B' || c === '\u1086' || c === '\u108F' || c === '\u1090') {
+            if (lastEnc === 'zg' || hasGreatProb || matchedStr.length === 0 ||
+                lastEnc == null || curMatchedStr.length === curStr.trim().length) {
+                probability = this._pCMax;
+            } else {
+                probability = this._pC85;
+            }
+        } else if (curMatchedStr.length > 1 && this._zgOnlyAcRegExp.test(curMatchedStr)) {
             probability = this._pCMax;
 
         } else if (curMatchedStr.includes('\u103A')) {
