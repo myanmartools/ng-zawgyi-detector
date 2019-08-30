@@ -1,5 +1,3 @@
-// This file is required by karma.conf.js and loads recursively all the .spec and framework files
-
 // tslint:disable: no-implicit-dependencies no-import-side-effect
 
 import 'zone.js/dist/zone';
@@ -24,7 +22,7 @@ getTestBed().initTestEnvironment(
 
 // Then we find all the tests.
 // tslint:disable-next-line: no-unsafe-any
-const context = require.context('./', true, /\.spec\.ts$/);
+const context = require.context('./', true, /zg-c\.spec\.ts$/);
 
 // And load the modules.
 // tslint:disable-next-line: no-unsafe-any

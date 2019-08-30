@@ -4,7 +4,9 @@ import { TestBed } from '@angular/core/testing';
 
 import { ZawgyiDetector } from '../src';
 
-describe('ZawgyiDetector#detect#unic', () => {
+import { toFailOutput } from './shared.spec';
+
+describe('ZawgyiDetector#detect#uni-c', () => {
     let zawgyiDetector: ZawgyiDetector;
 
     beforeEach(() => {
@@ -19,74 +21,80 @@ describe('ZawgyiDetector#detect#unic', () => {
 
     // Uni only code points
     it(String.raw`should detect input 'ꩠꩿꧠꧾ' as 'uni'`, () => {
-        const result = zawgyiDetector.detect('ꩠꩿꧠꧾ');
-        expect(result.detectedEnc).toBe('uni');
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(1);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(4);
-        expect(result.matches[0].matchedString).toBe('ꩠꩿꧠꧾ');
+        const input = 'ꩠꩿꧠꧾ';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches[0].probability).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
-    // Uni only char (1)
+    // Uni only char
     it(String.raw`should detect input 'ဿ' as 'uni'`, () => {
-        const result = zawgyiDetector.detect('ဿ');
-        expect(result.detectedEnc).toBe('uni');
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(1);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(1);
-        expect(result.matches[0].matchedString).toBe('ဿ');
+        const input = 'ဿ';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches[0].probability).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
-    // Uni only char + Ac (2)
+    // Uni only char + Ac
     it(String.raw`should detect input 'ဿာ' as 'uni'`, () => {
-        const result = zawgyiDetector.detect('ဿာ');
-        expect(result.detectedEnc).toBe('uni');
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(1);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(2);
-        expect(result.matches[0].matchedString).toBe('ဿာ');
+        const input = 'ဿာ';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches[0].probability).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // Uni char (1)
     it(String.raw`should detect input 'က' as 'uni'`, () => {
-        const result = zawgyiDetector.detect('က');
-        expect(result.detectedEnc).toBe('uni');
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(0.5);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(1);
-        expect(result.matches[0].matchedString).toBe('က');
+        const input = 'က';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches[0].probability).toBe(0.5, toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // Uni char (2)
     it(String.raw`should detect input 'ကက' as 'uni'`, () => {
-        const result = zawgyiDetector.detect('ကက');
-        expect(result.detectedEnc).toBe('uni');
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(0.5);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(2);
-        expect(result.matches[0].matchedString).toBe('ကက');
+        const input = 'ကက';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches[0].probability).toBe(0.5, toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // Uni char (3)
     it(String.raw`should detect input 'ကွ' as 'uni'`, () => {
-        const result = zawgyiDetector.detect('ကွ');
-        expect(result.detectedEnc).toBe('uni');
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(0.5);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(2);
-        expect(result.matches[0].matchedString).toBe('ကွ');
+        const input = 'ကွ';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches[0].probability).toBe(0.5, toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // Uni char (4)
