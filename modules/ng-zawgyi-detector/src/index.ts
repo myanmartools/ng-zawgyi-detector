@@ -9,5 +9,6 @@
 /**
  * Entry point for all public APIs of the `ng-zawgyi-detector` package.
  */
+export * from './detector-result';
 export * from './zawgyi-detector.module';
 export * from './zawgyi-detector';

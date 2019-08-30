@@ -6,6 +6,7 @@ export interface DetectorMatch {
     start: number;
     length: number;
     matchedString?: string;
+    competitorMatch?: DetectorMatch;
 }
 
 /**
