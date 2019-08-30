@@ -490,28 +490,6 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.matches[0].matchedString).toBe('\u1091');
     });
 
-    // // Zg char (1)
-    it(String.raw`should detect input '\u106A' as 'zg'`, () => {
-        const result = zawgyiDetector.detect('\u106A');
-        expect(result.detectedEnc).toBe('zg');
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBe('zg');
-        expect(result.matches[0].probability).toBe(1);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(1);
-        expect(result.matches[0].matchedString).toBe('\u106A');
-    });
-
-    // it(String.raw`should detect input '\u1025\u1033' as 'zg'`, () => {
-    //     const result = zawgyiDetector.detect('\u1025\u1033');
-    //     expect(result.detectedEnc).toBe('zg');
-    //     expect(result.matches.length).toBe(1);
-    //     expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
-    //     expect(result.matches[0].start).toBe(0);
-    //     expect(result.matches[0].length).toBe(2);
-    //     expect(result.matches[0].matchedString).toBe('\u1025\u1033');
-    // });
-
     // Mix detection
     // ----------------------------------------------------------------------
     // it(String.raw`should detect input '\u103B\u1000(Unicode)\n\u1000\u1031' as 'zg'`, () => {
