@@ -154,9 +154,7 @@ export class ZawgyiDetector {
     private readonly _pC85 = 0.85;
     private readonly _pC55 = 0.55;
     private readonly _pC54 = 0.54;
-    private readonly _pC53 = 0.53;
     private readonly _pC52 = 0.52;
-    private readonly _pC51 = 0.51;
     private readonly _pC50 = 0.5;
     private readonly _pC20 = 0.2;
 
@@ -1026,18 +1024,14 @@ export class ZawgyiDetector {
                 (curMatchedStr.includes('\u1031') || curMatchedStr.includes('\u103B'))) {
                 probability = hasGreatProb ? this._pCMax : this._pC85;
             } else if (curMatchedStr.length === 2 && curMatchedStr.endsWith('\u103A')) {
-                if (matchedStr.length === 0 || lastEnc !== 'uni' || this._uniCAThatRegExp.test(curMatchedStr)) {
+                if (matchedStr.length === 0 || lastEnc !== 'uni' || !this._uniCAThatRegExp.test(curMatchedStr)) {
                     probability = this._pC20;
                 } else {
                     probability = this._pC50;
                 }
             } else {
-                if (lastEnc === 'uni') {
-                    if (hasGreatProb) {
-                        probability = curMatchedStr.length > 2 ? this._pC54 : curMatchedStr.length > 1 ? this._pC53 : this._pC52;
-                    } else {
-                        probability = curMatchedStr.length > 2 ? this._pC52 : curMatchedStr.length > 1 ? this._pC51 : this._pC50;
-                    }
+                if (lastEnc === 'uni' && hasGreatProb) {
+                    probability = this._pC54;
                 } else {
                     probability = this._pC50;
                 }
