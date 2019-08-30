@@ -296,7 +296,7 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.matches[0].matchedString).toBe('ကဏ္ဍ');
     });
 
-    // // Pahsin (2)
+    // Pahsin (2)
     it(String.raw`should detect input 'ပစ္ဆေ' as 'uni'`, () => {
         const result = zawgyiDetector.detect('ပစ္ဆေ');
         expect(result.detectedEnc).toBe('uni');
@@ -356,7 +356,7 @@ describe('ZawgyiDetector#detect', () => {
         expect(result.matches[0].matchedString).toBe('အင်္ဂါ');
     });
 
-    // // Kinsi (3)
+    // Kinsi (3)
     it(String.raw`should detect input 'သင်္ကန်း' as 'uni'`, () => {
         const result = zawgyiDetector.detect('သင်္ကန်း');
         expect(result.detectedEnc).toBe('uni');
@@ -370,110 +370,138 @@ describe('ZawgyiDetector#detect', () => {
 
     // Zawgyi detection
     // ----------------------------------------------------------------------
-    // // \u1031
-    // it(String.raw`should detect input '\u1031\u1000' as 'zg'`, () => {
-    //     const result = zawgyiDetector.detect('\u1031\u1000');
-    //     expect(result.detectedEnc).toBe('zg');
-    //     expect(result.matches.length).toBe(1);
-    //     expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
-    //     expect(result.matches[0].start).toBe(0);
-    //     expect(result.matches[0].length).toBe(2);
-    //     expect(result.matches[0].matchedString).toBe('\u1031\u1000');
-    // });
+    // \u1031 (1)
+    it(String.raw`should detect input '\u1031\u1000' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u1031\u1000');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(1);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(2);
+        expect(result.matches[0].matchedString).toBe('\u1031\u1000');
+    });
 
-    // it(String.raw`should detect input '\u1031\u107E\u1000' as 'zg'`, () => {
-    //     const result = zawgyiDetector.detect('\u1031\u107E\u1000');
-    //     expect(result.detectedEnc).toBe('zg');
-    //     expect(result.matches.length).toBe(1);
-    //     expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
-    //     expect(result.matches[0].start).toBe(0);
-    //     expect(result.matches[0].length).toBe(3);
-    //     expect(result.matches[0].matchedString).toBe('\u1031\u107E\u1000');
-    // });
+    // \u1031 (2)
+    it(String.raw`should detect input '\u1031\u107E\u1000' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u1031\u107E\u1000');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(1);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(3);
+        expect(result.matches[0].matchedString).toBe('\u1031\u107E\u1000');
+    });
 
-    // it(String.raw`should detect input ' \u1031 \u107E \u1000' as 'zg'`, () => {
-    //     const result = zawgyiDetector.detect(' \u1031 \u107E \u1000');
-    //     expect(result.detectedEnc).toBe('zg');
-    //     expect(result.matches.length).toBe(1);
-    //     expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
-    //     expect(result.matches[0].start).toBe(0);
-    //     expect(result.matches[0].length).toBe(6);
-    //     expect(result.matches[0].matchedString).toBe(' \u1031 \u107E \u1000');
-    // });
+    // \u1031 (3)
+    it(String.raw`should detect input ' \u1031 \u107E \u1000' as 'zg'`, () => {
+        const result = zawgyiDetector.detect(' \u1031 \u107E \u1000');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(1);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(6);
+        expect(result.matches[0].matchedString).toBe(' \u1031 \u107E \u1000');
+    });
 
-    // it(String.raw`should detect input '\u1031\u1000\u1060' as 'zg'`, () => {
-    //     const result = zawgyiDetector.detect('\u1031\u1000\u1060');
-    //     expect(result.detectedEnc).toBe('zg');
-    //     expect(result.matches.length).toBe(1);
-    //     expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
-    //     expect(result.matches[0].start).toBe(0);
-    //     expect(result.matches[0].length).toBe(3);
-    //     expect(result.matches[0].matchedString).toBe('\u1031\u1000\u1060');
-    // });
+    // \u1031 (4)
+    it(String.raw`should detect input '\u1031\u1000\u1060' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u1031\u1000\u1060');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(1);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(3);
+        expect(result.matches[0].matchedString).toBe('\u1031\u1000\u1060');
+    });
 
-    // it(String.raw`should detect input '\u1031\u1091' as 'zg'`, () => {
-    //     const result = zawgyiDetector.detect('\u1031\u1091');
-    //     expect(result.detectedEnc).toBe('zg');
-    //     expect(result.matches.length).toBe(1);
-    //     expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
-    //     expect(result.matches[0].start).toBe(0);
-    //     expect(result.matches[0].length).toBe(2);
-    //     expect(result.matches[0].matchedString).toBe('\u1031\u1091');
-    // });
+    // \u1031 (5)
+    it(String.raw`should detect input '\u1031\u1091' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u1031\u1091');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(1);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(2);
+        expect(result.matches[0].matchedString).toBe('\u1031\u1091');
+    });
 
-    // // \u103B
-    // it(String.raw`should detect input '\u103B\u1000' as 'zg'`, () => {
-    //     const result = zawgyiDetector.detect('\u103B\u1000');
-    //     expect(result.detectedEnc).toBe('zg');
-    //     expect(result.matches.length).toBe(1);
-    //     expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
-    //     expect(result.matches[0].start).toBe(0);
-    //     expect(result.matches[0].length).toBe(2);
-    //     expect(result.matches[0].matchedString).toBe('\u103B\u1000');
-    // });
+    // \u103B (1)
+    it(String.raw`should detect input '\u103B\u1000' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u103B\u1000');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(1);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(2);
+        expect(result.matches[0].matchedString).toBe('\u103B\u1000');
+    });
 
-    // it(String.raw`should detect input '\u107E\u1000\u1060' as 'zg'`, () => {
-    //     const result = zawgyiDetector.detect('\u107E\u1000\u1060');
-    //     expect(result.detectedEnc).toBe('zg');
-    //     expect(result.matches.length).toBe(1);
-    //     expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
-    //     expect(result.matches[0].start).toBe(0);
-    //     expect(result.matches[0].length).toBe(3);
-    //     expect(result.matches[0].matchedString).toBe('\u107E\u1000\u1060');
-    // });
+    // \u103B (2)
+    it(String.raw`should detect input '\u107E\u1000\u1060' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u107E\u1000\u1060');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(1);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(3);
+        expect(result.matches[0].matchedString).toBe('\u107E\u1000\u1060');
+    });
 
-    // it(String.raw`should detect input '\u107E\u1091' as 'zg'`, () => {
-    //     const result = zawgyiDetector.detect('\u107E\u1091');
-    //     expect(result.detectedEnc).toBe('zg');
-    //     expect(result.matches.length).toBe(1);
-    //     expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
-    //     expect(result.matches[0].start).toBe(0);
-    //     expect(result.matches[0].length).toBe(2);
-    //     expect(result.matches[0].matchedString).toBe('\u107E\u1091');
-    // });
+    // \u103B (3)
+    it(String.raw`should detect input '\u107E\u1091' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u107E\u1091');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(1);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(2);
+        expect(result.matches[0].matchedString).toBe('\u107E\u1091');
+    });
 
-    // // Pahsin
-    // it(String.raw`should detect input '\u1000\u1060' as 'zg'`, () => {
-    //     const result = zawgyiDetector.detect('\u1000\u1060');
-    //     expect(result.detectedEnc).toBe('zg');
-    //     expect(result.matches.length).toBe(1);
-    //     expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
-    //     expect(result.matches[0].start).toBe(0);
-    //     expect(result.matches[0].length).toBe(2);
-    //     expect(result.matches[0].matchedString).toBe('\u1000\u1060');
-    // });
+    // Pahsin (1)
+    it(String.raw`should detect input '\u1000\u1060' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u1000\u1060');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(1);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(2);
+        expect(result.matches[0].matchedString).toBe('\u1000\u1060');
+    });
 
-    // it(String.raw`should detect input '\u1091' as 'zg'`, () => {
-    //     const result = zawgyiDetector.detect('\u1091');
-    //     expect(result.detectedEnc).toBe('zg');
-    //     expect(result.matches.length).toBe(1);
-    //     expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5);
-    //     expect(result.matches[0].start).toBe(0);
-    //     expect(result.matches[0].length).toBe(1);
-    //     expect(result.matches[0].matchedString).toBe('\u1091');
-    // });
+    // Pahsin (2)
+    it(String.raw`should detect input '\u1091' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u1091');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(1);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(1);
+        expect(result.matches[0].matchedString).toBe('\u1091');
+    });
 
-    // // ZgC
+    // // Zg char (1)
+    it(String.raw`should detect input '\u106A' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u106A');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(1);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(1);
+        expect(result.matches[0].matchedString).toBe('\u106A');
+    });
+
     // it(String.raw`should detect input '\u1025\u1033' as 'zg'`, () => {
     //     const result = zawgyiDetector.detect('\u1025\u1033');
     //     expect(result.detectedEnc).toBe('zg');
