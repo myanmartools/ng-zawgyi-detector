@@ -2,15 +2,19 @@
 
 import { TestBed } from '@angular/core/testing';
 
-import { ZawgyiDetector } from '../src';
+import { ZawgyiDetector, ZawgyiDetectorModule } from '../src';
 
-describe('ZawgyiDetector#detect#zgpahsin', () => {
+import { toFailOutput } from './shared.spec';
+
+describe('ZawgyiDetector#detect#zg-pahsin', () => {
     let zawgyiDetector: ZawgyiDetector;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [
-                ZawgyiDetector
+            imports: [
+                ZawgyiDetectorModule.withOptions({
+                    preferZg: true
+                })
             ]
         });
 
@@ -18,24 +22,26 @@ describe('ZawgyiDetector#detect#zgpahsin', () => {
     });
 
     it(String.raw`should detect input '\u1000\u1060' as 'zg'`, () => {
-        const result = zawgyiDetector.detect('\u1000\u1060');
-        expect(result.detectedEnc).toBe('zg');
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBe('zg');
-        expect(result.matches[0].probability).toBe(1);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(2);
-        expect(result.matches[0].matchedString).toBe('\u1000\u1060');
+        const input = '\u1000\u1060';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input '\u1091' as 'zg'`, () => {
-        const result = zawgyiDetector.detect('\u1091');
-        expect(result.detectedEnc).toBe('zg');
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBe('zg');
-        expect(result.matches[0].probability).toBe(1);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(1);
-        expect(result.matches[0].matchedString).toBe('\u1091');
+        const input = '\u1091';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 });

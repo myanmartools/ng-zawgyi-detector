@@ -4,7 +4,9 @@ import { TestBed } from '@angular/core/testing';
 
 import { ZawgyiDetector } from '../src';
 
-describe('ZawgyiDetector#detect', () => {
+import { toFailOutput } from './shared.spec';
+
+describe('ZawgyiDetector#other-detections', () => {
     let zawgyiDetector: ZawgyiDetector;
 
     beforeEach(() => {
@@ -19,26 +21,28 @@ describe('ZawgyiDetector#detect', () => {
 
     // Outside block
     it(String.raw`should detect input ' abc\n' as 'null'`, () => {
-        const result = zawgyiDetector.detect(' abc\n');
-        expect(result.detectedEnc).toBeFalsy();
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBeFalsy();
-        expect(result.matches[0].probability).toBe(0);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(5);
-        expect(result.matches[0].matchedString).toBe(' abc\n');
+        const input = ' abc\n';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBeFalsy(toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBeFalsy(toFailOutput(input, result));
+        expect(result.matches[0].probability).toBe(0, toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // Uni Punctuation
     it(String.raw`should detect input '၊ abc\n ။' as 'uni'`, () => {
-        const result = zawgyiDetector.detect('၊ abc\n ။');
-        expect(result.detectedEnc).toBe('uni');
-        expect(result.matches.length).toBe(1);
-        expect(result.matches[0].detectedEnc).toBe('uni');
-        expect(result.matches[0].probability).toBe(0.5);
-        expect(result.matches[0].start).toBe(0);
-        expect(result.matches[0].length).toBe(8);
-        expect(result.matches[0].matchedString).toBe('၊ abc\n ။');
+        const input = '၊ abc\n ။';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches[0].probability).toBe(0, toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // Mix detection
