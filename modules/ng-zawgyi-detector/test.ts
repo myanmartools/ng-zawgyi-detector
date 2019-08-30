@@ -22,7 +22,7 @@ getTestBed().initTestEnvironment(
 
 // Then we find all the tests.
 // tslint:disable-next-line: no-unsafe-any
-const context = require.context('./', true, /zg-c\.spec\.ts$/);
+const context = require.context('./', true, /-c\.spec\.ts$/);
 
 // And load the modules.
 // tslint:disable-next-line: no-unsafe-any
