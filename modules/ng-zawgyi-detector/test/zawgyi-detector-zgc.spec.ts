@@ -111,6 +111,28 @@ describe('ZawgyiDetector#detect#zgc', () => {
         expect(result.matches[0].length).toBe(4);
     });
 
+    // \u103A
+    //
+    it(String.raw`should detect input '\u1000\u103A' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u1000\u103A');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(0.51);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(2);
+    });
+
+    it(String.raw`should detect input '\u1000\u103A\u1000\u103A' as 'zg'`, () => {
+        const result = zawgyiDetector.detect('\u1000\u103A\u1000\u103A');
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+        expect(result.matches[0].detectedEnc).toBe('zg');
+        expect(result.matches[0].probability).toBe(0.505);
+        expect(result.matches[0].start).toBe(0);
+        expect(result.matches[0].length).toBe(4);
+    });
+
     // Possible Zg Ac
     //
     it(String.raw`should detect input '\u1025\u1033' as 'zg'`, () => {
