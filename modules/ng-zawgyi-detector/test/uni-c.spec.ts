@@ -119,7 +119,7 @@ describe('ZawgyiDetector#detect#uni-c', () => {
         expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
         expect(result.matches.length).toBe(1, toFailOutput(input, result));
         expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
@@ -145,7 +145,7 @@ describe('ZawgyiDetector#detect#uni-c', () => {
         expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
         expect(result.matches.length).toBe(1, toFailOutput(input, result));
         expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.85, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
@@ -158,7 +158,7 @@ describe('ZawgyiDetector#detect#uni-c', () => {
         expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
         expect(result.matches.length).toBe(1, toFailOutput(input, result));
         expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.85, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
@@ -171,7 +171,7 @@ describe('ZawgyiDetector#detect#uni-c', () => {
         expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
         expect(result.matches.length).toBe(1, toFailOutput(input, result));
         expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.6, toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
@@ -184,7 +184,7 @@ describe('ZawgyiDetector#detect#uni-c', () => {
         expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
         expect(result.matches.length).toBe(1, toFailOutput(input, result));
         expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.65, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.6, toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
@@ -228,7 +228,7 @@ describe('ZawgyiDetector#detect#uni-c', () => {
     });
 
     // Uni char + \u1031 + [\u102B\u102c] + char + \u103A (1)
-    it(String.raw`should detect input 'အောင်း' as 'uni'`, () => {
+    it(String.raw`should detect input 'အောင်' as 'uni'`, () => {
         const input = 'အောင်';
 
         const result = zawgyiDetector.detect(input);
@@ -236,7 +236,7 @@ describe('ZawgyiDetector#detect#uni-c', () => {
         expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
         expect(result.matches.length).toBe(1, toFailOutput(input, result));
         expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeLessThan(0.6, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
