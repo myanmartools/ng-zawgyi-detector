@@ -11,8 +11,6 @@ import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { DetectedEnc, DetectorMatch, DetectorResult } from './detector-result';
 
 export interface ZawgyiDetectorOptions {
-    includeMatchedStringInResult?: boolean;
-    zgUniSeparator?: RegExp;
     preferZg?: boolean;
 }
 
@@ -24,31 +22,26 @@ const rCForAThat = '\u1000-\u1002\u1004\u1005\u1007\u1009\u100A\u100B\u100C\u100
 const rSp = ' \u00A0\u1680\u2000-\u200D\u202F\u205F\u2060\u3000\uFEFF';
 const rZg3b = '\u103B\u107E-\u1084';
 const rZgUpC = '\u1000-\u1021\u1023-\u1027\u1029\u102A\u1040-\u1049\u104C-\u104F\u106A\u106B\u1086\u108F\u1090';
-
 const rZgPsLoC = '\u1060-\u1063\u1065-\u1069\u106C\u106D\u1070-\u107C\u1085\u1093\u1096';
 const rZgPsSgC = '\u106E\u106F\u1091\u1092\u1097';
 const rZgAcAfC = '\u102B-\u1030\u1032-\u1034\u1036-\u103A\u103C\u103D\u105A\u107D\u1087-\u108A\u108E\u1094\u1095';
 const rZgAcKsAfC = '\u1064\u108B-\u108E';
+const rZgC1For3a = '\u1000-\u1021\u1023\u1025\u1027\u1040\u1044\u106A\u106B\u1086\u108F\u1090';
+const rZgOnlyCAndAcAfC = `${rZgAcKsAfC}\u1033\u1034\u105A\u106A\u106B\u107D\u1086-\u108A\u108F\u1090\u1094\u1095`;
 
 const rZgPsDbG = `[${rZgUpC}][${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}]*[${rSp}]*[${rZgPsLoC}]`;
-
 const rZgCAndOpG = `[${rZgUpC}][${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}]*`;
-
 const rZgPsSgAndOpG = `[${rZgPsSgC}][${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}]*`;
 const rZgPsDbAndOpG = `${rZgPsDbG}[${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}]*`;
-
-const rZgCAndAThat = `[${rCForAThat}](\u1039\u1038|\u1039\u1037|\u1037\u1039|\u1039)`;
-
-const rZgC1For3a = '\u1000-\u1021\u1023\u1025\u1027\u1040\u1044\u106A\u106B\u1086\u108F\u1090';
-
-const rZgOnlyCAndAcAfC = `${rZgAcKsAfC}\u1033\u1034\u105A\u106A\u106B\u107D\u1086-\u108A\u108F\u1090\u1094\u1095`;
+const rZgCAndAThatG = `[${rCForAThat}](\u1039\u103A\u102C\u1038|\u1039\u1038|\u1039\u1037|\u1037\u1039|\u1039)`;
 
 // Uni
 const rUniC = '\u1000-\u102A\u103F\u1040-\u1049\u104E';
 const rUniPsUpC = '\u1000-\u102A\u103F\u1040-\u1049';
 const rUniPsLoC = '\u1000-\u101C\u101E-\u1022\u1027\u103F';
-const rUniAcAf31 = '[\u102D\u102E]?[\u102F\u1030]?[\u102B\u102C]?\u103A?[\u1032\u1036]?[\u102B\u102C]?\u103A?\u1037?[\u102B\u102C]?\u103A?\u1038?';
-const rUniC1Bf3a = '\u1000-\u1023\u1025\u1027\u103F\u1040\u1044\u104E';
+const rUniC1BfAThat = '\u1000-\u1023\u1025\u1027\u103F\u1040\u1044\u104E';
+
+const rUniAcAf31G = '[\u102D\u102E]?[\u102F\u1030]?[\u102B\u102C]?\u103A?[\u1032\u1036]?[\u102B\u102C]?\u103A?\u1037?[\u102B\u102C]?\u103A?\u1038?';
 
 /**
  * Zawgyi-One and standard Myanmar Unicode detection service.
@@ -56,38 +49,35 @@ const rUniC1Bf3a = '\u1000-\u1023\u1025\u1027\u103F\u1040\u1044\u104E';
 @Injectable()
 export class ZawgyiDetector {
     private readonly _options: ZawgyiDetectorOptions = {
-        includeMatchedStringInResult: true,
-        zgUniSeparator: /[#\*\(\[\{\'\"<\u104A\u104B]?[ ]?(zawgyi|unicode|zg|uni|(\u101A\u1030\u1014\u102D?\u102E\u1000\u102F[\u1010\u1012][\u1039\u103A])|(\u1007\u1031\u102C\u103A\u1002\u103B\u102E)|(\u1031\u1007\u102C\u1039\u1002\u103A\u102D?\u102E))[^\u1000-\uAA7F]*(\u1017\u102C\u1038[\u101B\u1090][\u103D\u103E]\u1004[\u1039\u103A]\u1038)?[\u104A\u104B]?[^\u1000-\uAA7F]*[\u104A\u104B]?[\r\n]+$/gi
+        preferZg: false
     };
+
+    // Seperator
+    private readonly _seperatorRegExp = /^[#\*\(\[\{\'\"]?[\s]?(zawgyi|unicode|zg|uni|(\u101A\u1030\u1014\u102D?\u102E\u1000\u102F[\u1010\u1012][\u1039\u103A])|(\u1007\u1031\u102C\u103A\u1002\u103B\u102E)|(\u1031\u1007\u102C\u1039\u1002\u103A\u102D?\u102E))/i;
 
     // Zg
     private readonly _zgAllAcAfCRegExp = new RegExp(`^[${rZgAcAfC}${rZgAcKsAfC}]`);
-
     private readonly _zg31WCRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*${rZgCAndOpG}`);
-    private readonly _zg31WCAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*[${rZgC1For3a}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThat}`);
+
     private readonly _zg31WPahsinSgRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*${rZgPsSgAndOpG}`);
-    private readonly _zg31WPahsinSgAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*[${rZgPsSgC}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThat}`);
     private readonly _zg31WPahsinDbRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*${rZgPsDbAndOpG}`);
-    private readonly _zg31WPahsinDbAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*${rZgPsDbG}[${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThat}`);
-
     private readonly _zg3bWCRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]*${rZgCAndOpG}`);
-    private readonly _zg3bWCAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]*[${rZgC1For3a}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThat}`);
-
     private readonly _zg3bWPahsinSgRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]*${rZgPsSgAndOpG}`);
-    private readonly _zg3bWPahsinSgAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]*[${rZgPsSgC}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThat}`);
-
     private readonly _zg3bWPahsinDbRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]*${rZgPsDbAndOpG}`);
-    private readonly _zg3bWPahsinDbAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]${rZgPsDbG}[${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThat}`);
-
     private readonly _zgPahsinDbRegExp = new RegExp(`^${rZgPsDbAndOpG}`);
     private readonly _zgPahsinSgRegExp = new RegExp(`^${rZgPsSgAndOpG}`);
-
     private readonly _zgCAndOptionalRegExp = new RegExp(`^${rZgCAndOpG}`);
-    private readonly _zgCAndAThatRegExp = new RegExp(`^${rZgCAndAThat}`);
+
+    private readonly _zg31WCAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*[${rZgC1For3a}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zg31WPahsinSgAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*[${rZgPsSgC}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zg31WPahsinDbAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*${rZgPsDbG}[${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zg3bWCAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]*[${rZgC1For3a}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zg3bWPahsinSgAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]*[${rZgPsSgC}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zg3bWPahsinDbAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]${rZgPsDbG}[${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zgCAndAThatRegExp = new RegExp(`^${rZgCAndAThatG}`);
 
     private readonly _zgOnlyCAndAcAfCRegExp = new RegExp(`[${rZgOnlyCAndAcAfC}]`);
     private readonly _zgOnlyCAndAcAfCFor31Or3bRegExp = new RegExp(`[${rZgOnlyCAndAcAfC}\u107E-\u1084]`);
-
     private readonly _zgOnlyAc2bOr2cCbRegExp = new RegExp('[\u102B\u102C]\u1039');
     private readonly _zgOnlyAc2dOr2eCbRegExp = new RegExp('[\u102D\u102E][\u1033\u1034\u103A\u103C\u103D]');
     private readonly _zgOnlyAc2fOr30CbRegExp = new RegExp('[\u102F\u1030\u1033\u1034][\u102D\u102E\u1039\u103C\u103D]');
@@ -96,31 +86,23 @@ export class ZawgyiDetector {
     private readonly _zgOnlyAc39CbRegExp = new RegExp('\u1039[\u102B\u102C\u102F\u1030\u1037\u1038\u103A\u103C\u103D]');
     private readonly _zgOnlyAc3ACbRegExp = new RegExp('\u103A[\u102B-\u102E\u1032-\u1034\u1036\u1039\u103C\u103D]');
     private readonly _zgCNotCompat3aRegExp = new RegExp('[\u1003\u1004\u1006-\u100F\u1011-\u1014\u1018\u101B\u101F-\u1021\u1023-\u1027\u1029\u102A]');
-
     private readonly _zgHasUniPsLoCRegExp = new RegExp(`^[${rUniPsLoC}]`);
-
     private readonly _zgCNotCompatWith3dOnlyRegExp = new RegExp('[\u1000-\u1003\u1005-\u1008\u100B-\u1013\u1018\u101E\u1020\u1021\u1023-\u1027\u1029\u102A]');
 
     // Uni
     private readonly _uniAllAcAnd60To97RegExp = new RegExp('^[\u102B-\u103E\u105A\u1060-\u1097]');
-    private readonly _uniKsAndPsRegExp = new RegExp(`^\u1004\u103A\u1039[${rUniPsUpC}]\u1039[${rUniPsLoC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31}`);
-
-    private readonly _uniKsAndCRegExp = new RegExp(`^\u1004\u103A\u1039[${rUniC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31}`);
-
-    private readonly _uniPsRegExp = new RegExp(`^[${rUniPsUpC}]\u1039[${rUniPsLoC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31}`);
+    private readonly _uniKsAndPsRegExp = new RegExp(`^\u1004\u103A\u1039[${rUniPsUpC}]\u1039[${rUniPsLoC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31G}`);
+    private readonly _uniKsAndCRegExp = new RegExp(`^\u1004\u103A\u1039[${rUniC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31G}`);
+    private readonly _uniPsRegExp = new RegExp(`^[${rUniPsUpC}]\u1039[${rUniPsLoC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31G}`);
     private readonly _uniPsLeftEndRegExp = new RegExp(`[${rUniC}]\u103B?\u103C?[\u103D\u103E]?\u1031?\u102D?\u102F?[\u102B\u102C]?$`);
+    private readonly _uniCAndOptionalRegExp = new RegExp(`^[${rUniC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31G}`);
 
-    private readonly _uniCAndOptionalRegExp = new RegExp(`^[${rUniC}]\u103A?\u103B?\u103C?(\u103D\u103E|[\u103D\u103E])?\u103A?\u1031?${rUniAcAf31}`);
-
-    private readonly _uniCC3aRegExp = new RegExp(`^[${rUniC1Bf3a}][\u103B\u103C]?[\u103D\u103E]?[\u102D\u102E]?[\u102F\u1030]?[\u102B\u102C]?[${rCForAThat}]\u103A[\u1037\u1038]?`);
-    private readonly _uniPsC3aRegExp = new RegExp(`^[${rUniPsUpC}]\u1039[${rUniC1Bf3a}][\u103B\u103C]?[\u103D\u103E]?[\u102D\u102E]?[\u102F\u1030]?[\u102B\u102C]?[${rCForAThat}]\u103A[\u1037\u1038]?`);
-
-    private readonly _uniC312cC3aRegExp = new RegExp(`^[${rUniC1Bf3a}][\u103B\u103C]?\u103E?\u1031[\u102B\u102C]?[${rCForAThat}]\u103A[\u1037\u1038]?`);
-    private readonly _uniPs312cC3aRegExp = new RegExp(`^[${rUniPsUpC}]\u1039[${rUniC1Bf3a}][\u103B\u103C]?\u103E?\u1031[\u102B\u102C]?[${rCForAThat}]\u103A[\u1037\u1038]?`);
-
+    private readonly _uniC1C2AThatRegExp = new RegExp(`^[${rUniC1BfAThat}][\u103B\u103C]?[\u103D\u103E]?[\u102D\u102E]?[\u102F\u1030]?[\u102B\u102C]?[${rCForAThat}]\u103A([\u103B][\u102B\u102C])?[\u1037\u1038]?`);
+    private readonly _uniPsCAThatRegExp = new RegExp(`^[${rUniPsUpC}]\u1039[${rUniC1BfAThat}][\u103B\u103C]?[\u103D\u103E]?[\u102D\u102E]?[\u102F\u1030]?[\u102B\u102C]?[${rCForAThat}]\u103A([\u103B][\u102B\u102C])?[\u1037\u1038]?`);
+    private readonly _uniC312cCAThatRegExp = new RegExp(`^[${rUniC1BfAThat}][\u103B\u103C]?\u103E?\u1031[\u102B\u102C]?[${rCForAThat}]\u103A([\u103B][\u102B\u102C])?[\u1037\u1038]?`);
+    private readonly _uniPs312cCAThatRegExp = new RegExp(`^[${rUniPsUpC}]\u1039[${rUniC1BfAThat}][\u103B\u103C]?\u103E?\u1031[\u102B\u102C]?[${rCForAThat}]\u103A([\u103B][\u102B\u102C])?[\u1037\u1038]?`);
     private readonly _uniCAThatRegExp = new RegExp(`^[${rCForAThat}]\u103A`);
-
-    private readonly _uniC1CompatWithAThat = new RegExp(`[${rUniC1Bf3a}][\u103B\u103C]?[\u103D\u103E]?\u1031?[\u102D\u102E]?[\u102F\u1030]?[\u102B\u102C]?$`);
+    private readonly _uniC1CompatWithAThat = new RegExp(`[${rUniC1BfAThat}][\u103B\u103C]?[\u103D\u103E]?\u1031?[\u102D\u102E]?[\u102F\u1030]?[\u102B\u102C]?$`);
 
     // Probabilities
     private readonly _pZg31Or3b95 = 0.95;
@@ -165,7 +147,6 @@ export class ZawgyiDetector {
      * @param input Input string to detect.
      * @returns Returns the result object.
      */
-    // tslint:disable-next-line: max-func-body-length
     detect(input: string): DetectorResult {
         const startTime = +new Date();
         const result: DetectorResult = {
@@ -180,76 +161,48 @@ export class ZawgyiDetector {
 
         let curStr = input;
         let curStart = 0;
-        let lastMatchedStr = '';
+        let lastStr = '';
         let lastEnc: DetectedEnc = null;
         let zgProbability = 0;
         let uniProbability = 0;
 
         while (curStr.length > 0) {
-            let zd: DetectorMatch | null = null;
-            let ud: DetectorMatch | null = null;
-            let zdChecked = false;
-
-            const c = curStr.trim()[0];
-
-            if (c === '\u1031' || c === '\u103B' || c === '\u107E' || c === '\u107F' || c === '\u1080' ||
-                c === '\u1081' || c === '\u1082' || c === '\u1083' || c === '\u1084') {
-                zd = this.detectZgMax(curStr, lastEnc, lastMatchedStr);
-                zdChecked = true;
-            }
-
-            if (zd == null || zd.probability < 0.95 || !zd.matchedString || zd.matchedString.length !== curStr.length) {
-                ud = this.detectUniMax(curStr, lastEnc, lastMatchedStr);
-            }
-
-            if (!zdChecked && (ud == null || ud.probability < 0.95 || !ud.matchedString || ud.matchedString.length !== curStr.length)) {
-                zd = this.detectZgMax(curStr, lastEnc, lastMatchedStr);
-            }
-
-            let sd: DetectorMatch | null = null;
-            let cd: DetectorMatch | null = null;
-
-            if (ud != null && zd != null) {
-                if (zd.length === ud.length) {
-                    const diff = ud.probability - zd.probability;
-                    if (diff === 0) {
-                        sd = this._options.preferZg ? zd : ud;
-                    } else if (diff < 0) {
-                        sd = zd;
-                    } else {
-                        sd = ud;
-                    }
-                } else if (zd.length > ud.length) {
-                    sd = zd;
-                } else {
-                    sd = ud;
-                }
-
-                cd = sd.detectedEnc === 'uni' ? zd : ud;
-            } else if (ud != null) {
-                sd = ud;
-            } else if (zd != null) {
-                sd = zd;
-            }
+            const r = this.detectInternal(curStr, lastEnc, lastStr);
+            const sd = r.sd;
+            const cd = r.cd;
 
             if (sd != null) {
                 if (sd.detectedEnc === 'zg') {
                     zgProbability += sd.probability;
-                } else {
+                } else if (sd.detectedEnc === 'uni') {
                     uniProbability += sd.probability;
                 }
 
-                result.matches.push({
-                    detectedEnc: sd.detectedEnc,
-                    probability: sd.probability,
-                    start: curStart,
-                    length: sd.length,
-                    matchedString: this._options.includeMatchedStringInResult ? sd.matchedString : undefined,
-                    competitorMatch: cd != null ? cd : undefined
-                });
+                if (lastEnc === sd.detectedEnc && result.matches.length > 0) {
+                    const lastMatch = result.matches[result.matches.length - 1];
+                    if (lastMatch.probability > 0 && sd.probability > 0) {
+                        lastMatch.probability = (lastMatch.probability + sd.probability) / 2;
+                    }
+                    lastMatch.length += sd.length;
+                    lastMatch.matchedString = `${lastMatch.matchedString}${sd.matchedString}`;
+                    if (lastMatch.competitorMatch != null && cd != null) {
+                        const lastCompetitorMatch = lastMatch.competitorMatch;
+                        if (lastCompetitorMatch.probability > 0 && cd.probability > 0) {
+                            lastMatch.probability = (lastCompetitorMatch.probability + cd.probability) / 2;
+                        }
+                        lastCompetitorMatch.length += cd.length;
+                        lastCompetitorMatch.matchedString = `${lastCompetitorMatch.matchedString}${cd.matchedString}`;
+                    }
+                } else {
+                    result.matches.push({
+                        ...sd,
+                        start: curStart,
+                        competitorMatch: cd != null ? cd : undefined
+                    });
+                }
 
                 lastEnc = sd.detectedEnc;
-                lastMatchedStr += sd.matchedString;
+                lastStr += sd.matchedString;
                 curStart += sd.length;
                 curStr = curStr.substring(sd.length);
             } else {
@@ -258,14 +211,14 @@ export class ZawgyiDetector {
                     probability: 0,
                     start: curStart,
                     length: curStr.length,
-                    matchedString: this._options.includeMatchedStringInResult ? curStr : undefined
+                    matchedString: curStr
                 });
 
                 break;
             }
         }
 
-        if (zgProbability > 0 && uniProbability > 0) {
+        if (result.matches.length > 1) {
             result.detectedEnc = 'mix';
         } else if (zgProbability > 0) {
             result.detectedEnc = 'zg';
@@ -278,26 +231,83 @@ export class ZawgyiDetector {
         return result;
     }
 
+    private detectInternal(
+        curStr: string,
+        lastEnc: DetectedEnc,
+        lastStr: string): { sd: DetectorMatch | null; cd?: DetectorMatch | null } {
+        let zd: DetectorMatch | null = null;
+        let ud: DetectorMatch | null = null;
+        let zdChecked = false;
+
+        const c = curStr.trim()[0];
+
+        if (c === '\u1031' || c === '\u103B' || c === '\u107E' || c === '\u107F' || c === '\u1080' ||
+            c === '\u1081' || c === '\u1082' || c === '\u1083' || c === '\u1084') {
+            zd = this.detectZg(curStr, lastEnc, lastStr);
+            zdChecked = true;
+        }
+
+        if (zd == null || zd.probability < 0.95 || zd.matchedString.length !== curStr.length) {
+            ud = this.detectUni(curStr, lastEnc, lastStr);
+        }
+
+        if (!zdChecked && (ud == null || ud.probability < 0.95 || ud.matchedString.length !== curStr.length)) {
+            zd = this.detectZg(curStr, lastEnc, lastStr);
+        }
+
+        let sd: DetectorMatch | null = null;
+        let cd: DetectorMatch | null = null;
+
+        if (ud != null && zd != null) {
+            if (zd.length === ud.length) {
+                const diff = ud.probability - zd.probability;
+                if (diff === 0) {
+                    sd = this._options.preferZg ? zd : ud;
+                } else if (diff < 0) {
+                    sd = zd;
+                } else {
+                    sd = ud;
+                }
+            } else if (zd.length > ud.length) {
+                sd = zd;
+            } else {
+                sd = ud;
+            }
+
+            cd = sd.detectedEnc === 'uni' ? zd : ud;
+        } else if (ud != null) {
+            sd = ud;
+        } else if (zd != null) {
+            sd = zd;
+        }
+
+        return {
+            sd,
+            cd
+        };
+    }
+
     // Zawgyi
     //
-    private detectZgMax(curStr: string, lastEnc: DetectedEnc, lastMatchedStr: string): DetectorMatch | null {
+    private detectZg(curStr: string, lastEnc: DetectedEnc, lastStr: string): DetectorMatch | null {
         let curMatchedStr = '';
         let accProb = 0;
         let hasGreatProb = false;
+        let seperatorStart = -1;
 
         while (curStr.length > 0) {
-            let d = this.detectZg31Start(curStr, lastEnc, lastMatchedStr + curMatchedStr, hasGreatProb);
+            let d = this.detectZg31Start(curStr, lastEnc, lastStr + curMatchedStr, hasGreatProb);
 
             if (d == null) {
-                d = this.detectZg3bStart(curStr, lastEnc, lastMatchedStr + curMatchedStr, hasGreatProb);
+                d = this.detectZg3bStart(curStr, lastEnc, lastStr + curMatchedStr, hasGreatProb);
             }
 
             if (d == null) {
-                d = this.detectZgPahsin(curStr, lastEnc, lastMatchedStr + curMatchedStr, hasGreatProb);
+                d = this.detectZgPahsin(curStr, lastEnc, lastStr + curMatchedStr, hasGreatProb);
             }
 
             if (d == null) {
-                d = this.detectZgC(curStr, lastEnc, lastMatchedStr + curMatchedStr, hasGreatProb);
+                d = this.detectZgC(curStr, lastEnc, lastStr + curMatchedStr, hasGreatProb);
             }
 
             if (d != null) {
@@ -305,10 +315,13 @@ export class ZawgyiDetector {
                     hasGreatProb = true;
                 }
             } else {
-                d = this.detectOtherChars(curStr, lastEnc, lastMatchedStr + curMatchedStr);
+                d = this.detectOtherChars(curStr, lastEnc, lastStr + curMatchedStr);
+                if (d != null && d.start > -1) {
+                    seperatorStart = d.start;
+                }
             }
 
-            if (d == null || !d.matchedString) {
+            if (d == null) {
                 break;
             }
 
@@ -319,6 +332,10 @@ export class ZawgyiDetector {
             if (d.probability > 0) {
                 accProb = accProb === 0 ? d.probability : (accProb + d.probability) / 2;
             }
+
+            if (seperatorStart > -1) {
+                break;
+            }
         }
 
         if (!curMatchedStr.length) {
@@ -328,7 +345,7 @@ export class ZawgyiDetector {
         return {
             detectedEnc: accProb > 0 ? 'zg' : null,
             probability: accProb,
-            start: -1,
+            start: seperatorStart,
             length: curMatchedStr.length,
             matchedString: curMatchedStr
         };
@@ -337,7 +354,7 @@ export class ZawgyiDetector {
     private detectZg31Start(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean): DetectorMatch | null {
         if (curStr.length < 2) {
             return null;
@@ -404,7 +421,7 @@ export class ZawgyiDetector {
             return null;
         }
 
-        const probability = this.getProbForZg31(curStr, lastEnc, lastMatchedStr, hasGreatProb, curMatchedStr, aThatMatched, pahsinMatched);
+        const probability = this.getProbForZg31(curStr, lastEnc, lastStr, hasGreatProb, curMatchedStr, aThatMatched, pahsinMatched);
 
         return {
             detectedEnc: 'zg',
@@ -418,7 +435,7 @@ export class ZawgyiDetector {
     private detectZg3bStart(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean): DetectorMatch | null {
         if (curStr.length < 2) {
             return null;
@@ -489,7 +506,7 @@ export class ZawgyiDetector {
             return null;
         }
 
-        const probability = this.getProbForZg3b(curStr, lastEnc, lastMatchedStr, hasGreatProb, curMatchedStr, aThatMatched, pahsinMatched);
+        const probability = this.getProbForZg3b(curStr, lastEnc, lastStr, hasGreatProb, curMatchedStr, aThatMatched, pahsinMatched);
 
         return {
             detectedEnc: 'zg',
@@ -503,7 +520,7 @@ export class ZawgyiDetector {
     private detectZgPahsin(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean): DetectorMatch | null {
         let m: RegExpMatchArray | null = null;
 
@@ -525,14 +542,14 @@ export class ZawgyiDetector {
         if (curStr.trim().length >= curMatchedStr.length + 2 && !curMatchedStr.includes('\u1039')) {
             const testStr = curStr.substring(curMatchedStr.length);
             const d = this.detectZgAThatSufix(testStr);
-            if (d != null && d.matchedString) {
+            if (d != null) {
                 curMatchedStr += d.matchedString;
                 aThatMatched = true;
             }
         }
 
         let probability: number;
-        if (lastEnc === 'zg' || hasGreatProb || !lastMatchedStr.length ||
+        if (lastEnc === 'zg' || hasGreatProb || !lastStr.length ||
             lastEnc == null || curMatchedStr.length === curStr.trim().length || aThatMatched) {
             probability = this._pZgPs95;
         } else {
@@ -551,7 +568,7 @@ export class ZawgyiDetector {
     private detectZgC(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean): DetectorMatch | null {
         if (lastEnc !== 'zg') {
             let isZgStart = false;
@@ -581,7 +598,7 @@ export class ZawgyiDetector {
         if (curStr.trim().length >= curMatchedStr.length + 2 && !curMatchedStr.includes('\u1039')) {
             const testStr = curStr.substring(curMatchedStr.length);
             const d = this.detectZgAThatSufix(testStr);
-            if (d != null && d.matchedString) {
+            if (d != null) {
                 curMatchedStr += d.matchedString;
                 aThatMatched = true;
             }
@@ -592,15 +609,15 @@ export class ZawgyiDetector {
 
         if (c === '\u104E' || c === '\u106A' || c === '\u106B' || c === '\u1086' || c === '\u108F' || c === '\u1090') {
             if (lastEnc === 'zg' || lastEnc == null || hasGreatProb ||
-                !lastMatchedStr.length || curMatchedStr.length === curStr.trim().length) {
+                !lastStr.length || curMatchedStr.length === curStr.trim().length) {
                 probability = this._pC95;
             } else {
                 probability = this._pC85;
             }
         } else if (curMatchedStr.includes('\u1039')) {
-            probability = this.getProbForZgC39(curStr, lastEnc, lastMatchedStr, hasGreatProb, curMatchedStr, aThatMatched);
+            probability = this.getProbForZgC39(curStr, lastEnc, lastStr, hasGreatProb, curMatchedStr, aThatMatched);
         } else if (curMatchedStr.includes('\u103A')) {
-            probability = this.getProbForZgC3A(curStr, lastEnc, lastMatchedStr, hasGreatProb, curMatchedStr, aThatMatched);
+            probability = this.getProbForZgC3A(curStr, lastEnc, lastStr, hasGreatProb, curMatchedStr, aThatMatched);
         } else if (curMatchedStr.includes('\u103D')) {
             if (!curMatchedStr.includes('\u103C') && this._zgCNotCompatWith3dOnlyRegExp.test(curMatchedStr)) {
                 probability = lastEnc === 'zg' && hasGreatProb ? this._pC50 : this._pC20;
@@ -653,16 +670,16 @@ export class ZawgyiDetector {
     private getProbForZg31(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean,
         curMatchedStr: string,
         aThatMatched: boolean,
         pahsinMatched: boolean): number {
         let probability: number;
 
-        if ((!lastMatchedStr.length || lastEnc == null) && curMatchedStr.length === curStr.trim().length) {
+        if ((!lastStr.length || lastEnc == null) && curMatchedStr.length === curStr.trim().length) {
             probability = this._pZg31Or3b95;
-        } else if (!lastMatchedStr.length || lastEnc == null) {
+        } else if (!lastStr.length || lastEnc == null) {
             probability = this._pZg31Or3b85;
         } else if (curMatchedStr.length > 2 &&
             (this._zgOnlyCAndAcAfCFor31Or3bRegExp.test(curMatchedStr) || this.containsZgOnlyAcCombine(curMatchedStr))) {
@@ -692,16 +709,16 @@ export class ZawgyiDetector {
     private getProbForZg3b(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean,
         curMatchedStr: string,
         aThatMatched: boolean,
         pahsinMatched: boolean): number {
         let probability: number;
 
-        if ((!lastMatchedStr.length || lastEnc == null) && curMatchedStr.length === curStr.trim().length) {
+        if ((!lastStr.length || lastEnc == null) && curMatchedStr.length === curStr.trim().length) {
             probability = this._pZg31Or3b95;
-        } else if (!lastMatchedStr.length || lastEnc == null) {
+        } else if (!lastStr.length || lastEnc == null) {
             probability = this._pZg31Or3b85;
         } else if (curMatchedStr.length > 2 &&
             (this._zgOnlyCAndAcAfCFor31Or3bRegExp.test(curMatchedStr) || this.containsZgOnlyAcCombine(curMatchedStr))) {
@@ -731,7 +748,7 @@ export class ZawgyiDetector {
     private getProbForZgC39(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean,
         curMatchedStr: string,
         aThatMatched: boolean): number {
@@ -743,7 +760,7 @@ export class ZawgyiDetector {
         const cAf39 = testStr.length > 0 ? testStr[0] : '';
 
         if (curMatchedStr === '\u1004\u103A\u1039') {
-            if (curMatchedStr.length === curStr.trim().length && (!lastMatchedStr.length || lastEnc == null)) {
+            if (curMatchedStr.length === curStr.trim().length && (!lastStr.length || lastEnc == null)) {
                 probability = this._pC20;
             } else {
                 probability = this._pC50;
@@ -753,7 +770,7 @@ export class ZawgyiDetector {
             this._zgOnlyCAndAcAfCRegExp.test(curMatchedStr)) {
             probability = aThatMatched || lastEnc === 'zg' || hasGreatProb ?
                 this._pC95 : this._pC85;
-        } else if (!aThatMatched && (!lastMatchedStr.length || lastEnc == null)) {
+        } else if (!aThatMatched && (!lastStr.length || lastEnc == null)) {
             probability = this._pC20;
         } else if (lastEnc === 'zg' && hasGreatProb) {
             probability = aThatMatched ? this._pC54 : this._pC52;
@@ -767,7 +784,7 @@ export class ZawgyiDetector {
     private getProbForZgC3A(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean,
         curMatchedStr: string,
         aThatMatched: boolean): number {
@@ -777,7 +794,7 @@ export class ZawgyiDetector {
         if (this._zgOnlyCAndAcAfCRegExp.test(curMatchedStr)) {
             probability = aThatMatched || lastEnc === 'zg' || hasGreatProb ?
                 this._pC95 : this._pC85;
-        } else if ((lastEnc == null || !lastMatchedStr.length) &&
+        } else if ((lastEnc == null || !lastStr.length) &&
             curMatchedStr.length === 2 && curMatchedStr.length === curStr.trim().length) {
             probability = this._pC55;
         } else if (this._zgCNotCompat3aRegExp.test(cBf3a)) {
@@ -806,20 +823,21 @@ export class ZawgyiDetector {
 
     // Unicode
     //
-    private detectUniMax(curStr: string, lastEnc: DetectedEnc, lastMatchedStr: string): DetectorMatch | null {
+    private detectUni(curStr: string, lastEnc: DetectedEnc, lastStr: string): DetectorMatch | null {
         let curMatchedStr = '';
         let accProb = 0;
         let hasGreatProb = false;
+        let seperatorStart = -1;
 
         while (curStr.length > 0) {
-            let d = this.detectUniKinsi(curStr, lastEnc, lastMatchedStr + curMatchedStr, hasGreatProb);
+            let d = this.detectUniKinsi(curStr, lastEnc, lastStr + curMatchedStr, hasGreatProb);
 
             if (d == null) {
-                d = this.detectUniPahsin(curStr, lastEnc, lastMatchedStr + curMatchedStr, hasGreatProb);
+                d = this.detectUniPahsin(curStr, lastEnc, lastStr + curMatchedStr, hasGreatProb);
             }
 
             if (d == null) {
-                d = this.detectUniC(curStr, lastEnc, lastMatchedStr + curMatchedStr, hasGreatProb);
+                d = this.detectUniC(curStr, lastEnc, lastStr + curMatchedStr, hasGreatProb);
             }
 
             if (d == null) {
@@ -831,10 +849,13 @@ export class ZawgyiDetector {
                     hasGreatProb = true;
                 }
             } else {
-                d = this.detectOtherChars(curStr, lastEnc, lastMatchedStr + curMatchedStr);
+                d = this.detectOtherChars(curStr, lastEnc, lastStr + curMatchedStr);
+                if (d != null && d.start > -1) {
+                    seperatorStart = d.start;
+                }
             }
 
-            if (d == null || !d.matchedString) {
+            if (d == null) {
                 break;
             }
 
@@ -845,6 +866,10 @@ export class ZawgyiDetector {
             if (d.probability > 0) {
                 accProb = accProb === 0 ? d.probability : (accProb + d.probability) / 2;
             }
+
+            if (seperatorStart > -1) {
+                break;
+            }
         }
 
         if (!curMatchedStr.length) {
@@ -854,13 +879,13 @@ export class ZawgyiDetector {
         return {
             detectedEnc: accProb > 0 ? 'uni' : null,
             probability: accProb,
-            start: -1,
+            start: seperatorStart,
             length: curMatchedStr.length,
             matchedString: curMatchedStr
         };
     }
 
-    private detectUniKinsi(curStr: string, lastEnc: DetectedEnc, lastMatchedStr: string, hasGreatProb: boolean): DetectorMatch | null {
+    private detectUniKinsi(curStr: string, lastEnc: DetectedEnc, lastStr: string, hasGreatProb: boolean): DetectorMatch | null {
         if (curStr.length < 3) {
             return null;
         }
@@ -905,22 +930,22 @@ export class ZawgyiDetector {
         let d = this.detectUniAThatWith31And2c(
             test3aStr,
             lastEnc,
-            `${lastMatchedStr}\u1004\u103A\u1039`,
+            `${lastStr}\u1004\u103A\u1039`,
             hasGreatProb);
         if (d === null) {
             d = this.detectUniAThat(
                 test3aStr,
                 lastEnc,
-                `${lastMatchedStr}\u1004\u103A\u1039`,
+                `${lastStr}\u1004\u103A\u1039`,
                 hasGreatProb);
         }
 
-        if (d != null && d.matchedString) {
+        if (d != null) {
             curMatchedStr = `\u1004\u103A\u1039${d.matchedString}`;
         }
 
         let probability: number;
-        if ((!lastMatchedStr.length || lastEnc == null)) {
+        if ((!lastStr.length || lastEnc == null)) {
             probability = d != null ? this._pUniKs80 : this._pUniKs75;
         } else {
             probability = lastEnc === 'uni' || d != null || hasGreatProb ? this._pUniKs95 : this._pUniKs85;
@@ -938,9 +963,9 @@ export class ZawgyiDetector {
     private detectUniPahsin(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean): DetectorMatch | null {
-        if (curStr.length < 3 || !lastMatchedStr.length) {
+        if (curStr.length < 3 || !lastStr.length) {
             return null;
         }
 
@@ -948,18 +973,18 @@ export class ZawgyiDetector {
             return null;
         }
 
-        if (!this._uniPsLeftEndRegExp.test(lastMatchedStr)) {
+        if (!this._uniPsLeftEndRegExp.test(lastStr)) {
             return null;
         }
 
-        let d = this.detectUniAThatWith31And2c(curStr, lastEnc, lastMatchedStr, hasGreatProb);
+        let d = this.detectUniAThatWith31And2c(curStr, lastEnc, lastStr, hasGreatProb);
         if (d === null) {
-            d = this.detectUniAThat(curStr, lastEnc, lastMatchedStr, hasGreatProb);
+            d = this.detectUniAThat(curStr, lastEnc, lastStr, hasGreatProb);
         }
 
         let curMatchedStr: string;
 
-        if (d != null && d.matchedString) {
+        if (d != null) {
             curMatchedStr = d.matchedString;
         } else {
             const m = curStr.match(this._uniPsRegExp);
@@ -1000,7 +1025,7 @@ export class ZawgyiDetector {
     private detectUniC(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean): DetectorMatch | null {
         if (lastEnc !== 'uni') {
             let isUniStart = false;
@@ -1032,9 +1057,9 @@ export class ZawgyiDetector {
             return null;
         }
 
-        let d = this.detectUniAThatWith31And2c(curStr, lastEnc, lastMatchedStr, hasGreatProb);
+        let d = this.detectUniAThatWith31And2c(curStr, lastEnc, lastStr, hasGreatProb);
         if (d === null) {
-            d = this.detectUniAThat(curStr, lastEnc, lastMatchedStr, hasGreatProb);
+            d = this.detectUniAThat(curStr, lastEnc, lastStr, hasGreatProb);
         }
 
         if (d != null) {
@@ -1047,7 +1072,7 @@ export class ZawgyiDetector {
         if (this.isUniOnlyCodePoint(curMatchedStr.codePointAt(0))) {
             probability = this._pUniCMax;
         } else if (curMatchedStr.includes('\u103A')) {
-            if (!lastMatchedStr.length || lastEnc == null || !this._uniC1CompatWithAThat.test(lastMatchedStr)) {
+            if (!lastStr.length || lastEnc == null || !this._uniC1CompatWithAThat.test(lastStr)) {
                 probability = this._pC20;
             } else {
                 probability = this._pC50;
@@ -1060,7 +1085,7 @@ export class ZawgyiDetector {
                 }
             }
 
-            if ((!lastMatchedStr.length || lastEnc == null) &&
+            if ((!lastStr.length || lastEnc == null) &&
                 curMatchedStr.length === curStr.trim().length &&
                 (curMatchedStr.includes('\u1031') || curMatchedStr.includes('\u103B'))) {
                 probability = this._pC95;
@@ -1068,7 +1093,7 @@ export class ZawgyiDetector {
                 (curMatchedStr.includes('\u1031') || curMatchedStr.includes('\u103B'))) {
                 probability = hasGreatProb ? this._pC95 : this._pC85;
             } else if (curMatchedStr.length === 2 && curMatchedStr.endsWith('\u103A')) {
-                if (!lastMatchedStr.length || lastEnc !== 'uni' || !this._uniCAThatRegExp.test(curMatchedStr)) {
+                if (!lastStr.length || lastEnc !== 'uni' || !this._uniCAThatRegExp.test(curMatchedStr)) {
                     probability = this._pC20;
                 } else {
                     probability = this._pC50;
@@ -1119,7 +1144,7 @@ export class ZawgyiDetector {
     private detectUniAThatWith31And2c(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean): DetectorMatch | null {
         if (curStr.length < 5) {
             return null;
@@ -1141,7 +1166,7 @@ export class ZawgyiDetector {
             return null;
         }
 
-        const m = curStr[1] === '\u1039' ? curStr.match(this._uniPs312cC3aRegExp) : curStr.match(this._uniC312cC3aRegExp);
+        const m = curStr[1] === '\u1039' ? curStr.match(this._uniPs312cCAThatRegExp) : curStr.match(this._uniC312cCAThatRegExp);
         if (m == null) {
             return null;
         }
@@ -1158,7 +1183,7 @@ export class ZawgyiDetector {
             probability = hasGreatProb || curMatchedStr.endsWith('\u1037') || curMatchedStr.endsWith('\u1038') ?
                 this._pAThat75 : this._pAThat54;
         } else {
-            probability = lastEnc === 'uni' && lastMatchedStr.length && hasGreatProb ? this._pAThat54 : this._pAThat50;
+            probability = lastEnc === 'uni' && lastStr.length && hasGreatProb ? this._pAThat54 : this._pAThat50;
         }
 
         return {
@@ -1173,7 +1198,7 @@ export class ZawgyiDetector {
     private detectUniAThat(
         curStr: string,
         lastEnc: DetectedEnc,
-        lastMatchedStr: string,
+        lastStr: string,
         hasGreatProb: boolean): DetectorMatch | null {
         if (curStr.length < 3) {
             return null;
@@ -1194,7 +1219,7 @@ export class ZawgyiDetector {
             return null;
         }
 
-        const m = curStr[1] === '\u1039' ? curStr.match(this._uniPsC3aRegExp) : curStr.match(this._uniCC3aRegExp);
+        const m = curStr[1] === '\u1039' ? curStr.match(this._uniPsCAThatRegExp) : curStr.match(this._uniC1C2AThatRegExp);
 
         if (m == null) {
             return null;
@@ -1217,7 +1242,7 @@ export class ZawgyiDetector {
             probability = hasGreatProb || curMatchedStr.endsWith('\u1037') || curMatchedStr.endsWith('\u1038') ?
                 this._pAThat75 : this._pAThat54;
         } else {
-            probability = lastEnc === 'uni' && lastMatchedStr.length && hasGreatProb ? this._pAThat54 : this._pAThat50;
+            probability = lastEnc === 'uni' && lastStr.length && hasGreatProb ? this._pAThat54 : this._pAThat50;
         }
 
         return {
@@ -1241,14 +1266,39 @@ export class ZawgyiDetector {
 
     // Shared
     //
-    private detectOtherChars(curStr: string, lastEnc: DetectedEnc, lastMatchedStr: string): DetectorMatch | null {
+    private detectOtherChars(curStr: string, lastEnc: DetectedEnc, lastStr: string): DetectorMatch | null {
         let curMatchedStr = '';
         let hasPunctuation = false;
+        let hasUnDeteactablePrefix = false;
+        let seperatorStart = -1;
+        let prevIsNewLine = false;
 
-        for (const c of curStr) {
-            if (c === ' ' || c === '\t' || c === '\n' || c === '\r') {
+        for (let i = 0; i < curStr.length; i++) {
+            const c = curStr[i];
+
+            if (c === ' ' || c === '\t') {
                 curMatchedStr += c;
                 continue;
+            }
+
+            if (c === '\n' || c === '\r') {
+                prevIsNewLine = true;
+                curMatchedStr += c;
+                continue;
+            }
+
+            if (prevIsNewLine && (c === '[' || c === '(' || c === '{' || c === '#' || c === '*' || c === '\'' || c === '"' ||
+                c === 'z' || c === 'u' || c === '\u101A' || c === '\u1007' || c === '\u1031' || c === '\u104A' || c === '\u104B')) {
+                const testStr = curStr.substring(i);
+
+                if (this._seperatorRegExp.test(testStr)) {
+                    seperatorStart = i;
+                    break;
+                } else {
+                    prevIsNewLine = false;
+                    curMatchedStr += c;
+                    continue;
+                }
             }
 
             const cp = c.codePointAt(0);
@@ -1258,8 +1308,26 @@ export class ZawgyiDetector {
                 continue;
             }
 
+            prevIsNewLine = false;
+
             if (cp === 0x104A || cp === 0x104B) {
                 hasPunctuation = true;
+                curMatchedStr += c;
+                continue;
+            }
+
+            if ((lastEnc === null && !lastStr.length) && ((cp >= 0x102B && cp <= 0x1030) ||
+                (cp >= 0x1032 && cp <= 0x1034) ||
+                (cp >= 0x1036 && cp <= 0x103A) ||
+                (cp >= 0x103C && cp <= 0x103E) ||
+                cp === 0x105A ||
+                (cp >= 0x1060 && cp <= 0x1069) ||
+                (cp >= 0x106C && cp <= 0x106D) ||
+                (cp >= 0x1070 && cp <= 0x107D) ||
+                cp === 0x1085 ||
+                (cp >= 0x1086 && cp <= 0x108E) ||
+                (cp >= 0x1093 && cp <= 0x1096))) {
+                hasUnDeteactablePrefix = true;
                 curMatchedStr += c;
                 continue;
             }
@@ -1277,8 +1345,8 @@ export class ZawgyiDetector {
 
         return {
             detectedEnc: null,
-            probability: lastMatchedStr.length > 0 && lastEnc != null ? 1 : hasPunctuation ? 0.5 : 0,
-            start: -1,
+            probability: lastStr.length > 0 && lastEnc != null ? 1 : hasPunctuation || hasUnDeteactablePrefix ? 0.5 : 0,
+            start: seperatorStart,
             length: curMatchedStr.length,
             matchedString: curMatchedStr
         };
