@@ -1,5 +1,9 @@
 # Zawgyi and Standard Myanmar Unicode Detector for Angular
 
+[![Build Status](https://dev.azure.com/myanmartools/ng-zawgyi-detector/_apis/build/status/myanmartools.ng-zawgyi-detector?branchName=master)](https://dev.azure.com/myanmartools/ng-zawgyi-detector/_build/latest?definitionId=2&branchName=master)
+[![CircleCI](https://circleci.com/gh/myanmartools/ng-zawgyi-detector/tree/master.svg?style=svg)](https://circleci.com/gh/myanmartools/ng-zawgyi-detector/tree/master)
+[![codecov](https://codecov.io/gh/myanmartools/ng-zawgyi-detector/branch/master/graph/badge.svg)](https://codecov.io/gh/myanmartools/ng-zawgyi-detector)
+[![npm version](https://img.shields.io/npm/v/@myanmartools/ng-zawgyi-detector.svg)](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector)
 [![Gitter](https://badges.gitter.im/DagonMetric/general.svg)](https://gitter.im/DagonMetric/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Zawgyi-One and standard Myanmar Unicode font encoding detection library for Angular applications.
@@ -68,9 +72,11 @@ export class AppComponent {
 }
 ```
 
-## Live Application
+### Usage and Application
 
-* [Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.org) - Angular Progress Web Application designed to convert Myanmar font encodings between Zawgyi-One and Standard Myanmar Unicode
+See [Zawgyi Unicode Converter Angular PWA](https://github.com/myanmartools/zawgyi-unicode-converter-angular-pwa)
+
+[![Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.org/assets/images/appicons/v1/ios/ios-appicon-180x180.png)](https://zawgyi-unicode-converter.myanmartools.org)
 
 ## Feedback and Contributing
 
