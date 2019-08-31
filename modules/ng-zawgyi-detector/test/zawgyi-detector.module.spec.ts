@@ -31,6 +31,6 @@ describe('ZawgyiDetectorModule#withOptions', () => {
 
         const zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
         const result = zawgyiDetector.detect('\u1000');
-        expect(result.detectedEnc).toBe('zg')
+        expect(result.detectedEnc).toBe('zg');
     });
 });
