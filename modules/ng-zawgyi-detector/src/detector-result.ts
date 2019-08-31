@@ -5,12 +5,12 @@ export interface DetectorMatch {
     probability: number;
     start: number;
     length: number;
-    matchedString?: string;
+    matchedString: string;
     competitorMatch?: DetectorMatch;
 }
 
 /**
- * The ZawgyiDetector result.
+ * ZawgyiDetector result.
  */
 export interface DetectorResult {
     detectedEnc: DetectedEnc;
