@@ -87,4 +87,15 @@ describe('ZawgyiDetector#detect#zg-misc', () => {
         expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
+
+    it(String.raw`should detect input '\u1019\u1031\u1001\u103a\u102c' as 'zg'`, () => {
+        const input = '\u1019\u1031\u1001\u103a\u102c';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
 });

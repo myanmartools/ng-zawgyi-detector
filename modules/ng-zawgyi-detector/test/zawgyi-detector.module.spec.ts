@@ -24,13 +24,13 @@ describe('ZawgyiDetectorModule#withOptions', () => {
         TestBed.configureTestingModule({
             imports: [
                 ZawgyiDetectorModule.withOptions({
-                    includeMatchedStringInResult: true
+                    preferZg: true
                 })
             ]
         });
 
         const zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
-        const result = zawgyiDetector.detect('\u103B\u1019\u1014\u1039');
-        expect(result.matches[0].matchedString).toBeTruthy();
+        const result = zawgyiDetector.detect('\u1000');
+        expect(result.detectedEnc).toBe('zg')
     });
 });

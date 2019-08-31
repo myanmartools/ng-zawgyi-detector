@@ -33,10 +33,11 @@ export function formatCodePoints(str?: string): string {
 }
 
 export function toFailOutput(input: string, result: DetectorResult): string {
-    let str = `\n\ninput: ${formatCodePoints(input)}\n`;
+    let str = `\n\ninput: ${formatCodePoints(input)}\n\n`;
     str += `detectedEnc: ${result.detectedEnc}\n`;
 
     if (result.matches) {
+        str += '\nMatches:\n';
         for (const match of result.matches) {
             str += `detectedEnc: ${match.detectedEnc}\n`;
             str += `probability: ${match.probability}\n`;

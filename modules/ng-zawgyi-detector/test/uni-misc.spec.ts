@@ -75,4 +75,15 @@ describe('ZawgyiDetector#detect#uni-misc', () => {
         expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
+
+    it(String.raw`should detect input '\u101a\u1031\u102c\u1000\u103a\u103b\u102c\u1038' as 'uni'`, () => {
+        const input = '\u101a\u1031\u102c\u1000\u103a\u103b\u102c\u1038';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
 });
