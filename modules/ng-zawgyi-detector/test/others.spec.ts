@@ -6,7 +6,7 @@ import { ZawgyiDetector } from '../src';
 
 import { toFailOutput } from './shared.spec';
 
-describe('ZawgyiDetector#other-detections', () => {
+describe('ZawgyiDetector#detect#others', () => {
     let zawgyiDetector: ZawgyiDetector;
 
     beforeEach(() => {
@@ -28,19 +28,6 @@ describe('ZawgyiDetector#other-detections', () => {
         expect(result.detectedEnc).toBeFalsy(toFailOutput(input, result));
         expect(result.matches.length).toBe(1, toFailOutput(input, result));
         expect(result.matches[0].detectedEnc).toBeFalsy(toFailOutput(input, result));
-        expect(result.matches[0].probability).toBe(0, toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
-    });
-
-    // Uni Punctuation
-    it(String.raw`should detect input '၊ abc\n ။' as 'uni'`, () => {
-        const input = '၊ abc\n ။';
-
-        const result = zawgyiDetector.detect(input);
-
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
         expect(result.matches[0].probability).toBe(0, toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });

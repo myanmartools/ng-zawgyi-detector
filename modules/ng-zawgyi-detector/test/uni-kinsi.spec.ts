@@ -28,7 +28,7 @@ describe('ZawgyiDetector#detect#uni-kinsi', () => {
         expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
         expect(result.matches.length).toBe(1, toFailOutput(input, result));
         expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.6, toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
@@ -41,7 +41,7 @@ describe('ZawgyiDetector#detect#uni-kinsi', () => {
         expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
         expect(result.matches.length).toBe(1, toFailOutput(input, result));
         expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
@@ -54,7 +54,7 @@ describe('ZawgyiDetector#detect#uni-kinsi', () => {
         expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
         expect(result.matches.length).toBe(1, toFailOutput(input, result));
         expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 });
