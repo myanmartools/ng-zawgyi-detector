@@ -1,8 +1,17 @@
 # Zawgyi and Standard Myanmar Unicode Detector for Angular
 
-Zawgyi-One and standard Myanmar Unicode font encoding detection library for Angular application.
+[![Gitter](https://badges.gitter.im/DagonMetric/general.svg)](https://gitter.im/DagonMetric/general?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-[WIP]
+Zawgyi-One and standard Myanmar Unicode font encoding detection library for Angular applications.
+
+## Features
+
+* Accurate & performance optimized detection for both Zawgyi-One and standard Myanmar Unicode
+* Intelligent chunk by chunk detection on mix-typed input (Mixed Zawgyi and Unicode)
+* Fully tested with Myanmar Spelling Book (မြန်မာ စာလုံးပေါင်း သတ်ပုံကျမ်း)
+* Open source and MIT license!
+* Work with latest versions of Angular
+* Compatible with Angular Universal (Server Side Rendering - SSR)
 
 ## Get Started
 
