@@ -12,6 +12,7 @@ import { DetectedEnc, DetectorMatch, DetectorResult } from './detector-result';
 
 export interface ZawgyiDetectorOptions {
     preferZg?: boolean;
+    detectMixType?: boolean;
 }
 
 export const ZAWGYI_DETECTOR_OPTIONS = new InjectionToken<ZawgyiDetectorOptions>('ZawgyiDetectorOptions');
@@ -49,7 +50,8 @@ const rUniAcAf31G = '[\u102D\u102E]?[\u102F\u1030]?[\u102B\u102C]?\u103A?[\u1032
 @Injectable()
 export class ZawgyiDetector {
     private readonly _options: ZawgyiDetectorOptions = {
-        preferZg: false
+        preferZg: false,
+        detectMixType: true
     };
 
     // Seperator
