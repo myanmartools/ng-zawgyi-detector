@@ -22,6 +22,90 @@ describe('ZawgyiDetector#detect#zg-misc', () => {
         zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
     });
 
+    // Undetactable start (1)
+    it(String.raw`should detect input '\u105A' as 'zg'`, () => {
+        const input = '\u105A';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
+
+    // Undetactable start (2)
+    it(String.raw`should detect input '\u1060' as 'zg'`, () => {
+        const input = '\u1060';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
+
+    // Undetactable start + char (1)
+    it(String.raw`should detect input '\u105A\u1000' as 'zg'`, () => {
+        const input = '\u105A\u1000';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
+
+    // Undetactable start + char (2)
+    it(String.raw`should detect input '\u105A ။ \u1000' as 'zg'`, () => {
+        const input = '\u105A ။ \u1000';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
+
+    // Undetactable end
+    it(String.raw`should detect input '\u1000 ။ \u1060' as 'zg'`, () => {
+        const input = '\u1000 ။ \u1060';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
+
+    // Undetactable end with seperator
+    it(String.raw`should detect input '\u1000 ။\n[Zawgyi] \u1060' as 'zg'`, () => {
+        const input = '\u1000 ။\n[Zawgyi] \u1060';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
+
+    // Seperator both Zg
+    it(String.raw`should detect input '\u107E\u1000။\n[Zawgyi]\n\u1000\u1060' as 'zg'`, () => {
+        const input = '\u107E\u1000။\n[Zawgyi]\n\u1000\u1060';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
+
     it(String.raw`should detect input '\u1000\u1031\u1010\u102c\u1037' as 'zg'`, () => {
         const input = '\u1000\u1031\u1010\u102c\u1037';
 

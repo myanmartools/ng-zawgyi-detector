@@ -19,6 +19,20 @@ describe('ZawgyiDetector#detect#others', () => {
         zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
     });
 
+    // Whitespace or empty input
+    //
+    it(String.raw`should detect input ' \n' as 'null'`, () => {
+        const input = ' \n';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBeFalsy(toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBeFalsy(toFailOutput(input, result));
+        expect(result.matches[0].probability).toBe(0, toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
+
     // Outside block
     //
     it(String.raw`should detect input ' abc\n' as 'null'`, () => {

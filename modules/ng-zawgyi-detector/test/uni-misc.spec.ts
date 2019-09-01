@@ -32,6 +32,30 @@ describe('ZawgyiDetector#detect#uni-misc', () => {
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
+    // With newline
+    it(String.raw`should detect input '\u1000\u1001\n' as 'uni'`, () => {
+        const input = '\u1000\u1001\n';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
+
+    // Seperator both Uni
+    it(String.raw`should detect input '\u1000\u1001။\n(Uni) ။==== \u1000\u1001\n' as 'uni'`, () => {
+        const input = '\u1000\u1001။\n(Uni) ။==== \u1000\u1001\n';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+    });
+
     it(String.raw`should detect input 'ကချလာ' as 'uni'`, () => {
         const input = 'ကချလာ';
 
