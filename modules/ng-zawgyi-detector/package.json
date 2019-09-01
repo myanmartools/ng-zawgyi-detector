@@ -1,7 +1,7 @@
 {
   "name": "@myanmartools/ng-zawgyi-detector",
   "version": "0.0.0-PLACEHOLDER",
-  "description": "Zawgyi-One and standard Myanmar Unicode font encoding detection library for Angular.",
+  "description": "Zawgyi-One and standard Myanmar Unicode detector library for Angular applications.",
   "keywords": [
     "zawgyi-unicode-detector",
     "zawgyi-detector",
