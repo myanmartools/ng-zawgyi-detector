@@ -93,4 +93,22 @@ describe('ZawgyiDetector#detect#others', () => {
         expect(result.matches[1].start).toBe(3);
         expect(result.matches[1].matchedString).toBe('ေဇာ္ဂ်ီ\u103B\u1000');
     });
+
+    // Mix detection diabled
+    //
+    // 1
+    it(String.raw`should detect input '\u103B\u1000\n[Unicode]\n\u1000\u1031\n' as 'mix'`, () => {
+        const result = zawgyiDetector.detect('\u103B\u1000\n[Unicode]\n\u1000\u1031\n', { detectMixType: false });
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+    });
+
+    // Prefer Zg
+    //
+    // 1
+    it(String.raw`should detect input '\u1000\u103C\n' as 'mix'`, () => {
+        const result = zawgyiDetector.detect('\u1000\u103C\n', { preferZg: true });
+        expect(result.detectedEnc).toBe('zg');
+        expect(result.matches.length).toBe(1);
+    });
 });
