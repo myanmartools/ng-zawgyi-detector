@@ -182,4 +182,24 @@ describe('ZawgyiDetector#detect#zg-misc', () => {
         expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
         expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
+
+    it(String.raw`should detect input '\u1010\u102f\u100f\u103d\u102d\u1031\u1018\u102c' as 'zg'`, () => {
+        const input = '\u1010\u102f\u100f\u103d\u102d\u1031\u1018\u102c';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
+    });
+
+    it(String.raw`should detect input '\u1019\u102d\u1010\u1039\u1010\u1030\u1014\u1036\u1010\u1030' as 'zg'`, () => {
+        const input = '\u1019\u102d\u1010\u1039\u1010\u1030\u1014\u1036\u1010\u1030';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
+    });
 });

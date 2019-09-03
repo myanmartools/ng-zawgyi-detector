@@ -23,15 +23,12 @@ describe('ZawgyiDetector#detect#zg-words', () => {
         zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
     });
 
-    it('should detect as zg', () => {
-        // ကချလာ
-        for (const w of zgWords) {
-            const result = zawgyiDetector.detect(w);
-            expect(result.detectedEnc).toBe('zg', toFailOutput(w, result));
-
-            if (result.detectedEnc !== 'zg') {
-                break;
-            }
+    it(String.raw`should have probability >= '0.5' to all zg words`, () => {
+        for (const input of zgWords) {
+            const result = zawgyiDetector.detect(input);
+            expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+            expect(result.matches.length).toBe(1, toFailOutput(input, result));
+            expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
         }
     });
 });

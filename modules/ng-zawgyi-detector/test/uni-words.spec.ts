@@ -21,15 +21,12 @@ describe('ZawgyiDetector#detect#uni-words', () => {
         zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
     });
 
-    it('should detect as uni', () => {
-        // ကချလာ
-        for (const w of uniWords) {
-            const result = zawgyiDetector.detect(w);
-            expect(result.detectedEnc).toBe('uni', toFailOutput(w, result));
-
-            if (result.detectedEnc !== 'uni') {
-                break;
-            }
+    it(String.raw`should have probability >= '0.5' to all uni words`, () => {
+        for (const input of uniWords) {
+            const result = zawgyiDetector.detect(input);
+            expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+            expect(result.matches.length).toBe(1, toFailOutput(input, result));
+            expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
         }
     });
 });
