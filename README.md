@@ -13,8 +13,9 @@ Zawgyi-One and standard Myanmar Unicode detector library for Angular application
 * Accurate & performance optimized detection for both Zawgyi-One (ဇော်ဂျီ) and standard Myanmar Unicode (မြန်မာ ယူနီကုဒ်)
 * Intelligent chunk by chunk detection on mix-typed input (Mixed Zawgyi and Unicode)
 * Fully tested with Myanmar Spelling Book (မြန်မာ စာလုံးပေါင်း သတ်ပုံကျမ်း) data
-* Work with latest versions of Angular
-* Compatible with Angular Universal (Server Side Rendering - SSR)
+* Deep detection on `A That` (အသက်), `Pahsin` (ပါဌ်ဆင့်), `Kinsi` (ကင်းစီး), etc.
+* Work with latest version of Angular
+* Compatible with Angular Universal (Node.js Server Side Rendering - SSR)
 * Open source and MIT license!
 
 ## Get Started
