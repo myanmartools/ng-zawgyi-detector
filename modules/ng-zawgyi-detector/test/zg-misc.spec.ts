@@ -202,4 +202,34 @@ describe('ZawgyiDetector#detect#zg-misc', () => {
         expect(result.matches.length).toBe(1, toFailOutput(input, result));
         expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
     });
+
+    it(String.raw`should detect input '\u101C\u102D\u102F \u1037' as 'zg'`, () => {
+        const input = '\u101C\u102D\u102F \u1037';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
+    });
+
+    it(String.raw`should detect input '\u1031 \u101C\u102D \u102F \u1037' as 'zg'`, () => {
+        const input = '\u1031 \u101C\u102D \u102F \u1037';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
+    });
+
+    it(String.raw`should detect input '\u1000\u1060\u1033  \u1037' as 'zg'`, () => {
+        const input = '\u1000\u1060\u1033  \u1037';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
+    });
 });

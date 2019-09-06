@@ -32,10 +32,11 @@ const rZgAcKsAfC = '\u1064\u108B-\u108E';
 const rZgC1For3a = '\u1000-\u1021\u1023\u1025\u1027\u1040\u1044\u106A\u106B\u1086\u108F\u1090';
 const rZgOnlyCAndAcAfC = `${rZgAcKsAfC}\u1033\u1034\u105A\u106A\u106B\u107D\u1086-\u108A\u108F\u1090\u1094\u1095`;
 
-const rZgPsDbG = `[${rZgUpC}][${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}]*[${rSp}]*[${rZgPsLoC}]`;
-const rZgCAndOpG = `[${rZgUpC}][${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}]*`;
-const rZgPsSgAndOpG = `[${rZgPsSgC}][${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}]*`;
-const rZgPsDbAndOpG = `${rZgPsDbG}[${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}]*`;
+const rZgPsDbG = `[${rZgUpC}]([${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}])*[${rSp}]*[${rZgPsLoC}]`;
+
+const rZgCAndOpG = `[${rZgUpC}]([${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}])*`;
+const rZgPsSgAndOpG = `[${rZgPsSgC}]([${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}])*`;
+const rZgPsDbAndOpG = `${rZgPsDbG}([${rSp}]*[${rZgAcAfC}${rZgAcKsAfC}])*`;
 const rZgCAndAThatG = `[${rCForAThat}](\u1039\u103A\u102C\u1038|\u1039\u1038|\u1039\u1037|\u1037\u1039|\u1039)`;
 
 // Uni
@@ -68,6 +69,8 @@ export class ZawgyiDetector {
 
     private readonly _mixBlockTestRegExp = /[\u1000-\u1097]/g;
 
+    private readonly _spRegExp = new RegExp(`[${rSp}]`);
+
     // Zg
     private readonly _zgAllAcAfCRegExp = new RegExp(`^[${rZgAcAfC}${rZgAcKsAfC}]`);
     private readonly _zg31WCRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*${rZgCAndOpG}`);
@@ -81,12 +84,12 @@ export class ZawgyiDetector {
     private readonly _zgPahsinSgRegExp = new RegExp(`^${rZgPsSgAndOpG}`);
     private readonly _zgCAndOptionalRegExp = new RegExp(`^${rZgCAndOpG}`);
 
-    private readonly _zg31WCAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*[${rZgC1For3a}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
-    private readonly _zg31WPahsinSgAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*[${rZgPsSgC}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
-    private readonly _zg31WPahsinDbAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*${rZgPsDbG}[${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
-    private readonly _zg3bWCAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]*[${rZgC1For3a}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
-    private readonly _zg3bWPahsinSgAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]*[${rZgPsSgC}][${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
-    private readonly _zg3bWPahsinDbAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]${rZgPsDbG}[${rSp}]*[${rZgAcKsAfC}]*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zg31WCAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*[${rZgC1For3a}]([${rSp}]*[${rZgAcKsAfC}])*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zg31WPahsinSgAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*[${rZgPsSgC}]([${rSp}]*[${rZgAcKsAfC}])*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zg31WPahsinDbAndAThatRegExp = new RegExp(`^\u1031+[${rSp}]*[${rZg3b}]*[${rSp}]*${rZgPsDbG}([${rSp}]*[${rZgAcKsAfC}])*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zg3bWCAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]*[${rZgC1For3a}]([${rSp}]*[${rZgAcKsAfC}])*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zg3bWPahsinSgAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]*[${rZgPsSgC}]([${rSp}]*[${rZgAcKsAfC}])*[\u102B\u102C]${rZgCAndAThatG}`);
+    private readonly _zg3bWPahsinDbAndAThatRegExp = new RegExp(`^[${rZg3b}]+[${rSp}]${rZgPsDbG}([${rSp}]*[${rZgAcKsAfC}])*[\u102B\u102C]${rZgCAndAThatG}`);
     private readonly _zgCAndAThatRegExp = new RegExp(`^${rZgCAndAThatG}`);
 
     private readonly _zgOnlyCAndAcAfCRegExp = new RegExp(`[${rZgOnlyCAndAcAfC}]`);
@@ -694,6 +697,8 @@ export class ZawgyiDetector {
             probability = this.getProbForZgC39AThat(curStr, lastEnc, lastStr, hasGreatProb, curMatchedStr, aThatMatched);
         } else if (curMatchedStr.includes('\u103A')) {
             probability = this.getProbForZgC3A(curStr, lastEnc, lastStr, hasGreatProb, curMatchedStr, aThatMatched);
+        } else if (curMatchedStr.includes(' ') || this._spRegExp.test(curMatchedStr)) {
+            probability = this._pC52;
         } else if (curMatchedStr.includes('\u103D')) {
             if (!curMatchedStr.includes('\u103C') && this._zgCNotCompatWith3dRegExp.test(c)) {
                 probability = lastEnc === 'zg' && hasGreatProb ? this._pC50 : this._pC20;
@@ -775,6 +780,8 @@ export class ZawgyiDetector {
             } else {
                 probability = lastEnc === 'zg' && hasGreatProb ? this._pZg31Or3b53 : this._pZg31Or3b50;
             }
+        } else if (curMatchedStr.includes(' ') || this._spRegExp.test(curMatchedStr)) {
+            probability = this._pC52;
         } else {
             probability = this._pZg31Or3b50;
         }
@@ -814,6 +821,8 @@ export class ZawgyiDetector {
             } else {
                 probability = lastEnc === 'zg' && hasGreatProb ? this._pZg31Or3b53 : this._pZg31Or3b50;
             }
+        } else if (curMatchedStr.includes(' ') || this._spRegExp.test(curMatchedStr)) {
+            probability = this._pC52;
         } else {
             probability = this._pZg31Or3b50;
         }
@@ -846,6 +855,8 @@ export class ZawgyiDetector {
             this._zgOnlyCAndAcAfCRegExp.test(curMatchedStr)) {
             probability = aThatMatched || lastEnc === 'zg' || hasGreatProb ?
                 this._pC95 : this._pC85;
+        } else if (curMatchedStr.includes(' ') || this._spRegExp.test(curMatchedStr)) {
+            probability = this._pC52;
         } else if (!aThatMatched && (!lastStr.length || lastEnc == null)) {
             probability = this._pC20;
         } else if (lastEnc === 'zg' && hasGreatProb) {
@@ -873,6 +884,8 @@ export class ZawgyiDetector {
         } else if ((lastEnc == null || !lastStr.length) &&
             curMatchedStr.length === 2 && curMatchedStr.length === curStr.trim().length) {
             probability = this._pC55;
+        } else if (curMatchedStr.includes(' ') || this._spRegExp.test(curMatchedStr)) {
+            probability = this._pC52;
         } else if (this._zgCNotCompat3aRegExp.test(cBf3a)) {
             probability = this.containsZgOnlyAcCombine(curMatchedStr) ? this._pC50 : this._pC20;
         } else if (this.containsZgOnlyAcCombine(curMatchedStr)) {
