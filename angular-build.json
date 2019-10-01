@@ -11,7 +11,8 @@
         "prod": {
           "copy": [
             "../../README.md",
-            "../../LICENSE"
+            "../../LICENSE",
+            ".npmrc"
           ],
           "bundles": true,
           "packageJsonCopy": true
