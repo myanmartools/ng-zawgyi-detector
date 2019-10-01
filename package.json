@@ -1,12 +1,12 @@
 {
-  "name": "ng-zawgyi-detector",
+  "name": "@myanmartools/ng-zawgyi-detector",
   "version": "1.1.2",
-  "private": true,
+  "description": "Zawgyi-One and standard Myanmar Unicode detector library for Angular applications.",
   "author": "DagonMetric",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/myanmartools/ng-zawgyi-detector.git"
+  "repository" : {
+    "type" : "git",
+    "url": "ssh://git@github.com/myanmartools/ng-zawgyi-detector.git"
   },
   "bugs": {
     "url": "https://github.com/myanmartools/ng-zawgyi-detector/issues"
