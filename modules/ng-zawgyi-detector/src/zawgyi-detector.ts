@@ -155,6 +155,7 @@ export class ZawgyiDetector {
     private readonly _pUniPs95 = 0.95;
     private readonly _pUniPs60 = 0.6;
     private readonly _pUniPs50 = 0.5;
+    private readonly _pUniPs49 = 0.49;
 
     private readonly _pAThat95 = 0.95;
     private readonly _pAThat75 = 0.75;
@@ -1113,7 +1114,7 @@ export class ZawgyiDetector {
                 probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
             }
         } else {
-            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
         }
 
         return {
