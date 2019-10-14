@@ -32,7 +32,7 @@
     "@angular/language-service": "^8.2.10",
     "@angular/platform-browser": "^8.2.10",
     "@angular/platform-browser-dynamic": "^8.2.10",
-    "@dagonmetric/angular-build": "^8.0.6",
+    "@dagonmetric/angular-build": "^8.1.0",
     "@types/jasmine": "^3.4.4",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "^12.7.12",
@@ -52,7 +52,7 @@
     "tsickle": "~0.37.0",
     "tslint": "^5.20.0",
     "tslint-microsoft-contrib": "^6.2.0",
-    "typescript": "~3.6.4",
+    "typescript": "~3.5.3",
     "zone.js": "^0.10.2"
   }
 }
