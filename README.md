@@ -75,9 +75,13 @@ export class AppComponent {
 
 ### Usage and Application
 
-See [Zawgyi Unicode Converter Angular PWA](https://github.com/myanmartools/zawgyi-unicode-converter)
+See [Zawgyi Unicode Converter Angular PWA](https://github.com/myanmartools/zawgyi-unicode-converter) repo.
 
-[![Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.org/assets/images/appicons/v1/ios/ios-appicon-180x180.png)](https://zawgyi-unicode-converter.myanmartools.org)
+#### Live Application
+
+[![Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.org/assets/appicons/v1/ios/ios-appicon-180x180.png)](https://zawgyi-unicode-converter.myanmartools.org)
+
+[https://zawgyi-unicode-converter.myanmartools.org](https://zawgyi-unicode-converter.myanmartools.org)
 
 ## Feedback and Contributing
 
