@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository" : {
     "type" : "git",
-    "url": "ssh://git@github.com/myanmartools/ng-zawgyi-detector.git"
+    "url": "git+https://github.com/myanmartools/ng-zawgyi-detector.git"
   },
   "bugs": {
     "url": "https://github.com/myanmartools/ng-zawgyi-detector/issues"
