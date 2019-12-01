@@ -79,9 +79,7 @@ See [Zawgyi Unicode Converter Angular PWA](https://github.com/myanmartools/zawgy
 
 #### Live Application
 
-[![Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.org/assets/appicons/v1/ios/ios-appicon-180x180.png)](https://zawgyi-unicode-converter.myanmartools.org)
-
-[https://zawgyi-unicode-converter.myanmartools.org](https://zawgyi-unicode-converter.myanmartools.org)
+[Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.org)
 
 ## Feedback and Contributing
 
