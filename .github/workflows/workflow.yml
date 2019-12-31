@@ -1,4 +1,4 @@
-name: Build
+name: Main Workflow
 
 on: [push]
 
@@ -19,8 +19,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install, build, and test
       run: |
-        yarn install --frozen-lockfile --non-interactive
-        yarn build
-        yarn test -c=ci
+        npm ci
+        npm run build --if-present
+        npm test -- -c=ci
+    - uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./dist/coverage/ng-translit/lcov.info
+        flags: unit
+        # fail_ci_if_error: true #optional (default = false)
       env:
         CI: true
