@@ -1,16 +1,14 @@
 # How to contribute
 
-One of the easiest ways to contribute is to participate in discussions and discuss issues. You can also contribute by submitting pull requests with code changes.
+One of the easiest ways to contribute is to participate in discussions and report issues. You can also contribute by submitting pull requests with code changes.
 
-## General feedback and discussions
-
-### Github issues
+## Report Issues
 
 We use [Github issues](https://github.com/myanmartools/ng-zawgyi-detector/issues) to track public bugs. Please ensure your description is clear and has sufficient instructions to be able to reproduce the issue.
 
-### Discussions
+## General Discussions
 
-[Gitter Channel](https://gitter.im/myanmartools/community) for general Myanmar tools discussions.
+We use [Gitter Channel](https://gitter.im/myanmartools/community) for general Myanmar tools discussions.
 
 ## Contributing code and content
 
