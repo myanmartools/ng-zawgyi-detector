@@ -156,6 +156,7 @@ export class ZawgyiDetector {
     private readonly _pUniPs60 = 0.6;
     private readonly _pUniPs50 = 0.5;
     private readonly _pUniPs49 = 0.49;
+    private readonly _pUniPs47 = 0.47;
 
     private readonly _pAThat95 = 0.95;
     private readonly _pAThat75 = 0.75;
@@ -1111,10 +1112,13 @@ export class ZawgyiDetector {
             if (curMatchedStr.includes('\u1031') && (curMatchedStr.includes('\u102B') || curMatchedStr.includes('\u102C'))) {
                 probability = this._pAThat95;
             } else {
-                probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
+                probability = this.getProbabilityForPahsin(curMatchedStr, lastEnc, hasGreatProb);
+                if (probability < this._pUniPs50) {
+                    probability = this._pUniPs50;
+                }
             }
         } else {
-            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+            probability = this.getProbabilityForPahsin(curMatchedStr, lastEnc, hasGreatProb);
         }
 
         return {
@@ -1531,6 +1535,67 @@ export class ZawgyiDetector {
         }
 
         return found;
+    }
+
+    private getProbabilityForPahsin(curMatchedStr: string, lastEnc: DetectedEnc, hasGreatProb: boolean): number {
+        const c1 = curMatchedStr[0];
+        const c2 = curMatchedStr[2];
+
+        let probability = this._pUniPs60;
+
+        if (c1 === '\u1000' && (c2 === '\u1000' || c2 === '\u1001')) {
+            // က္က / က္ခ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+        } else if (c1 === '\u1002' && (c2 === '\u1002' || c2 === '\u1003')) {
+            // ဂ္ဂ / ဂ္ဃ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 === '\u1005' && (c2 === '\u1005' || c2 === '\u1006')) {
+            // စ္စ / စ္ဆ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+        } else if (c1 === '\u1007' && (c2 === '\u1007' || c2 === '\u1008')) {
+            // ဇ္ဇ / ဇ္ဈ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 === '\u1009' && (c2 === '\u1005' || c2 === '\u1006' || c2 === '\u1007' || c2 === '\u1008')) {
+            // ဉ္စ / ဉ္ဆ / ဉ္ဇ / ဉ္ဈ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 === '\u100B' && (c2 === '\u100B' || c2 === '\u100C')) {
+            // ဋ္ဋ / ဋ္ဌ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 === '\u100D' && (c2 === '\u100D' || c2 === '\u100E')) {
+            // ဍ္ဍ / ဍ္ဎ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 === '\u100F' && (c2 === '\u100B' || c2 === '\u100C' || c2 === '\u100D' || c2 === '\u100E' || c2 === '\u100F')) {
+            // ဏ္ဋ / ဏ္ဌ / ဏ္ဍ / ဏ္ဏ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 === '\u1010' && (c2 === '\u1010' || c2 === '\u1011')) {
+            // တ္တ / တ္ထ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+        } else if (c1 === '\u1012' && (c2 === '\u1012' || c2 === '\u1013')) {
+            // ဒ္ဒ / ဒ္ဓ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
+        } else if (c1 === '\u1014' && (c2 === '\u1010' || c2 === '\u1011' || c2 === '\u1012' || c2 === '\u1013' || c2 === '\u1014')) {
+            // န္တ / န္ထ / န္ဒ / န္ဓ / န္န
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
+        } else if (c1 === '\u1015' && (c2 === '\u1015' || c2 === '\u1016')) {
+            // ပ္ပ / ပ္ဖ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+        } else if (c1 === '\u1017' && (c2 === '\u1017' || c2 === '\u1018')) {
+            // ဗ္ဗ / ဗ္ဘ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
+        } else if (c1 === '\u1019' && (c2 === '\u1015' || c2 === '\u1016' || c2 === '\u1017' || c2 === '\u1018' || c2 === '\u1019')) {
+            // မ္ပ / မ္ဗ / မ္ဘ / မ္မ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+        } else if (c1 === '\u101C' && c2 === '\u101C') {
+            // လ္လ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 === '\u1020' && c2 === '\u1020') {
+            // ဠ္ဠ
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else {
+            probability = lastEnc === 'uni' && hasGreatProb ? this._pUniPs95 : this._pUniPs47;
+        }
+
+        return probability;
     }
 
     // Shared
