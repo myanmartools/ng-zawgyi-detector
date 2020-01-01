@@ -1458,5 +1458,9 @@ export const uniPahsinWords: [string, string, number?][] = [
     [
         '\u1015',
         '\u100F\u1039\u100D\u102D\u1010'
+    ],
+    [
+        '\u1019',
+        '\u1025\u1039\u1007\u1030'
     ]
 ];
