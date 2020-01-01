@@ -81,6 +81,16 @@ describe('ZawgyiDetector#detect#uni-pahsin', () => {
         expect(result.matches[0].probability).toBeGreaterThan(0.5, toFailOutput(input, result));
     });
 
+    it(String.raw`should detect input 'မဥ္ဇူ' as 'uni'`, () => {
+        const input = 'မဥ္ဇူ';
+
+        const result = zawgyiDetector.detect(input);
+
+        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        expect(result.matches[0].probability).toBeGreaterThan(0.5, toFailOutput(input, result));
+    });
+
     it(String.raw`should detect input 'အာဝဇ္ဇန်းရွှင်' as 'uni'`, () => {
         const input = 'အာဝဇ္ဇန်းရွှင်';
 
