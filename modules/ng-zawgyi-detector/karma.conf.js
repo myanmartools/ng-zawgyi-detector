@@ -1,9 +1,12 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
-module.exports = function (config) {
-    const puppeteer = require('puppeteer');
-    process.env.CHROME_BIN = puppeteer.executablePath();
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable  */
+
+module.exports = (config) => {
+    // const puppeteer = require('puppeteer');
+    // process.env.CHROME_BIN = puppeteer.executablePath();
 
     config.set({
         basePath: '',
@@ -20,31 +23,31 @@ module.exports = function (config) {
             clearContext: false // leave Jasmine Spec Runner output visible in browser
         },
         coverageIstanbulReporter: {
-            dir: require('path').join(__dirname, '../../dist/coverage/ng-zawgyi-detector'),
+            dir: require('path').join(__dirname, '../../coverage/ng-zawgyi-detector'),
             reports: ['html', 'lcovonly', 'text-summary', 'cobertura'],
             fixWebpackSourcePaths: true,
             thresholds: {
-                statements: 80,
-                lines: 80,
-                branches: 80,
-                functions: 80
+                statements: 50,
+                lines: 50,
+                branches: 40,
+                functions: 50
             }
         },
         reporters: ['progress', 'kjhtml'],
         junitReporter: {
-            outputDir: '../../dist/junit/ng-zawgyi-detector'
+            outputDir: '../../junit/ng-zawgyi-detector'
         },
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
         browsers: ['Chrome'],
-        // customLaunchers: {
-        //     ChromeHeadlessCI: {
-        //         base: 'ChromeHeadless',
-        //         flags: ['--no-sandbox']
-        //     }
-        // },
+        customLaunchers: {
+            ChromeHeadlessCI: {
+                base: 'ChromeHeadless',
+                flags: ['--no-sandbox']
+            }
+        },
         singleRun: false,
         restartOnFileChange: true
     });
