@@ -354,6 +354,9 @@ MigrationBackup/
 
 # Firebase
 # --------------------------------------------------
+# Logs
+firebase-debug.log*
+
 # Firebase cache
 .firebase/
 
@@ -393,12 +396,13 @@ Thumbs.db
 typings/
 
 # Logs
-firebase-debug.log*
 logs
 *.log
+log.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+report.*
 
 # Runtime data
 pids
@@ -408,6 +412,9 @@ pids
 
 # Coverage directory used by tools like istanbul
 coverage
+
+# junit outputs
+junit
 
 # Optional npm cache directory
 .npm
@@ -430,6 +437,9 @@ coverage
 
 # Misc.
 tmp/
+/.versions
+/.sourcemaps
+/.ionic
 
 # profiling files
 chrome-profiler-events*.json
