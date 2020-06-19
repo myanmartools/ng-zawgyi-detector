@@ -24,13 +24,10 @@
 
     "baseUrl": ".",
     "rootDir": ".",
-    "outDir": "./dist/out-tsc",
+    "outDir": "./out-tsc",
 
-    "plugins": [
-      {
-        "name": "typescript-tslint-plugin",
-        "configFile": "tslint.json"
-      }
-    ]
+    "paths": {
+      "@dagonmetric/ng-zawgyi-detector": [ "./modules/ng-zawgyi-detector" ]
+    }
   }
 }
