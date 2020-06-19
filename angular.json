@@ -34,27 +34,97 @@
           },
           "configurations": {
             "ci": {
-              "browsers": "ChromeHeadless",
+              "browsers": "ChromeHeadlessCI",
               "reporters": ["progress", "junit"],
               "codeCoverage": true,
               "watch": false,
               "progress": false
             }
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+        }
+
+      }
+    },
+    "demo-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "samples/demo-app",
+      "sourceRoot": "samples/demo-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "tsConfig": [
-              "tsconfig.json"
+            "outputPath": "dist/demo-app",
+            "index": "samples/demo-app/src/index.html",
+            "main": "samples/demo-app/src/main.ts",
+            "polyfills": "samples/demo-app/src/polyfills.ts",
+            "tsConfig": "samples/demo-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "samples/demo-app/src/favicon.ico"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "styles": [],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "samples/demo-app/src/environments/environment.ts",
+                  "with": "samples/demo-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "demo-app:build"
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "samples/demo-app-e2e/protractor.conf.js",
+            "devServerTarget": "demo-app:serve"
+          },
+          "configurations": {
+            "ci": {
+              "protractorConfig": "samples/demo-app-e2e/protractor-ci.conf.js"
+            },
+            "production": {
+              "devServerTarget": "demo-app:serve:production"
+            }
           }
         }
       }
     }
   },
-  "defaultProject": "ng-zawgyi-detector"
+  "defaultProject": "demo-app"
 }
