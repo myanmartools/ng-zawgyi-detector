@@ -2,6 +2,7 @@
 
 | Date (UTC) | Version |  |  |
 | :-- | :-- | :--: | :-- |
+| 2020-06-20 | 1.2.2 | [release notes](v1.2.2/README.md)/[npm](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector/v/v1.2.2) | - |
 | 2020-01-01 | 1.2.1 | [release notes](v1.2.1/README.md)/[npm](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector/v/v1.2.1) | - |
 | 2020-01-01 | 1.2.0 | [release notes](v1.2.0/README.md)/[npm](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector/v/v1.2.0) | - |
 | 2019-10-14 | 1.1.4 | [release notes](v1.1.4/README.md)/[npm](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector/v/v1.1.4) | - |
