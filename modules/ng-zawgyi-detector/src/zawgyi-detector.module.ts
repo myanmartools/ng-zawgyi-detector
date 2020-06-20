@@ -14,21 +14,17 @@ import { ZAWGYI_DETECTOR_OPTIONS, ZawgyiDetector, ZawgyiDetectorOptions } from '
  * The transliteration `NGMODULE` for providing `ZawgyiDetector` service.
  */
 @NgModule({
-    providers: [
-        ZawgyiDetector
-    ]
+    providers: [ZawgyiDetector]
 })
 export class ZawgyiDetectorModule {
     /**
      * Provides options for configuring the `ZawgyiDetectorModule`.
      * @param options An object of configuration options of type `ZawgyiDetectorOptions`.
      */
-    static withOptions(options: ZawgyiDetectorOptions): ModuleWithProviders {
+    static withOptions(options: ZawgyiDetectorOptions): ModuleWithProviders<ZawgyiDetectorModule> {
         return {
             ngModule: ZawgyiDetectorModule,
-            providers: [
-                { provide: ZAWGYI_DETECTOR_OPTIONS, useValue: options }
-            ]
+            providers: [{ provide: ZAWGYI_DETECTOR_OPTIONS, useValue: options }]
         };
     }
 }
