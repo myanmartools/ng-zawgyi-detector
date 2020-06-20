@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { ZawgyiDetector } from '@dagonmetric/ng-zawgyi-detector';
+import { ZawgyiDetector } from '@myanmartools/ng-zawgyi-detector';
 
 @Component({
     selector: 'app-root',

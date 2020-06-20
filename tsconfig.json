@@ -27,7 +27,7 @@
     "outDir": "./out-tsc",
 
     "paths": {
-      "@dagonmetric/ng-zawgyi-detector": [ "./modules/ng-zawgyi-detector" ]
+      "@myanmartools/ng-zawgyi-detector": [ "./modules/ng-zawgyi-detector" ]
     }
   }
 }

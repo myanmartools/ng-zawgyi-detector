@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ZawgyiDetectorModule } from '@dagonmetric/ng-zawgyi-detector';
+import { ZawgyiDetectorModule } from '@myanmartools/ng-zawgyi-detector';
 
 import { AppComponent } from './app.component';
 
