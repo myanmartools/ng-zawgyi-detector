@@ -3,7 +3,7 @@
 [![GitHub Actions Status](https://github.com/myanmartools/ng-zawgyi-detector/workflows/Main%20Workflow/badge.svg)](https://github.com/myanmartools/ng-zawgyi-detector/actions)
 [![Azure Pipelines Status](https://dev.azure.com/myanmartools/ng-zawgyi-detector/_apis/build/status/myanmartools.ng-zawgyi-detector?branchName=master)](https://dev.azure.com/myanmartools/ng-zawgyi-detector/_build/latest?definitionId=2&branchName=master)
 [![codecov](https://codecov.io/gh/myanmartools/ng-zawgyi-detector/branch/master/graph/badge.svg)](https://codecov.io/gh/myanmartools/ng-zawgyi-detector)
-[![npm version](https://img.shields.io/npm/v/@myanmartools/ng-zawgyi-detector.svg)](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector)
+[![npm version](https://badge.fury.io/js/%40myanmartools%2Fng-zawgyi-detector.svg)](https://www.npmjs.com/package/@myanmartools/ng-zawgyi-detector)
 [![Gitter](https://badges.gitter.im/myanmartools/community.svg)](https://gitter.im/myanmartools/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Zawgyi-One and standard Myanmar Unicode detector library for Angular applications.
@@ -50,6 +50,8 @@ import { ZawgyiDetectorModule } from '@myanmartools/ng-zawgyi-detector';
 export class AppModule { }
 ```
 
+Live edit [app.module.ts in stackblitz](https://stackblitz.com/github/myanmartools/ng-zawgyi-detector/tree/master/samples/demo-app?file=src%2Fapp%2Fapp.module.ts)
+
 ### Usage (app.component.ts)
 
 ```typescript
@@ -73,17 +75,19 @@ export class AppComponent {
 }
 ```
 
-### Usage and Application
+Live edit [app.component.ts in stackblitz](https://stackblitz.com/github/myanmartools/ng-zawgyi-detector/tree/master/samples/demo-app?file=src%2Fapp%2Fapp.component.ts)
 
-See [Zawgyi Unicode Converter Angular PWA](https://github.com/myanmartools/zawgyi-unicode-converter) repo.
+## Samples
 
-#### Live Application
+Demo app [view source](https://github.com/myanmartools/ng-zawgyi-detector/tree/master/samples/demo-app) / [live edit in stackblitz](https://stackblitz.com/github/myanmartools/ng-zawgyi-detector/tree/master/samples/demo-app)
 
-[Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.org)
+## Live Application
+
+[Zawgyi Unicode Converter - Angular PWA](https://zawgyi-unicode-converter.myanmartools.org)
 
 ## Feedback and Contributing
 
-Check out the [Contributing](https://github.com/myanmartools/ng-zawgyi-detector/blob/master/CONTRIBUTING.md) page to see the best places to log issues and start discussions.
+Check out the [Contributing](https://github.com/myanmartools/ng-zawgyi-detector/blob/master/CONTRIBUTING.md) page.
 
 ## License
 
