@@ -26,6 +26,8 @@ describe('ZawgyiDetector#detect#zg-words', () => {
             void expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
             void expect(result.matches.length).toBe(1, toFailOutput(input, result));
             void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
+
+            break;
         }
     });
 });
