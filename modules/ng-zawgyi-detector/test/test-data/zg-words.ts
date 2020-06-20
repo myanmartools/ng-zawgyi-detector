@@ -1,5 +1,3 @@
-// tslint:disable: max-line-length
-
 export const zgWords = [
     '\u104c',
     '\u104d',

@@ -15,7 +15,6 @@ describe('ZawgyiDetector#detect#misc', () => {
         zawgyiDetector = TestBed.inject<ZawgyiDetector>(ZawgyiDetector);
     });
 
-    // tslint:disable-next-line: max-line-length
     it(
         String.raw`should detect input '\u1000\u102F\u1014\u1039\u1011\u102F\u1010\u1039\u101E\u1019\u101D\u102B\u101A\u1019' as 'zg'`,
         () => {
