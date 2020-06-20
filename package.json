@@ -16,7 +16,7 @@
     "tsc": "tsc",
     "lint": "eslint -c .eslintrc.json --ext .js,.ts .",
     "build": "ngb build --env.prod",
-    "test": "ng test",
+    "test": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng test",
     "serve": "ng serve",
     "e2e": "ng e2e"
   },
