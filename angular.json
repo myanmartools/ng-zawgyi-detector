@@ -24,7 +24,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "modules/ng-zawgyi-detector/test.ts",
-            "tsConfig": "modules/ng-zawgyi-detector/tsconfig-test.json",
+            "tsConfig": "modules/ng-zawgyi-detector/tsconfig.test.json",
             "karmaConfig": "modules/ng-zawgyi-detector/karma.conf.js",
             "codeCoverageExclude": [
               "**/test.ts",
