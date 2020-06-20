@@ -6,9 +6,6 @@
  * found under the LICENSE file in the root directory of this source tree.
  */
 
-/**
- * Entry point for all public APIs of the `ng-zawgyi-detector` package.
- */
 export * from './detector-result';
 export * from './zawgyi-detector.module';
 export * from './zawgyi-detector';
