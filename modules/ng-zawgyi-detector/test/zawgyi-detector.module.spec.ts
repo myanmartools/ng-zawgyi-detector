@@ -1,5 +1,3 @@
-// tslint:disable: no-floating-promises
-
 import { TestBed } from '@angular/core/testing';
 
 import { ZawgyiDetector, ZawgyiDetectorModule } from '../src';
@@ -7,15 +5,13 @@ import { ZawgyiDetector, ZawgyiDetectorModule } from '../src';
 describe('ZawgyiDetectorModule', () => {
     it("should provide 'ZawgyiDetector'", () => {
         TestBed.configureTestingModule({
-            imports: [
-                ZawgyiDetectorModule
-            ]
+            imports: [ZawgyiDetectorModule]
         });
 
-        const zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector);
+        const zawgyiDetector = TestBed.inject<ZawgyiDetector>(ZawgyiDetector);
 
-        expect(zawgyiDetector).toBeDefined();
-        expect(zawgyiDetector instanceof ZawgyiDetector).toBeTruthy();
+        void expect(zawgyiDetector).toBeDefined();
+        void expect(zawgyiDetector instanceof ZawgyiDetector).toBeTruthy();
     });
 });
 
@@ -29,8 +25,8 @@ describe('ZawgyiDetectorModule#withOptions', () => {
             ]
         });
 
-        const zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
+        const zawgyiDetector = TestBed.inject<ZawgyiDetector>(ZawgyiDetector);
         const result = zawgyiDetector.detect('\u1000');
-        expect(result.detectedEnc).toBe('zg');
+        void expect(result.detectedEnc).toBe('zg');
     });
 });

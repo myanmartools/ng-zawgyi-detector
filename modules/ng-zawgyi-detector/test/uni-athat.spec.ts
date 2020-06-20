@@ -1,5 +1,3 @@
-// tslint:disable: no-floating-promises
-
 import { TestBed } from '@angular/core/testing';
 
 import { ZawgyiDetector } from '../src';
@@ -13,12 +11,10 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [
-                ZawgyiDetector
-            ]
+            providers: [ZawgyiDetector]
         });
 
-        zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
+        zawgyiDetector = TestBed.inject<ZawgyiDetector>(ZawgyiDetector);
     });
 
     it(String.raw`should detect input 'ယောက်ျား' as 'uni'`, () => {
@@ -26,9 +22,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ဩောင်း' as 'uni'`, () => {
@@ -36,9 +32,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThan(0.9, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThan(0.9, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ကြောင်' as 'uni'`, () => {
@@ -46,9 +42,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'လျှောင်' as 'uni'`, () => {
@@ -56,9 +52,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'တောင်' as 'uni'`, () => {
@@ -66,9 +62,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ခေတ်' as 'uni'`, () => {
@@ -76,9 +72,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'လျှော်' as 'uni'`, () => {
@@ -86,9 +82,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'တော်' as 'uni'`, () => {
@@ -96,9 +92,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ကျွင်' as 'uni'`, () => {
@@ -106,9 +102,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ခင်း' as 'uni'`, () => {
@@ -116,9 +112,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ခွင်' as 'uni'`, () => {
@@ -126,9 +122,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.52, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.52, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ခင်' as 'uni'`, () => {
@@ -136,9 +132,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.52, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.52, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ခက်' as 'uni'`, () => {
@@ -146,9 +142,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.5, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ရွှင်' as 'uni'`, () => {
@@ -156,9 +152,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThan(0.9, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThan(0.9, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ကျွန်ုပ်' as 'uni'`, () => {
@@ -166,9 +162,9 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThan(0.9, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThan(0.9, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'လွှင့်' as 'uni'`, () => {
@@ -177,8 +173,8 @@ describe('ZawgyiDetector#detect#uni-athat', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThan(0.9, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThan(0.9, toFailOutput(input, result));
     });
 });

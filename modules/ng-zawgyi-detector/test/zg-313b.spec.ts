@@ -1,5 +1,3 @@
-// tslint:disable: no-floating-promises
-
 import { TestBed } from '@angular/core/testing';
 
 import { ZawgyiDetector, ZawgyiDetectorModule } from '../src';
@@ -18,7 +16,7 @@ describe('ZawgyiDetector#detect#zg-313b', () => {
             ]
         });
 
-        zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
+        zawgyiDetector = TestBed.inject<ZawgyiDetector>(ZawgyiDetector);
     });
 
     // \u1031 (1)
@@ -27,11 +25,11 @@ describe('ZawgyiDetector#detect#zg-313b', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // \u1031 (2)
@@ -40,11 +38,11 @@ describe('ZawgyiDetector#detect#zg-313b', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // \u1031 (3)
@@ -53,11 +51,11 @@ describe('ZawgyiDetector#detect#zg-313b', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // \u1031 (4)
@@ -66,11 +64,11 @@ describe('ZawgyiDetector#detect#zg-313b', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // \u1031 (5)
@@ -79,11 +77,11 @@ describe('ZawgyiDetector#detect#zg-313b', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // \u103B (1)
@@ -92,11 +90,11 @@ describe('ZawgyiDetector#detect#zg-313b', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // \u103B (2)
@@ -105,11 +103,11 @@ describe('ZawgyiDetector#detect#zg-313b', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // \u103B (3)
@@ -118,10 +116,10 @@ describe('ZawgyiDetector#detect#zg-313b', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 });

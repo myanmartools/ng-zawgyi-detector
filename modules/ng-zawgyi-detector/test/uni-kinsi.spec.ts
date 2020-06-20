@@ -1,5 +1,3 @@
-// tslint:disable: no-floating-promises
-
 import { TestBed } from '@angular/core/testing';
 
 import { ZawgyiDetector } from '../src';
@@ -11,12 +9,10 @@ describe('ZawgyiDetector#detect#uni-kinsi', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [
-                ZawgyiDetector
-            ]
+            providers: [ZawgyiDetector]
         });
 
-        zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
+        zawgyiDetector = TestBed.inject<ZawgyiDetector>(ZawgyiDetector);
     });
 
     // Kinsi (1)
@@ -25,9 +21,9 @@ describe('ZawgyiDetector#detect#uni-kinsi', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.6, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.6, toFailOutput(input, result));
     });
 
     // Kinsi (2)
@@ -36,9 +32,9 @@ describe('ZawgyiDetector#detect#uni-kinsi', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
     });
 
     // Kinsi (3)
@@ -47,9 +43,8 @@ describe('ZawgyiDetector#detect#uni-kinsi', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
-
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.7, toFailOutput(input, result));
     });
 });

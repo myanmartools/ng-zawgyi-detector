@@ -1,5 +1,3 @@
-// tslint:disable: max-line-length
-
 export const uniWords = [
     '\u104c',
     '\u104d',

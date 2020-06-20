@@ -1,5 +1,3 @@
-// tslint:disable: no-floating-promises
-
 import { TestBed } from '@angular/core/testing';
 
 import { ZawgyiDetector, ZawgyiDetectorModule } from '../src';
@@ -18,7 +16,7 @@ describe('ZawgyiDetector#detect#zg-pahsin', () => {
             ]
         });
 
-        zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
+        zawgyiDetector = TestBed.inject<ZawgyiDetector>(ZawgyiDetector);
     });
 
     it(String.raw`should detect input '\u1000\u1060' as 'zg'`, () => {
@@ -26,11 +24,11 @@ describe('ZawgyiDetector#detect#zg-pahsin', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input '\u1091' as 'zg'`, () => {
@@ -38,10 +36,10 @@ describe('ZawgyiDetector#detect#zg-pahsin', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
-        expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('zg', toFailOutput(input, result));
+        void expect(result.matches[0].probability).toBeGreaterThanOrEqual(0.9, toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 });

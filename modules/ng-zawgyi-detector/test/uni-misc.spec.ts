@@ -1,6 +1,3 @@
-// tslint:disable: no-floating-promises
-// tslint:disable: no-implicit-dependencies
-
 import { TestBed } from '@angular/core/testing';
 
 import { ZawgyiDetector } from '../src';
@@ -12,12 +9,10 @@ describe('ZawgyiDetector#detect#uni-misc', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [
-                ZawgyiDetector
-            ]
+            providers: [ZawgyiDetector]
         });
 
-        zawgyiDetector = TestBed.get<ZawgyiDetector>(ZawgyiDetector) as ZawgyiDetector;
+        zawgyiDetector = TestBed.inject<ZawgyiDetector>(ZawgyiDetector);
     });
 
     // Uni Punctuation
@@ -26,10 +21,10 @@ describe('ZawgyiDetector#detect#uni-misc', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // With newline
@@ -38,10 +33,10 @@ describe('ZawgyiDetector#detect#uni-misc', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     // Seperator both Uni
@@ -50,10 +45,10 @@ describe('ZawgyiDetector#detect#uni-misc', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ကချလာ' as 'uni'`, () => {
@@ -61,10 +56,10 @@ describe('ZawgyiDetector#detect#uni-misc', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ကလိယုဂ်ခေတ်' as 'uni'`, () => {
@@ -72,10 +67,10 @@ describe('ZawgyiDetector#detect#uni-misc', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'ကုဗ်' as 'uni'`, () => {
@@ -83,10 +78,10 @@ describe('ZawgyiDetector#detect#uni-misc', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input 'တံခါးမုခ်' as 'uni'`, () => {
@@ -94,10 +89,10 @@ describe('ZawgyiDetector#detect#uni-misc', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 
     it(String.raw`should detect input '\u101a\u1031\u102c\u1000\u103a\u103b\u102c\u1038' as 'uni'`, () => {
@@ -105,9 +100,9 @@ describe('ZawgyiDetector#detect#uni-misc', () => {
 
         const result = zawgyiDetector.detect(input);
 
-        expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches.length).toBe(1, toFailOutput(input, result));
-        expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
-        expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
+        void expect(result.detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches.length).toBe(1, toFailOutput(input, result));
+        void expect(result.matches[0].detectedEnc).toBe('uni', toFailOutput(input, result));
+        void expect(result.matches[0].matchedString).toBe(input, toFailOutput(input, result));
     });
 });
