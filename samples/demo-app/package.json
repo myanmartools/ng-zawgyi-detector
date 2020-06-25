@@ -16,9 +16,9 @@
     "@angular/platform-browser": "^10.0.0",
     "@angular/platform-browser-dynamic": "^10.0.0",
     "@angular/router": "^10.0.0",
-    "@myanmartools/ng-zawgyi-detector": "^1.2.2",
+    "@myanmartools/ng-zawgyi-detector": "^1.2.3",
     "rxjs": "^6.5.5",
-    "tslib": "~1.13.0",
+    "tslib": "~2.0.0",
     "zone.js": "^0.10.3"
   },
   "devDependencies": {
@@ -28,6 +28,6 @@
     "@angular/language-service": "^10.0.0",
     "@types/node": "^14.0.14",
     "ts-node": "~8.10.2",
-    "typescript": "~3.8.3"
+    "typescript": "~3.9.5"
   }
 }
