@@ -2,7 +2,6 @@
 
 import { DetectorResult } from '../src';
 
-// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function formatCodePoints(str?: string): string {
     if (str == null) {
         return '';
@@ -35,7 +34,6 @@ export function formatCodePoints(str?: string): string {
     return cpArray.join('');
 }
 
-// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function toFailOutput(input: string, result: DetectorResult): string {
     let str = `\n\ninput: ${formatCodePoints(input)}\n\n`;
     str += `detectedEnc: ${result.detectedEnc}\n`;
