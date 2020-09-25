@@ -1,0 +1,39 @@
+{
+    "$schema": "./node_modules/lib-tools/schemas/schema.json",
+    "projects": {
+      "ng-zawgyi-detector": {
+        "root": "modules/ng-zawgyi-detector",
+        "tasks": {
+          "build": {
+            "outputPath": "../../dist/packages/ng-zawgyi-detector",
+            "script": {
+              "compilations": "auto",
+              "umdId": "ngZawgyiDetector"            
+            }
+          },
+          "test": {
+            "testIndexFile": "test.ts",
+            "tsConfig": "tsconfig.test.json",
+            "envOverrides": {
+              "ci": {
+                "codeCoverageExclude": [
+                  "**/test.ts",
+                  "**/index.ts",
+                  "**/public_api.ts"
+                ],
+                "reporters": [
+                  "junit",
+                  "coverage-istanbul"
+                ],
+                "browsers": [
+                  "ChromeHeadlessCI"
+                ],
+                "singleRun": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
