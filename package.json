@@ -17,7 +17,7 @@
     "eslint": "eslint",
     "lint": "eslint -c .eslintrc.json --ext .js,.ts .",
     "build": "lib build --env.prod",
-    "test": "lib test --env.ci=true",
+    "test": "ng test -c=ci",
     "e2e": "ng e2e -c=ci",
     "serve": "ng serve"
   },
