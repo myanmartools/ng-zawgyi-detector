@@ -4,7 +4,7 @@ import { ZawgyiDetector, ZawgyiDetectorModule } from '../src';
 
 import { toFailOutput } from './shared.spec';
 
-describe('ZawgyiDetector#detect#misc', () => {
+describe('ZawgyiDetector#detect#issues', () => {
     let zawgyiDetector: ZawgyiDetector;
 
     beforeEach(() => {
