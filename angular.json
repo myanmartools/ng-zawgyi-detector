@@ -2,7 +2,7 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "modules",
-  "projects": {  
+  "projects": {
     "demo-app": {
       "projectType": "application",
       "schematics": {
@@ -39,7 +39,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,              
+              "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -86,7 +86,7 @@
       "root": "modules/ng-zawgyi-detector",
       "sourceRoot": "modules/ng-zawgyi-detector",
       "projectType": "library",
-      "architect": {        
+      "architect": {
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -109,6 +109,10 @@
               "codeCoverage": true,
               "watch": false,
               "progress": false
+            },
+            "issues": {
+              "main": "modules/ng-zawgyi-detector/test-issues.ts",
+            "tsConfig": "modules/ng-zawgyi-detector/tsconfig.test-issues.json"
             }
           }
         }
