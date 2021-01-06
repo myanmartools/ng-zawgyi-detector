@@ -1,5 +1,5 @@
 {
-  "env": {    
+  "env": {
     "es2017": true
   },
   "parserOptions": {
@@ -104,7 +104,7 @@
     "no-new-func": "error",
     "no-new-wrappers": "error",
     "no-return-await": "error",
-    
+
     // note you must disable the base rule as it can report incorrect errors
     "no-shadow": "off",
 
@@ -166,6 +166,13 @@
   },
   "overrides": [
     {
+      "files": ["*.js"],
+      "env": {
+        "es2017": true,
+        "node": true
+      }
+    },
+    {
       "files": ["*.ts"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
@@ -178,7 +185,6 @@
         "jsdoc",
         // "no-null",
         // "import",
-        // "prefer-arrow",
         "prettier"
       ],
       "extends": [
@@ -241,8 +247,6 @@
         "jsdoc/check-alignment": "error",
 
         // "no-null/no-null": "error",
-
-        // "prefer-arrow/prefer-arrow-functions": "error",
 
         "prettier/prettier": [
           "error",
