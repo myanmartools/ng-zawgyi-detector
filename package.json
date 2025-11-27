@@ -23,7 +23,7 @@
     "serve": "ng serve"
   },
   "dependencies": {
-    "@angular/common": "^11.0.5",
+    "@angular/common": "^19.2.16",
     "@angular/core": "^11.0.5",
     "rxjs": "^6.6.3",
     "tslib": "~2.1.0"
